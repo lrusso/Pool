@@ -370,7 +370,7 @@ Pool.Game.prototype = {
 
 		this.fill.position.copyFrom(this.aimLine.start);
 		this.fill.rotation = this.aimLine.angle;
-		if (this.input.activePointer.leftButton.isDown)
+		if (this.input.activePointer.isDown)
 			{
 			this.fillRect.width = this.aimLine.length;
 			}
