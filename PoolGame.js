@@ -112,35 +112,35 @@ Pool.Game.prototype = {
 		this.tableMaterial = this.physics.p2.createMaterial("tableMaterial", this.table.body);
 
 
-		var hole1 = this.add.graphics(-6, 10);
+		var hole1 = this.add.graphics(-8, 8);
 		hole1.lineStyle(0,0x000000);
 		hole1.beginFill(0x000000);
-		hole1.drawEllipse(100, 100, 21, 21);
+		hole1.drawEllipse(100, 100, 22, 22);
 
-		var hole2 = this.add.graphics(-6, 398);
+		var hole2 = this.add.graphics(-8, 400);
 		hole2.lineStyle(0,0x000000);
 		hole2.beginFill(0x000000);
-		hole2.drawEllipse(100, 100, 21, 21);
+		hole2.drawEllipse(100, 100, 22, 22);
 
-		var hole3 = this.add.graphics(605, 11);
+		var hole3 = this.add.graphics(608, 8);
 		hole3.lineStyle(0,0x000000);
 		hole3.beginFill(0x000000);
-		hole3.drawEllipse(100, 100, 21, 21);
+		hole3.drawEllipse(100, 100, 22, 22);
 
-		var hole4 = this.add.graphics(605, 397);
+		var hole4 = this.add.graphics(608, 400);
 		hole4.lineStyle(0,0x000000);
 		hole4.beginFill(0x000000);
-		hole4.drawEllipse(100, 100, 21, 21);
+		hole4.drawEllipse(100, 100, 22, 22);
 
-		var hole5 = this.add.graphics(300, 5);
+		var hole5 = this.add.graphics(300, -6);
 		hole5.lineStyle(0,0x000000);
 		hole5.beginFill(0x000000);
-		hole5.drawEllipse(100, 100, 21, 21);
+		hole5.drawEllipse(100, 100, 22, 22);
 
-		var hole6 = this.add.graphics(300, 405);
+		var hole6 = this.add.graphics(300, 415);
 		hole6.lineStyle(0,0x000000);
 		hole6.beginFill(0x000000);
-		hole6.drawEllipse(100, 100, 21, 21);
+		hole6.drawEllipse(100, 100, 22, 22);
 
 		// The pockets
 		this.pockets = this.add.sprite();
