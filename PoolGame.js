@@ -111,6 +111,37 @@ Pool.Game.prototype = {
 		this.table.body.loadPolygon("table", "pool-table-physics-shape");
 		this.tableMaterial = this.physics.p2.createMaterial("tableMaterial", this.table.body);
 
+
+		var hole1 = this.add.graphics(-6, 10);
+		hole1.lineStyle(0,0x000000);
+		hole1.beginFill(0x000000);
+		hole1.drawEllipse(100, 100, 21, 21);
+
+		var hole2 = this.add.graphics(-6, 398);
+		hole2.lineStyle(0,0x000000);
+		hole2.beginFill(0x000000);
+		hole2.drawEllipse(100, 100, 21, 21);
+
+		var hole3 = this.add.graphics(605, 11);
+		hole3.lineStyle(0,0x000000);
+		hole3.beginFill(0x000000);
+		hole3.drawEllipse(100, 100, 21, 21);
+
+		var hole4 = this.add.graphics(605, 397);
+		hole4.lineStyle(0,0x000000);
+		hole4.beginFill(0x000000);
+		hole4.drawEllipse(100, 100, 21, 21);
+
+		var hole5 = this.add.graphics(300, 5);
+		hole5.lineStyle(0,0x000000);
+		hole5.beginFill(0x000000);
+		hole5.drawEllipse(100, 100, 21, 21);
+
+		var hole6 = this.add.graphics(300, 405);
+		hole6.lineStyle(0,0x000000);
+		hole6.beginFill(0x000000);
+		hole6.drawEllipse(100, 100, 21, 21);
+
 		// The pockets
 		this.pockets = this.add.sprite();
 		this.physics.p2.enable(this.pockets, Pool.showDebug);
