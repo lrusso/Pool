@@ -12,7 +12,7 @@ Pool.Preloader.prototype = {
 		this.input.maxPointers = 1;
 		this.game.renderer.renderSession.roundPixels = true;
 
-		var scaleX = window.innerWidth / 880;
+		var scaleX = window.innerWidth / 800;
 		var scaleY = window.innerHeight / 600;
 		var scale = Math.min(scaleX, scaleY);
 		this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
@@ -67,7 +67,7 @@ Pool.Game = function (game)
 
 	function resizeF()
 		{
-		var scaleX = window.innerWidth / 880;
+		var scaleX = window.innerWidth / 800;
 		var scaleY = window.innerHeight / 600;
 		var scale = Math.min(scaleX, scaleY);
 		game.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
