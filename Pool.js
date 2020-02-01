@@ -384,7 +384,18 @@ Pool.Game.prototype = {
 
 		if (this.speed < this.allowShotSpeed)
 			{
-			if (!this.cue.visible)
+			var totalBallsStopped = 0;
+
+			for (var i = 0; i < this.balls.length; i++)
+				{
+				var ball = this.balls.children[i];
+				if (Math.abs(ball.body.velocity.x) < 0.005 && Math.abs(ball.body.velocity.y) < 0.005)
+					{
+					totalBallsStopped = totalBallsStopped + 1;
+					}
+				}
+
+			if (totalBallsStopped==16)
 				{
 				this.cue.visible = true;
 				this.fill.visible = true;
