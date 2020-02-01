@@ -248,22 +248,26 @@ Pool.Game.prototype = {
 			return;
 			}
 
-		var speed = (this.aimLine.length / 3);
-
-		if (speed > 112)
+		if (this.cue.visible == true)
 			{
-			speed = 112;
+			var speed = (this.aimLine.length / 3);
+
+			if (speed > 112)
+				{
+				speed = 112;
+				}
+
+			this.updateCue();
+
+			var px = (Math.cos(this.aimLine.angle) * speed);
+			var py = (Math.sin(this.aimLine.angle) * speed);
+
+			this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
+
+			this.cue.visible = false;
+			this.fill.visible = false;
 			}
 
-		this.updateCue();
-
-		var px = (Math.cos(this.aimLine.angle) * speed);
-		var py = (Math.sin(this.aimLine.angle) * speed);
-
-		this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
-
-		this.cue.visible = false;
-		this.fill.visible = false;
 		},
 
 	hitPocket: function (ball, pocket)
