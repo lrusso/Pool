@@ -377,6 +377,7 @@ Pool.Game.prototype = {
 			else
 			{
 			this.fillRect.width = 0;
+			this.aimLine.end.set(this.cueball.x, this.cueball.y);
 			}
 		this.fill.updateCrop();
 		},
