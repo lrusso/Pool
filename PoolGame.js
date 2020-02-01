@@ -109,48 +109,48 @@ Pool.Game.prototype = {
 		this.table.body.loadPolygon("table", "pool-table-physics-shape");
 		this.tableMaterial = this.physics.p2.createMaterial("tableMaterial", this.table.body);
 
+		// The blackholes
+		var blackhole1 = this.add.graphics(-8, 8);
+		blackhole1.lineStyle(0,0x000000);
+		blackhole1.beginFill(0x000000);
+		blackhole1.drawEllipse(100, 100, 22, 22);
 
-		var hole1 = this.add.graphics(-8, 8);
-		hole1.lineStyle(0,0x000000);
-		hole1.beginFill(0x000000);
-		hole1.drawEllipse(100, 100, 22, 22);
+		var blackhole2 = this.add.graphics(-8, 400);
+		blackhole2.lineStyle(0,0x000000);
+		blackhole2.beginFill(0x000000);
+		blackhole2.drawEllipse(100, 100, 22, 22);
 
-		var hole2 = this.add.graphics(-8, 400);
-		hole2.lineStyle(0,0x000000);
-		hole2.beginFill(0x000000);
-		hole2.drawEllipse(100, 100, 22, 22);
+		var blackhole3 = this.add.graphics(608, 8);
+		blackhole3.lineStyle(0,0x000000);
+		blackhole3.beginFill(0x000000);
+		blackhole3.drawEllipse(100, 100, 22, 22);
 
-		var hole3 = this.add.graphics(608, 8);
-		hole3.lineStyle(0,0x000000);
-		hole3.beginFill(0x000000);
-		hole3.drawEllipse(100, 100, 22, 22);
+		var blackhole4 = this.add.graphics(608, 400);
+		blackhole4.lineStyle(0,0x000000);
+		blackhole4.beginFill(0x000000);
+		blackhole4.drawEllipse(100, 100, 22, 22);
 
-		var hole4 = this.add.graphics(608, 400);
-		hole4.lineStyle(0,0x000000);
-		hole4.beginFill(0x000000);
-		hole4.drawEllipse(100, 100, 22, 22);
+		var blackhole5 = this.add.graphics(300, -6);
+		blackhole5.lineStyle(0,0x000000);
+		blackhole5.beginFill(0x000000);
+		blackhole5.drawEllipse(100, 100, 22, 22);
 
-		var hole5 = this.add.graphics(300, -6);
-		hole5.lineStyle(0,0x000000);
-		hole5.beginFill(0x000000);
-		hole5.drawEllipse(100, 100, 22, 22);
-
-		var hole6 = this.add.graphics(300, 414);
-		hole6.lineStyle(0,0x000000);
-		hole6.beginFill(0x000000);
-		hole6.drawEllipse(100, 100, 22, 22);
+		var blackhole6 = this.add.graphics(300, 414);
+		blackhole6.lineStyle(0,0x000000);
+		blackhole6.beginFill(0x000000);
+		blackhole6.drawEllipse(100, 100, 22, 22);
 
 		// The pockets
 		this.pockets = this.add.sprite();
 		this.physics.p2.enable(this.pockets, Pool.showDebug);
 		this.pockets.body.static = true;
 		this.pockets.body.clearShapes();
-		this.pockets.body.addCircle(32, 64, 80);
-		this.pockets.body.addCircle(16, 400, 80);
-		this.pockets.body.addCircle(32, 736, 80);
-		this.pockets.body.addCircle(32, 64, 528);
-		this.pockets.body.addCircle(16, 400, 528);
-		this.pockets.body.addCircle(32, 736, 528);
+		this.pockets.body.addCircle(32, 74, 90);
+		this.pockets.body.addCircle(16, 400, 88);
+		this.pockets.body.addCircle(32, 726, 90);
+		this.pockets.body.addCircle(32, 74, 518);
+		this.pockets.body.addCircle(16, 400, 520);
+		this.pockets.body.addCircle(32, 726, 518);
 
 		// Ball shadows
 		this.shadows = this.add.group();
