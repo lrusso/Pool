@@ -370,15 +370,11 @@ Pool.Game.prototype = {
 
 		this.fill.position.copyFrom(this.aimLine.start);
 		this.fill.rotation = this.aimLine.angle;
-		if (this.input.activePointer.isDown)
+		if (!this.input.activePointer.isDown)
 			{
-			this.fillRect.width = this.aimLine.length;
-			}
-			else
-			{
-			this.fillRect.width = 0;
 			this.aimLine.end.set(this.cueball.x, this.cueball.y);
 			}
+		this.fillRect.width = this.aimLine.length;
 		this.fill.updateCrop();
 		},
 
