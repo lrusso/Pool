@@ -345,7 +345,7 @@ Pool.Game.prototype = {
 		this.aimLine.start.set(this.cueball.x, this.cueball.y);
 		if (this.input.activePointer.y<0)
 			{
-			this.aimLine.end.set(this.input.activePointer.x, window.innerHeight / 2 - 5);
+			this.aimLine.end.set(this.input.activePointer.x, 305);
 			}
 			else
 			{
