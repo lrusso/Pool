@@ -208,7 +208,7 @@ Pool.Game.prototype = {
 		this.debugKey.onDown.add(this.toggleDebug, this);
 
 		this.input.addMoveCallback(this.updateCue, this);
-		this.input.onDown.add(this.takeShot, this);
+		this.input.onUp.add(this.takeShot, this);
 		},
 
 	togglePause: function ()
@@ -370,8 +370,14 @@ Pool.Game.prototype = {
 
 		this.fill.position.copyFrom(this.aimLine.start);
 		this.fill.rotation = this.aimLine.angle;
-
-		this.fillRect.width = this.aimLine.length;
+		if (this.input.activePointer.leftButton.isDown)
+			{
+			this.fillRect.width = this.aimLine.length;
+			}
+			else
+			{
+			this.fillRect.width = 0;
+			}
 		this.fill.updateCrop();
 		},
 
