@@ -343,7 +343,14 @@ Pool.Game.prototype = {
 	updateCue: function ()
 		{
 		this.aimLine.start.set(this.cueball.x, this.cueball.y);
-		this.aimLine.end.set(this.input.activePointer.x, this.input.activePointer.y);
+		if (this.input.activePointer.y<0)
+			{
+			this.aimLine.end.set(this.input.activePointer.x, window.innerHeight / 2 - 5);
+			}
+			else
+			{
+			this.aimLine.end.set(this.input.activePointer.x, this.input.activePointer.y);
+			}
 
 		this.cue.position.copyFrom(this.aimLine.start);
 		this.cue.rotation = this.aimLine.angle;
