@@ -10,7 +10,7 @@ https://lrusso.github.io/Pool/Pool.htm
 
 ## Using a new table:
 
-- Download or design any pool table image.
+- Download or design a pool table image.
 - Resize it proportionally and set a 416px height.
 - Use the Debug Mode (set the Debug variable to true) to set the table limits (for the physics), to set each hole is located and how much space the table actually has is available.
 
