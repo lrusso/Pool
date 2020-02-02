@@ -170,7 +170,7 @@ Pool.Game.prototype = {
 		this.placeballShadow.anchor.set(0.5);
 		this.placeballShadow.visible = false;
 
-		this.placeRect = new Phaser.Rectangle(112, 128, 576, 352);
+		this.placeRect = new Phaser.Rectangle(100, 159, 602, 283);
 
 		// P2 Impact Events
 		this.physics.p2.setImpactEvents(true);
@@ -455,6 +455,8 @@ Pool.Game.prototype = {
 
 			this.game.debug.text("speed: " + this.speed, 540, 24);
 			this.game.debug.text("power: " + (this.aimLine.length / 3), 540, 48);
+			this.game.debug.geom(this.placeRect,"#ffffff");
+
 			}
 		}
 	};
