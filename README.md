@@ -8,7 +8,7 @@ Pool game in JavaScript.
 
 https://lrusso.github.io/Pool/Pool.htm
 
-## Using a new pool table:
+## Using a new table:
 
 - Download or design any pool table image.
 - Resize it proportionally and set a 416px height.
