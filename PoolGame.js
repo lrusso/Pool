@@ -311,7 +311,7 @@ Pool.Game.prototype = {
 		this.placeballShadow.y = this.placeball.y + 10;
 		this.placeballShadow.visible = true;
 
-		this.input.onDown.remove(this.takeShot, this);
+		this.input.onUp.remove(this.takeShot, this);
 		this.input.onDown.add(this.placeCueBall, this);
 		},
 
@@ -349,8 +349,8 @@ Pool.Game.prototype = {
 
 		this.resetting = false;
 
+		this.input.onUp.add(this.takeShot, this);
 		this.input.onDown.remove(this.placeCueBall, this);
-
 		},
 
 	updateCue: function ()
