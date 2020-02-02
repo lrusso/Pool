@@ -163,9 +163,13 @@ Pool.Game.prototype = {
 		this.placeball = this.add.sprite(0, 0, "balls", Pool.WHITE);
 		this.placeball.anchor.set(0.5);
 		this.placeball.visible = false;
-		this.placeballShadow = this.shadows.create(0, 0, "balls", 4);
+
+		this.placeballShadow = this.shadows.create(0, 0, "balls");
+		this.placeballShadow.tint = 0x000000;
+		this.placeballShadow.alpha = 0.6;
 		this.placeballShadow.anchor.set(0.5);
 		this.placeballShadow.visible = false;
+
 		this.placeRect = new Phaser.Rectangle(112, 128, 576, 352);
 
 		// P2 Impact Events
@@ -346,7 +350,6 @@ Pool.Game.prototype = {
 		this.resetting = false;
 
 		this.input.onDown.remove(this.placeCueBall, this);
-		this.input.onDown.add(this.takeShot, this);
 
 		},
 
