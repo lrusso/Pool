@@ -349,8 +349,8 @@ Pool.Game.prototype = {
 
 		this.resetting = false;
 
-		this.input.onUp.add(this.takeShot, this);
 		this.input.onDown.remove(this.placeCueBall, this);
+		this.input.onUp.add(this.takeShot, this);
 		},
 
 	updateCue: function ()
