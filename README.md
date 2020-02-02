@@ -10,7 +10,7 @@ https://lrusso.github.io/Pool/Pool.htm
 
 ## Generating ball bitmap:
 
-- Use the following code in a new blank html file and use two colors (in the background css property) to generate the ball that you want:
+- Use the following code in a new blank HTML file and use two colors (in the background css property) to generate the ball that you want:
 
 ```
 <style>
@@ -23,7 +23,7 @@ https://lrusso.github.io/Pool/Pool.htm
 </style>
 <div class="circle"></div>
 ```
-- Take a screenshot of the window browser.
+- Open that HTML file and take a screenshot of the window browser.
 - Crop the ball from the screenshot (using GIMP or Photoshop).
 - Add an alpha channel to delete the white background.
 - Resize the cropped image to 26x26.
