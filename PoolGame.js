@@ -224,7 +224,9 @@ Pool.Game.prototype = {
 		ball.body.createBodyCallback(this.pockets, this.hitPocket, this);
 
 		// Link the two sprites together
-		var shadow = this.shadows.create(x + 4, y + 4, "balls", 4);
+		var shadow = this.shadows.create(x + 4, y + 4, "balls");
+		shadow.tint = 0x000000;
+		shadow.alpha = 0.6;
 		shadow.anchor.set(0.5);
 
 		ball.shadow = shadow;
