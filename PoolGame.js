@@ -47,7 +47,7 @@ Pool.Preloader.prototype = {
 Pool.Game = function (game)
 	{
 	this.score = 0;
-	this.scoreText = null;
+	//this.scoreText = null;
 
 	this.aboutText = null;
 
@@ -189,7 +189,7 @@ Pool.Game.prototype = {
 		this.aimLine = new Phaser.Line(this.cueball.x, this.cueball.y, this.cueball.x, this.cueball.y);
 
 		// Score
-		this.scoreText = this.add.text(10, 10, "SCORE: 0", {font: "13pt Arial", fill: "#ffffff"});
+		//this.scoreText = this.add.text(10, 10, "SCORE: 0", {font: "13pt Arial", fill: "#ffffff"});
 
 		// About
 		this.aboutText = this.add.text(660, 10, "info@lrusso.com", {font: "13pt Arial", fill: "#ffffff"});
@@ -280,7 +280,7 @@ Pool.Game.prototype = {
 			ball.sprite.destroy();
 
 			this.score += 100;
-			this.scoreText.text = "SCORE: " + this.score;
+			//this.scoreText.text = "SCORE: " + this.score;
 
 			if (this.balls.total === 1)
 				{
