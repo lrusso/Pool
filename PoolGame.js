@@ -101,6 +101,10 @@ Pool.Game.prototype = {
 
 	create: function ()
 		{
+		// To keep running on losing focus
+		this.stage.disableVisibilityChange = true;
+
+		// Setting the background color
 		this.stage.backgroundColor = 0x001b07;
 
 		// The table
