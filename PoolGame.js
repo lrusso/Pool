@@ -70,7 +70,7 @@ Pool.Game = function (game)
 	this.placeRect = null;
 
 	this.pauseKey = null;
-	this.debugKey = null;
+	//this.debugKey = null;
 
 	function resizeF()
 		{
@@ -112,12 +112,12 @@ Pool.Game.prototype = {
 		this.physics.p2.enable(this.pockets, Pool.showDebug);
 		this.pockets.body.static = true;
 		this.pockets.body.clearShapes();
-		this.pockets.body.addCircle(32, 54, 112);
-		this.pockets.body.addCircle(16, 400, 118);
-		this.pockets.body.addCircle(32, 746, 112);
-		this.pockets.body.addCircle(32, 54, 488);
-		this.pockets.body.addCircle(16, 400, 482);
-		this.pockets.body.addCircle(32, 746, 488);
+		this.pockets.body.addCircle(32, 63, 116);
+		this.pockets.body.addCircle(16, 400, 130);
+		this.pockets.body.addCircle(32, 738, 116);
+		this.pockets.body.addCircle(32, 57, 484);
+		this.pockets.body.addCircle(16, 400, 474);
+		this.pockets.body.addCircle(32, 738, 484);
 
 		// Ball shadows
 		this.shadows = this.add.group();
@@ -199,8 +199,8 @@ Pool.Game.prototype = {
 		this.pauseKey.onDown.add(this.togglePause, this);
 
 		// Press D to toggle the debug display
-		this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
-		this.debugKey.onDown.add(this.toggleDebug, this);
+		//this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
+		//this.debugKey.onDown.add(this.toggleDebug, this);
 
 		this.input.addMoveCallback(this.updateCue, this);
 		this.input.onUp.add(this.takeShot, this);
