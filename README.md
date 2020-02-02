@@ -13,6 +13,7 @@ https://lrusso.github.io/Pool/Pool.htm
 - Download or design any pool table image.
 - Resize it proportionally and set a 416px height.
 - Use the Debug Mode (set the Debug variable to true) to set the table limits (for the physics), to set each hole is located and how much space the table actually has is available.
+
 **DETAIL 1:** You have to update the tableJSON variable. It has a JSON in Base64 format where you can set the table limits.
 **DETAIL 2:** You have to update the placeRect variable. It must have a 15px padding.
 
