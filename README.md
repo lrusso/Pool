@@ -8,7 +8,7 @@ Pool game in JavaScript.
 
 https://lrusso.github.io/Pool/Pool.htm
 
-## Generating balls bitmap:
+## Generating ball bitmap:
 
 - Use the following code in a new blank html file and use two colors (in the background css property) to generate the ball that you want:
 
