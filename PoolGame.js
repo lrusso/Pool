@@ -67,6 +67,7 @@ Pool.Game = function (game)
 	this.aimLine = null;
 
 	this.cueball = null;
+	this.cueballSelected = false;
 
 	this.resetting = false;
 	this.placeball = null;
@@ -249,6 +250,13 @@ Pool.Game.prototype = {
 		ball.body.angularDamping = 0.45;
 		ball.body.createBodyCallback(this.pockets, this.hitPocket, this);
 
+		if (color==Pool.WHITE)
+			{
+			ball.inputEnabled = true;
+			ball.input.useHandCursor = true;
+			ball.events.onInputDown.add(this.cueballSelection, this);
+			}
+
 		// Link the two sprites together
 		var shadow = this.shadows.create(x + 4, y + 4, "balls");
 		shadow.tint = 0x000000;
@@ -260,33 +268,43 @@ Pool.Game.prototype = {
 		return ball;
 		},
 
+	cueballSelection: function()
+		{
+		this.cueballSelected = true;
+		},
+
 	takeShot: function ()
 		{
-		if (this.speed > this.allowShotSpeed)
+		if (this.cueballSelected==true)
 			{
-			return;
-			}
-
-		if (this.cue.visible == true)
-			{
-			var speed = (this.aimLine.length / 3);
-
-			if (speed > 112)
+			if (this.speed > this.allowShotSpeed)
 				{
-				speed = 112;
+				return;
 				}
 
-			this.updateCue();
+			if (this.cue.visible == true)
+				{
+				var speed = (this.aimLine.length / 3);
 
-			var px = (Math.cos(this.aimLine.angle) * speed);
-			var py = (Math.sin(this.aimLine.angle) * speed);
+				if (speed > 112)
+					{
+					speed = 112;
+					}
 
-			this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
+				this.updateCue();
 
-			this.cue.visible = false;
-			this.fill.visible = false;
+				var px = (Math.cos(this.aimLine.angle) * speed);
+				var py = (Math.sin(this.aimLine.angle) * speed);
+
+				this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
+
+				this.cue.visible = false;
+				this.fill.visible = false;
+				}
+
+			this.cueballSelected = false;
+			this.cueball.input.useHandCursor = false;
 			}
-
 		},
 
 	hitPocket: function (ball, pocket)
@@ -339,8 +357,9 @@ Pool.Game.prototype = {
 
 	placeCueBall: function ()
 		{
-		// Check it"s not colliding with other balls
+		this.cueball.input.useHandCursor = true;
 
+		// Check it"s not colliding with other balls
 		var a = new Phaser.Circle(this.placeball.x, this.placeball.y, 26);
 		var b = new Phaser.Circle(0, 0, 26);
 
@@ -392,7 +411,7 @@ Pool.Game.prototype = {
 
 		this.fill.position.copyFrom(this.aimLine.start);
 		this.fill.rotation = this.aimLine.angle;
-		if (!this.input.activePointer.isDown)
+		if (this.cueballSelected == false)
 			{
 			this.aimLine.end.set(this.cueball.x, this.cueball.y);
 			}
@@ -446,6 +465,7 @@ Pool.Game.prototype = {
 				{
 				this.cue.visible = true;
 				this.fill.visible = true;
+				this.cueball.input.useHandCursor = true;
 				}
 			}
 		},
