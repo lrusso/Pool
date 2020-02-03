@@ -107,7 +107,7 @@ Pool.Game.prototype = {
 		// To keep running on losing focus
 		this.stage.disableVisibilityChange = true;
 
-		// Setting the background color
+		// Setting the background image
 		this.add.sprite(0, 0, "backgroundImg");
 
 		// The table
