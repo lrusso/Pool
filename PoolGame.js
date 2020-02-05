@@ -247,6 +247,8 @@ Pool.Game.prototype = {
 	restartGame: function ()
 		{
 		this.state.restart();
+		this.input.activePointer.x = 200;
+		this.input.activePointer.y = 214;
 		},
 
 	makeBall: function (x, y, color)
