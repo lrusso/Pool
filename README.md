@@ -16,5 +16,7 @@ https://lrusso.github.io/Pool/Pool.htm
 - Use the Debug Mode (set the Debug variable as true) to set the table limits/borders (for the physics), to set where the holes are located and how much available space the table actually has.
 
 **DETAIL 1:** You have to update the tableJSON variable. It has JSON data in Base64 format where you can set the table limits/borders.
+
 **DETAIL 2:** You have to update the placeRect variable. That rectangle must cover all the green/playable zone of the table with a 15px padding.
+
 **DETAIL 3:** This process can be done only by initially activating the Debug mode. Otherwise you won't see the table limits/borders that you are setting.
