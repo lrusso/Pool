@@ -151,7 +151,7 @@ Pool.Game.prototype = {
 		this.makeBall(586, y + 64, Pool.THIRTHEEN);
 		this.makeBall(586, y + 96, Pool.RED);
 
-		// Row 3 (3 balls including black)
+		// Row 3 (3 balls)
 		y = 182;
 		this.makeBall(554, y, Pool.BLUE);
 		this.makeBall(554, y + 32, Pool.BLACK);
