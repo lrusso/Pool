@@ -162,7 +162,7 @@ Pool.Game.prototype = {
 		this.makeBall(522, y, Pool.TEN);
 		this.makeBall(522, y + 32, Pool.NINE);
 
-		// Row 5 (single red ball)
+		// Row 5 (1 ball)
 		this.makeBall(490, 214, Pool.YELLOW);
 
 		// The cue ball
@@ -297,9 +297,9 @@ Pool.Game.prototype = {
 				{
 				var speed = (this.aimLine.length / 3);
 
-				if (speed > 112)
+				if (speed > 100)
 					{
-					speed = 112;
+					speed = 100;
 					}
 
 				this.updateCue();
