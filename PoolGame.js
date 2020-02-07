@@ -190,7 +190,6 @@ Pool.Game.prototype = {
 		ballVsBallMaterial.restitution = 0.9;
 
 		// The cue
-		// The cue
 		this.cueContainer = this.add.sprite(0, 0, "cueContainer");
 		this.cueContainer.anchor.y = 0.5;
 		var dashedLine01 = new Phaser.Line(10, 0, 5, 0);
