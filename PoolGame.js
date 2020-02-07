@@ -103,9 +103,6 @@ Pool.Game.prototype = {
 
 	create: function ()
 		{
-		// To keep running on losing focus
-		this.stage.disableVisibilityChange = true;
-
 		// Setting the background image
 		this.add.sprite(0, 0, "backgroundImg");
 
