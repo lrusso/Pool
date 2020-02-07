@@ -294,7 +294,7 @@ Pool.Game.prototype = {
 	restartGame: function ()
 		{
 		this.state.restart();
-		this.input.activePointer.x = 200;
+		this.input.activePointer.x = 0;
 		this.input.activePointer.y = 217.5;
 		},
 
@@ -455,11 +455,18 @@ Pool.Game.prototype = {
 	updateCue: function ()
 		{
 		this.aimLine.start.set(this.cueball.x, this.cueball.y);
-		if (this.input.activePointer.y<0)
+		if (this.cueballSelected==false)
 			{
-			this.aimLine.end.set(200, 217.5);
+			if (this.cueball.x >= 400)
+				{
+				this.aimLine.end.set(800, 217.5);
+				}
+				else
+				{
+				this.aimLine.end.set(0, 217.5);
+				}
 			}
-			else
+		else
 			{
 			this.aimLine.end.set(this.input.activePointer.x, this.input.activePointer.y);
 			}
