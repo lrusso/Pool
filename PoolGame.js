@@ -135,7 +135,7 @@ Pool.Game.prototype = {
 		this.ballMaterial = this.physics.p2.createMaterial("ballMaterial");
 
 		// Row 1 (5 balls)
-		var y = 150;
+		var y = 153.5;
 		this.makeBall(618, y, Pool.PURPLE);
 		this.makeBall(618, y + 32, Pool.TWELVE);
 		this.makeBall(618, y + 64, Pool.ORANGE);
@@ -143,28 +143,28 @@ Pool.Game.prototype = {
 		this.makeBall(618, y + 128, Pool.FOURTEEN);
 
 		// Row 2 (4 balls)
-		y = 166;
+		y = 169.5;
 		this.makeBall(586, y, Pool.FIFTEEN);
 		this.makeBall(586, y + 32, Pool.BROWN);
 		this.makeBall(586, y + 64, Pool.THIRTHEEN);
 		this.makeBall(586, y + 96, Pool.RED);
 
 		// Row 3 (3 balls)
-		y = 182;
+		y = 185.5;
 		this.makeBall(554, y, Pool.BLUE);
 		this.makeBall(554, y + 32, Pool.BLACK);
 		this.makeBall(554, y + 64, Pool.ELEVEN);
 
 		// Row 4 (2 balls)
-		y = 198;
+		y = 201.5;
 		this.makeBall(522, y, Pool.TEN);
 		this.makeBall(522, y + 32, Pool.NINE);
 
 		// Row 5 (1 ball)
-		this.makeBall(490, 214, Pool.YELLOW);
+		this.makeBall(490, 217.5, Pool.YELLOW);
 
 		// The cue ball
-		this.cueball = this.makeBall(239, 214, Pool.WHITE);
+		this.cueball = this.makeBall(239, 217.5, Pool.WHITE);
 
 		// Our placing cue ball and its shadow
 		this.placeball = this.add.sprite(0, 0, "balls", Pool.WHITE);
@@ -295,7 +295,7 @@ Pool.Game.prototype = {
 		{
 		this.state.restart();
 		this.input.activePointer.x = 200;
-		this.input.activePointer.y = 214;
+		this.input.activePointer.y = 217.5;
 		},
 
 	makeBall: function (x, y, color)
@@ -457,7 +457,7 @@ Pool.Game.prototype = {
 		this.aimLine.start.set(this.cueball.x, this.cueball.y);
 		if (this.input.activePointer.y<0)
 			{
-			this.aimLine.end.set(200, 214);
+			this.aimLine.end.set(200, 217.5);
 			}
 			else
 			{
