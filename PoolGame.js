@@ -562,7 +562,6 @@ Pool.Game.prototype = {
 			this.game.debug.text("speed: " + this.speed, 540, 24);
 			this.game.debug.text("power: " + (this.aimLine.length / 3), 540, 48);
 			this.game.debug.geom(this.placeRect,"#ffffff");
-
 			}
 		}
 	};
