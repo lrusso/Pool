@@ -400,17 +400,6 @@ Pool.Game.prototype = {
 		// We disable the physics body and stick the ball to the pointer
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
-
-		this.placeball.x = this.input.activePointer.x;
-		this.placeball.y = this.input.activePointer.y;
-		this.placeball.visible = true;
-
-		this.placeballShadow.x = this.placeball.x + 2;
-		this.placeballShadow.y = this.placeball.y + 2;
-		this.placeballShadow.visible = true;
-
-		this.input.onUp.remove(this.takeShot, this);
-		this.input.onDown.add(this.placeCueBall, this);
 		},
 
 	placeCueBall: function ()
@@ -487,18 +476,8 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
-		if (this.resetting)
-			{
-			this.placeball.x = this.math.clamp(this.input.x, this.placeRect.left, this.placeRect.right);
-			this.placeball.y = this.math.clamp(this.input.y, this.placeRect.top, this.placeRect.bottom);
-			this.placeballShadow.x = this.placeball.x + 2;
-			this.placeballShadow.y = this.placeball.y + 2;
-			}
-			else
-			{
-			this.updateSpeed();
-			this.updateCue();
-			}
+		this.updateSpeed();
+		this.updateCue();
 		},
 
 	updateSpeed: function ()
@@ -508,16 +487,16 @@ Pool.Game.prototype = {
 		if (this.speed < this.allowShotSpeed)
 			{
 			this.cueball.body.setZeroVelocity();
-			var ballsInMovement = false;
+			this.ballsInMovement = false;
 
 			for (var i = 0; i < this.balls.length; i++)
 				{
-				if (ballsInMovement==false)
+				if (this.ballsInMovement==false)
 					{
 					var ball = this.balls.children[i];
 					if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
 						{
-						ballsInMovement = true;
+						this.ballsInMovement = true;
 						}
 						else
 						{
@@ -526,10 +505,26 @@ Pool.Game.prototype = {
 					}
 				}
 
-			if (ballsInMovement==false)
+			if (this.ballsInMovement==false)
 				{
-				this.cueContainer.visible = true;
-				this.cueball.input.useHandCursor = true;
+				if (this.resetting)
+					{
+					this.placeball.x = this.input.activePointer.x;
+					this.placeball.y = this.input.activePointer.y;
+					this.placeball.visible = true;
+
+					this.placeballShadow.x = this.placeball.x + 2;
+					this.placeballShadow.y = this.placeball.y + 2;
+					this.placeballShadow.visible = true;
+
+					this.input.onUp.remove(this.takeShot, this);
+					this.input.onDown.add(this.placeCueBall, this);
+					}
+					else
+					{
+					this.cueContainer.visible = true;
+					this.cueball.input.useHandCursor = true;
+					}
 				}
 			}
 		},
