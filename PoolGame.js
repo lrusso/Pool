@@ -405,8 +405,8 @@ Pool.Game.prototype = {
 		this.placeball.y = this.input.activePointer.y;
 		this.placeball.visible = true;
 
-		this.placeballShadow.x = this.placeball.x + 10;
-		this.placeballShadow.y = this.placeball.y + 10;
+		this.placeballShadow.x = this.placeball.x + 2;
+		this.placeballShadow.y = this.placeball.y + 2;
 		this.placeballShadow.visible = true;
 
 		this.input.onUp.remove(this.takeShot, this);
@@ -491,8 +491,8 @@ Pool.Game.prototype = {
 			{
 			this.placeball.x = this.math.clamp(this.input.x, this.placeRect.left, this.placeRect.right);
 			this.placeball.y = this.math.clamp(this.input.y, this.placeRect.top, this.placeRect.bottom);
-			this.placeballShadow.x = this.placeball.x + 10;
-			this.placeballShadow.y = this.placeball.y + 10;
+			this.placeballShadow.x = this.placeball.x + 2;
+			this.placeballShadow.y = this.placeball.y + 2;
 			}
 			else
 			{
