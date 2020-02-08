@@ -470,28 +470,28 @@ Pool.Game.prototype = {
 
 	updateSpeed: function ()
 		{
+		var ballsInMovement = false;
+
+		for (var i = 0; i < this.balls.length; i++)
+			{
+			var ball = this.balls.children[i];
+			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
+				{
+				ballsInMovement = true;
+				var ballSpeed = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y);
+				ball.angle += ballSpeed * 0.025;
+				}
+				else
+				{
+				ball.body.setZeroVelocity();
+				}
+			}
+
 		this.speed = Math.sqrt(this.cueball.body.velocity.x * this.cueball.body.velocity.x + this.cueball.body.velocity.y * this.cueball.body.velocity.y);
 
 		if (this.speed < this.allowShotSpeed)
 			{
 			this.cueball.body.setZeroVelocity();
-			var ballsInMovement = false;
-
-			for (var i = 0; i < this.balls.length; i++)
-				{
-				if (ballsInMovement==false)
-					{
-					var ball = this.balls.children[i];
-					if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
-						{
-						ballsInMovement = true;
-						}
-						else
-						{
-						ball.body.setZeroVelocity();
-						}
-					}
-				}
 
 			if (ballsInMovement==false)
 				{
