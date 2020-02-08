@@ -521,8 +521,7 @@ Pool.Game.prototype = {
 						}
 						else
 						{
-						ball.body.velocity.x = 0;
-						ball.body.velocity.y = 0;
+						ball.body.setZeroVelocity();
 						}
 					}
 				}
