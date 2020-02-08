@@ -487,16 +487,16 @@ Pool.Game.prototype = {
 		if (this.speed < this.allowShotSpeed)
 			{
 			this.cueball.body.setZeroVelocity();
-			this.ballsInMovement = false;
+			var ballsInMovement = false;
 
 			for (var i = 0; i < this.balls.length; i++)
 				{
-				if (this.ballsInMovement==false)
+				if (ballsInMovement==false)
 					{
 					var ball = this.balls.children[i];
 					if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
 						{
-						this.ballsInMovement = true;
+						ballsInMovement = true;
 						}
 						else
 						{
@@ -505,7 +505,7 @@ Pool.Game.prototype = {
 					}
 				}
 
-			if (this.ballsInMovement==false)
+			if (ballsInMovement==false)
 				{
 				if (this.resetting)
 					{
