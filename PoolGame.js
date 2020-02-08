@@ -52,11 +52,6 @@ Pool.Preloader.prototype = {
 
 Pool.Game = function (game)
 	{
-	this.score = 0;
-	//this.scoreText = null;
-
-	this.aboutText = null;
-
 	this.speed = 0;
 	this.allowShotSpeed = 20.0;
 
@@ -96,7 +91,6 @@ Pool.Game.prototype = {
 
 	init: function ()
 		{
-		this.score = 0;
 		this.speed = 0;
 		this.resetting = false;
 		},
@@ -244,9 +238,6 @@ Pool.Game.prototype = {
 		this.cueContainer.addChild(this.cueImage);
 		this.aimLine = new Phaser.Line(this.cueball.x, this.cueball.y, this.cueball.x, this.cueball.y);
 
-		// Score
-		//this.scoreText = this.add.text(10, 10, "SCORE: 0", {font: "13pt Arial", fill: "#ffffff"});
-
 		// Restart
 		var buttonRestartShadow = game.add.sprite(29, 29, "restart");
 		buttonRestartShadow.anchor.set(0.5);
@@ -376,9 +367,6 @@ Pool.Game.prototype = {
 			{
 			ball.sprite.shadow.destroy();
 			ball.sprite.destroy();
-
-			this.score += 100;
-			//this.scoreText.text = "SCORE: " + this.score;
 
 			if (this.balls.total === 1)
 				{
@@ -556,7 +544,7 @@ Pool.Game.prototype = {
 
 			this.game.debug.text("speed: " + this.speed, 540, 24);
 			this.game.debug.text("power: " + (this.aimLine.length / 3), 540, 48);
-			this.game.debug.geom(this.placeRect, "#ffffff");
+			this.game.debug.geom(this.placeRect,"#ffffff");
 			}
 		}
 	};
