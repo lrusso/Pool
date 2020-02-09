@@ -478,8 +478,6 @@ Pool.Game.prototype = {
 			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
 				{
 				ballsInMovement = true;
-				var ballSpeed = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y);
-				ball.angle += ballSpeed * 0.025;
 				}
 				else
 				{
