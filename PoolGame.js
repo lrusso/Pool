@@ -85,7 +85,6 @@ Pool.Game = function (game)
 
 	this.turn = Pool.turnPlayer1;
 
-	this.pauseKey = null;
 	//this.debugKey = null;
 
 	function resizeF()
@@ -299,10 +298,6 @@ Pool.Game.prototype = {
 			game.add.tween(toastShadow).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 			game.add.tween(toastText).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 			}, 3000);
-
-		// Press P to pause and resume the game
-		this.pauseKey = this.input.keyboard.addKey(Phaser.Keyboard.P);
-		this.pauseKey.onDown.add(this.togglePause, this);
 
 		// Press D to toggle the debug display
 		//this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
