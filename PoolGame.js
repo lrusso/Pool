@@ -426,7 +426,7 @@ Pool.Game.prototype = {
 						this.player2BallType = Pool.typeStripes;
 
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 5;
+						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
 						}
@@ -436,7 +436,7 @@ Pool.Game.prototype = {
 						this.player2BallType = Pool.typeSolids;
 
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 5;
+						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
 						}
@@ -446,14 +446,14 @@ Pool.Game.prototype = {
 					if ((ballNumber<8 && this.player1BallType == Pool.typeSolids) || (ballNumber>8 && this.player1BallType == Pool.typeStripes))
 						{
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 5;
+						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
 						}
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 769;
+						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
 						}
@@ -470,7 +470,7 @@ Pool.Game.prototype = {
 						this.player1BallType = Pool.typeStripes;
 
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 769;
+						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
 						}
@@ -481,7 +481,7 @@ Pool.Game.prototype = {
 						this.player1BallType = Pool.typeSolids;
 
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 769;
+						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
 						}
@@ -491,14 +491,14 @@ Pool.Game.prototype = {
 					if ((ballNumber<8 && this.player1BallType == Pool.typeSolids) || (ballNumber>8 && this.player1BallType == Pool.typeStripes))
 						{
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 5;
+						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
 						}
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
 						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
-						tempBall.position.x = 769;
+						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
 						}
