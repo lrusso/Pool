@@ -268,8 +268,7 @@ Pool.Game.prototype = {
 		buttonPlayer1Shadow.tint = 0x000000;
 		buttonPlayer1Shadow.alpha = 0.7;
 		buttonPlayer1Shadow.position.y = 407;
-		var buttonPlayer1 = this.add.button(3, 382, "player1", null, this, 2, 1, 0);
-		buttonPlayer1.onInputUp.add(this.restartGame, this);
+		var buttonPlayer1 = game.add.sprite(3, 382, "player1");
 		this.player1Selected = game.add.graphics(0, 0);
 		this.player1Selected.lineStyle(2, 0xffffff, 1);
 		this.player1Selected.drawCircle(27, 406, 49);
@@ -281,8 +280,7 @@ Pool.Game.prototype = {
 		buttonPlayer2Shadow.alpha = 0.7;
 		buttonPlayer2Shadow.position.x = 776;
 		buttonPlayer2Shadow.position.y = 407;
-		var buttonPlayer2 = this.add.button(749, 382, "player2", null, this, 2, 1, 0);
-		buttonPlayer2.onInputUp.add(this.restartGame, this);
+		var buttonPlayer2 = game.add.sprite(749, 382, "player2");
 		this.player2Selected = game.add.graphics(0, 0);
 		this.player2Selected.lineStyle(2, 0xffffff, 1);
 		this.player2Selected.drawCircle(773, 406, 49);
