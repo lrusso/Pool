@@ -420,11 +420,11 @@ Pool.Game.prototype = {
 						// solids
 						var buttonRestartShadow = game.add.sprite(29, 29, "solids");
 						buttonRestartShadow.position.x = 3;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						var buttonRestartShadow = game.add.sprite(29, 29, "stripes");
 						buttonRestartShadow.position.x = 749;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						this.player1BallType = Pool.typeSolids;
 						this.player2BallType = Pool.typeStripes;
@@ -434,11 +434,11 @@ Pool.Game.prototype = {
 						// stripes
 						var buttonRestartShadow = game.add.sprite(29, 29, "stripes");
 						buttonRestartShadow.position.x = 3;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						var buttonRestartShadow = game.add.sprite(29, 29, "solids");
 						buttonRestartShadow.position.x = 749;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						this.player1BallType = Pool.typeStripes;
 						this.player2BallType = Pool.typeSolids;
@@ -454,11 +454,11 @@ Pool.Game.prototype = {
 						// solid
 						var buttonRestartShadow = game.add.sprite(29, 29, "stripes");
 						buttonRestartShadow.position.x = 3;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						var buttonRestartShadow = game.add.sprite(29, 29, "solids");
 						buttonRestartShadow.position.x = 749;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						this.player2BallType = Pool.typeSolids;
 						this.player1BallType = Pool.typeStripes;
@@ -468,11 +468,11 @@ Pool.Game.prototype = {
 						// stripes
 						var buttonRestartShadow = game.add.sprite(29, 29, "solids");
 						buttonRestartShadow.position.x = 3;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						var buttonRestartShadow = game.add.sprite(29, 29, "stripes");
 						buttonRestartShadow.position.x = 749;
-						buttonRestartShadow.position.y = 428;
+						buttonRestartShadow.position.y = 427;
 
 						this.player2BallType = Pool.typeStripes;
 						this.player1BallType = Pool.typeSolids;
