@@ -59,6 +59,8 @@ Pool.Game = function (game)
 	this.speed = 0;
 	this.allowShotSpeed = 20.0;
 
+	this.back_layer = null;
+
 	this.splash = true;
 
 	this.balls = null;
@@ -114,6 +116,8 @@ Pool.Game.prototype = {
 		{
 		// Setting the background image
 		this.add.sprite(0, 0, "backgroundImg");
+
+		this.back_layer = game.add.group();
 
 		// The table
 		this.table = this.add.sprite(400, 217, "table");
@@ -425,7 +429,7 @@ Pool.Game.prototype = {
 						this.player1BallType = Pool.typeSolids;
 						this.player2BallType = Pool.typeStripes;
 
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
@@ -435,7 +439,7 @@ Pool.Game.prototype = {
 						this.player1BallType = Pool.typeStripes;
 						this.player2BallType = Pool.typeSolids;
 
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
@@ -445,14 +449,14 @@ Pool.Game.prototype = {
 					{
 					if ((ballNumber<8 && this.player1BallType == Pool.typeSolids) || (ballNumber>8 && this.player1BallType == Pool.typeStripes))
 						{
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
 						}
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
@@ -469,7 +473,7 @@ Pool.Game.prototype = {
 						this.player2BallType = Pool.typeSolids;
 						this.player1BallType = Pool.typeStripes;
 
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
@@ -480,7 +484,7 @@ Pool.Game.prototype = {
 						this.player2BallType = Pool.typeStripes;
 						this.player1BallType = Pool.typeSolids;
 
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
@@ -490,14 +494,14 @@ Pool.Game.prototype = {
 					{
 					if ((ballNumber<8 && this.player1BallType == Pool.typeSolids) || (ballNumber>8 && this.player1BallType == Pool.typeStripes))
 						{
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
 						}
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
-						var tempBall = this.add.sprite(0, 0, "balls", ballNumber);
+						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
