@@ -74,6 +74,8 @@ Pool.Game = function (game)
 	this.cueballSelected = false;
 
 	this.resetting = false;
+	this.resettingRelocation = false;
+
 	this.placeball = null;
 	this.placeballShadow = null;
 	this.placeRect = null;
@@ -530,6 +532,7 @@ Pool.Game.prototype = {
 		this.cueball.body.y = 16;
 
 		this.resetting = true;
+		this.resettingRelocation = true;
 
 		// We disable the physics body and stick the ball to the pointer
 		this.cueball.visible = false;
@@ -571,7 +574,7 @@ Pool.Game.prototype = {
 
 		this.resetting = false;
 
-		this.input.onDown.remove(this.placeCueBall, this);
+		this.input.onUp.remove(this.placeCueBall, this);
 		this.input.onUp.add(this.takeShot, this);
 		},
 
@@ -656,8 +659,49 @@ Pool.Game.prototype = {
 						this.player2Selected.visible = false;
 						}
 
-					this.placeball.x = this.input.activePointer.x;
-					this.placeball.y = this.input.activePointer.y;
+					if (this.resettingRelocation==true)
+						{
+						this.placeball.x = 200;
+						this.placeball.y = 217.5;
+						this.resettingRelocation = false;
+						}
+						else
+						{
+						var locationX = this.input.activePointer.x;
+						var locationY = this.input.activePointer.y;
+
+						if (locationX >= this.placeRect.left - 2 && locationX <= this.placeRect.left + this.placeRect.width)
+							{
+							this.placeball.x = locationX;
+							}
+							else
+							{
+							if (locationX < this.placeRect.left - 2)
+								{
+								this.placeball.x = this.placeRect.left - 2;
+								}
+							else if (locationX > this.placeRect.left + this.placeRect.width)
+								{
+								this.placeball.x = this.placeRect.left + this.placeRect.width;
+								}
+							}
+
+						if (locationY >= this.placeRect.top && locationY <= this.placeRect.top + this.placeRect.height + 5)
+							{
+							this.placeball.y = locationY;
+							}
+							else
+							{
+							if (locationY < this.placeRect.top)
+								{
+								this.placeball.y = this.placeRect.top;
+								}
+							else if (locationY > this.placeRect.top + this.placeRect.height + 5)
+								{
+								this.placeball.y = this.placeRect.top + this.placeRect.height + 5;
+								}
+							}
+						}
 					this.placeball.visible = true;
 
 					this.placeballShadow.x = this.placeball.x + 2;
@@ -665,7 +709,8 @@ Pool.Game.prototype = {
 					this.placeballShadow.visible = true;
 
 					this.input.onUp.remove(this.takeShot, this);
-					this.input.onDown.add(this.placeCueBall, this);
+					this.input.onUp.add(this.placeCueBall, this);
+					//this.input.onDown.add(this.placeCueBall, this);
 					}
 					else
 					{
