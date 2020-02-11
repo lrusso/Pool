@@ -10,7 +10,7 @@ Pool.Preloader.prototype = {
 	init: function ()
 		{
 		this.input.maxPointers = 1;
-		this.game.renderer.renderSession.roundPixels = true;
+		this.game.renderer.renderSession.roundPixels = false;
 
 		var scaleX = window.innerWidth / 800;
 		var scaleY = window.innerHeight / 432;
@@ -342,6 +342,7 @@ Pool.Game.prototype = {
 	makeBall: function (x, y, color)
 		{
 		var ball = this.balls.create(x, y, "balls", color);
+		ball.smoothed = true;
 		ball.body.setCircle(13);
 		ball.body.fixedRotation = true;
 		ball.body.setMaterial(this.ballMaterial);
@@ -357,7 +358,7 @@ Pool.Game.prototype = {
 			}
 
 		// Link the two sprites together
-		var shadow = this.shadows.create(x + 4, y + 4, "balls");
+		var shadow = this.shadows.create(x + 4, y + 4, "balls", color);
 		shadow.tint = 0x000000;
 		shadow.alpha = 0.6;
 		shadow.anchor.set(0.5);
@@ -624,6 +625,10 @@ Pool.Game.prototype = {
 			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
 				{
 				ballsInMovement = true;
+
+				var myTempSpeed = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y);
+				ball.angle = ball.angle + (myTempSpeed * 0.05);
+
 				}
 				else
 				{
