@@ -428,6 +428,7 @@ Pool.Game.prototype = {
 					{
 					if (ballNumber<8)
 						{
+						// solid
 						this.player1BallType = Pool.typeSolids;
 						this.player2BallType = Pool.typeStripes;
 
@@ -438,6 +439,7 @@ Pool.Game.prototype = {
 						}
 					else if (ballNumber>8)
 						{
+						// stripes
 						this.player1BallType = Pool.typeStripes;
 						this.player2BallType = Pool.typeSolids;
 
@@ -710,7 +712,6 @@ Pool.Game.prototype = {
 
 					this.input.onUp.remove(this.takeShot, this);
 					this.input.onUp.add(this.placeCueBall, this);
-					//this.input.onDown.add(this.placeCueBall, this);
 					}
 					else
 					{
