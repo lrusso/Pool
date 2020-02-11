@@ -342,7 +342,6 @@ Pool.Game.prototype = {
 	makeBall: function (x, y, color)
 		{
 		var ball = this.balls.create(x, y, "balls", color);
-		ball.smoothed = true;
 		ball.body.setCircle(13);
 		ball.body.fixedRotation = true;
 		ball.body.setMaterial(this.ballMaterial);
