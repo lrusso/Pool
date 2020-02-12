@@ -736,20 +736,6 @@ Pool.Game.prototype = {
 					}
 					else
 					{
-					/*
-					if (this.cueContainer.visible == false)
-						{
-						if (this.turn==Pool.turnPlayer1)
-							{
-							this.turn = Pool.turnPlayer2;
-							}
-						else
-							{
-							this.turn = Pool.turnPlayer1;
-							}
-						}
-					*/
-
 					if (this.turnSwitch==true)
 						{
 						if (this.turn == Pool.turnPlayer1)
