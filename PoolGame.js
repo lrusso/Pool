@@ -88,6 +88,7 @@ Pool.Game = function (game)
 	this.player2Hitted = 0;
 
 	this.turn = Pool.turnPlayer1;
+	this.turnSwitch = false;
 
 	//this.debugKey = null;
 
@@ -331,6 +332,7 @@ Pool.Game.prototype = {
 		{
 		this.state.restart();
 		this.turn = Pool.turnPlayer1;
+		this.turnSwitch = false;
 		this.player1Selected = null;
 		this.player1BallType = null;
 		this.player1Hitted = 0;
@@ -402,8 +404,9 @@ Pool.Game.prototype = {
 				this.cueContainer.visible = false;
 				this.cueImage.position.x = 0;
 
-				this.player1Selected.visible = false;
-				this.player2Selected.visible = false;
+				//this.player1Selected.visible = false;
+				//this.player2Selected.visible = false;
+				this.turnSwitch = true;
 				}
 
 			this.cueballSelected = false;
@@ -436,6 +439,8 @@ Pool.Game.prototype = {
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
+
+						this.turnSwitch = false;
 						}
 					else if (ballNumber>8)
 						{
@@ -447,6 +452,8 @@ Pool.Game.prototype = {
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
+
+						this.turnSwitch = false;
 						}
 					}
 				else
@@ -457,6 +464,8 @@ Pool.Game.prototype = {
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
 						this.player1Hitted = this.player1Hitted + 1;
+
+						this.turnSwitch = false;
 						}
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
@@ -481,6 +490,8 @@ Pool.Game.prototype = {
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
+
+						this.turnSwitch = false;
 						}
 					else if (ballNumber>8)
 						{
@@ -492,6 +503,8 @@ Pool.Game.prototype = {
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
+
+						this.turnSwitch = false;
 						}
 					}
 					else
@@ -509,6 +522,8 @@ Pool.Game.prototype = {
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
 						this.player2Hitted = this.player2Hitted + 1;
+
+						this.turnSwitch = false;
 						}
 					}
 				}
@@ -626,7 +641,7 @@ Pool.Game.prototype = {
 		for (var i = 0; i < this.balls.length; i++)
 			{
 			var ball = this.balls.children[i];
-			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
+			if (Math.abs(ball.body.velocity.x) >= 0.5 && Math.abs(ball.body.velocity.y) >= 0.5)
 				{
 				ballsInMovement = true;
 
@@ -650,16 +665,22 @@ Pool.Game.prototype = {
 				{
 				if (this.resetting)
 					{
-					if (this.turn == Pool.turnPlayer1)
+					if (this.turnSwitch==true)
 						{
-						this.player1Selected.visible = false;
-						this.player2Selected.visible = true;
+						if (this.turn == Pool.turnPlayer1)
+							{
+							this.player1Selected.visible = false;
+							this.player2Selected.visible = true;
+							this.turn = Pool.turnPlayer2;
+							}
+							else
+							{
+							this.player1Selected.visible = true;
+							this.player2Selected.visible = false;
+							this.turn = Pool.turnPlayer1;
+							}
 						}
-						else
-						{
-						this.player1Selected.visible = true;
-						this.player2Selected.visible = false;
-						}
+					this.turnSwitch=false;
 
 					if (this.resettingRelocation==true)
 						{
@@ -715,6 +736,7 @@ Pool.Game.prototype = {
 					}
 					else
 					{
+					/*
 					if (this.cueContainer.visible == false)
 						{
 						if (this.turn==Pool.turnPlayer1)
@@ -726,17 +748,24 @@ Pool.Game.prototype = {
 							this.turn = Pool.turnPlayer1;
 							}
 						}
+					*/
 
-					if (this.turn == Pool.turnPlayer1)
+					if (this.turnSwitch==true)
 						{
-						this.player1Selected.visible = true;
-						this.player2Selected.visible = false;
+						if (this.turn == Pool.turnPlayer1)
+							{
+							this.player1Selected.visible = false;
+							this.player2Selected.visible = true;
+							this.turn = Pool.turnPlayer2;
+							}
+							else
+							{
+							this.player1Selected.visible = true;
+							this.player2Selected.visible = false;
+							this.turn = Pool.turnPlayer1;
+							}
 						}
-						else
-						{
-						this.player1Selected.visible = false;
-						this.player2Selected.visible = true;
-						}
+					this.turnSwitch=false;
 
 					this.cueContainer.visible = true;
 					this.cueball.input.useHandCursor = true;
