@@ -404,8 +404,6 @@ Pool.Game.prototype = {
 				this.cueContainer.visible = false;
 				this.cueImage.position.x = 0;
 
-				//this.player1Selected.visible = false;
-				//this.player2Selected.visible = false;
 				this.turnSwitch = true;
 				}
 
