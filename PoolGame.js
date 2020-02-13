@@ -559,13 +559,6 @@ Pool.Game.prototype = {
 
 			ball.sprite.shadow.destroy();
 			ball.sprite.destroy();
-
-			/*
-			if (this.balls.total === 1)
-				{
-				this.time.events.add(3000, this.gameOver, this);
-				}
-			*/
 			}
 		},
 
@@ -576,6 +569,8 @@ Pool.Game.prototype = {
 		// Move it to a "safe" area
 		this.cueball.body.x = 16;
 		this.cueball.body.y = 16;
+
+		this.cueball.angle = 0;
 
 		this.resetting = true;
 		this.resettingRelocation = true;
