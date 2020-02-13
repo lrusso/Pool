@@ -316,11 +316,6 @@ Pool.Game.prototype = {
 		this.input.onUp.add(this.takeShot, this);
 		},
 
-	togglePause: function ()
-		{
-		this.game.paused = (this.game.paused) ? false : true;
-		},
-
 	toggleDebug: function ()
 		{
 		Pool.showDebug = (Pool.showDebug) ? false : true;
