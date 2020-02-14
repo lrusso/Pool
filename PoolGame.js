@@ -226,7 +226,7 @@ Pool.Game.prototype = {
 		var dashedLine14 = new Phaser.Line(140, 0, 135, 0);
 		var dashedLine15 = new Phaser.Line(150, 0, 145, 0);
 		var dashedLine16 = new Phaser.Line(160, 0, 155, 0);
-		var dashedLineGenerator = game.add.graphics(13,0);
+		var dashedLineGenerator = game.add.graphics(13,-0.75);
 		dashedLineGenerator.lineStyle(1, 0xffffff, 0.15);
 		dashedLineGenerator.moveTo(dashedLine01.start.x, dashedLine01.start.y);
 		dashedLineGenerator.lineTo(dashedLine01.end.x,   dashedLine01.end.y);
