@@ -855,9 +855,6 @@ Pool.Game.prototype = {
 	};
 
 var game = new Phaser.Game(800, 432, Phaser.WEBGL, "game", null, false, true);
-
 game.state.add("Pool.Preloader", Pool.Preloader);
-game.state.add("Pool.MainMenu", Pool.MainMenu);
 game.state.add("Pool.Game", Pool.Game);
-
 game.state.start("Pool.Preloader");
