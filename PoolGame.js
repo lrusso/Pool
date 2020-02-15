@@ -224,6 +224,10 @@ Pool.Game.prototype = {
 		var dashedLine14 = new Phaser.Line(140, 0, 135, 0);
 		var dashedLine15 = new Phaser.Line(150, 0, 145, 0);
 		var dashedLine16 = new Phaser.Line(160, 0, 155, 0);
+		var dashedLine17 = new Phaser.Line(170, 0, 165, 0);
+		var dashedLine18 = new Phaser.Line(180, 0, 175, 0);
+		var dashedLine19 = new Phaser.Line(190, 0, 185, 0);
+		var dashedLine20 = new Phaser.Line(200, 0, 195, 0);
 		var dashedLineGenerator = game.add.graphics(13,-0.75);
 		dashedLineGenerator.lineStyle(1, 0xffffff, 0.15);
 		dashedLineGenerator.moveTo(dashedLine01.start.x, dashedLine01.start.y);
@@ -258,6 +262,14 @@ Pool.Game.prototype = {
 		dashedLineGenerator.lineTo(dashedLine15.end.x,   dashedLine15.end.y);
 		dashedLineGenerator.moveTo(dashedLine16.start.x, dashedLine16.start.y);
 		dashedLineGenerator.lineTo(dashedLine16.end.x,   dashedLine16.end.y);
+		dashedLineGenerator.moveTo(dashedLine17.start.x, dashedLine17.start.y);
+		dashedLineGenerator.lineTo(dashedLine17.end.x,   dashedLine17.end.y);
+		dashedLineGenerator.moveTo(dashedLine18.start.x, dashedLine18.start.y);
+		dashedLineGenerator.lineTo(dashedLine18.end.x,   dashedLine18.end.y);
+		dashedLineGenerator.moveTo(dashedLine19.start.x, dashedLine19.start.y);
+		dashedLineGenerator.lineTo(dashedLine19.end.x,   dashedLine19.end.y);
+		dashedLineGenerator.moveTo(dashedLine20.start.x, dashedLine20.start.y);
+		dashedLineGenerator.lineTo(dashedLine20.end.x,   dashedLine20.end.y);
 		this.cueContainer.addChild(dashedLineGenerator);
 		this.cueImage = this.add.sprite(0, -6.25, "cueImage");
 		this.cueContainer.addChild(this.cueImage);
@@ -639,7 +651,7 @@ Pool.Game.prototype = {
 			this.aimLine.end.set(this.cueball.x, this.cueball.y);
 			}
 
-		if (this.aimLine.length <= 150)
+		if (this.aimLine.length <= 190)
 			{
 			this.cueImage.position.x = this.aimLine.length;
 			}
