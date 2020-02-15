@@ -59,7 +59,7 @@ Pool.Preloader.prototype = {
 Pool.Game = function (game)
 	{
 	this.speed = 0;
-	this.allowShotSpeed = 20.0;
+	this.allowShotSpeed = 5.0;
 
 	this.back_layer = null;
 
