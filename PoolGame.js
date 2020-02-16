@@ -394,7 +394,7 @@ Pool.Game.prototype = {
 			// SETTING THAT THE USER CAN INTERACT WITH THE BALL
 			ball.inputEnabled = true;
 
-			// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER THE SPRITE
+			// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER IT
 			ball.input.useHandCursor = true;
 
 			// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS DOWN
@@ -414,41 +414,52 @@ Pool.Game.prototype = {
 
 	cueballSelection: function()
 		{
+		// SETTING THAT THE CUE BALL WAS SELECTED
 		this.cueballSelected = true;
 		},
 
 	takeShot: function ()
 		{
+		// CHECKING IF THE CUE BALL WAS SELECTED
 		if (this.cueballSelected==true)
 			{
+			// CHECKING IF THE SPEED IS ENOUGH TO ALLOW THE SHOT
 			if (this.speed > this.allowShotSpeed)
 				{
 				return;
 				}
 
+			// CHECKING IF THE CUE IS VISIBLE
 			if (this.cueContainer.visible == true)
 				{
+				// CHECKING THE SPEED THAT THE CUE BALL IS GOING TO HAVE
 				var speed = (this.aimLine.length / 3);
 
+				// SETTING A LIMIT TO THE SPEED
 				if (speed > 90)
 					{
 					speed = 90;
 					}
 
-				this.updateCue();
-
+				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
 				var px = (Math.cos(this.aimLine.angle) * speed);
 				var py = (Math.sin(this.aimLine.angle) * speed);
-
 				this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
 
+				// HIDING THE CUE
 				this.cueContainer.visible = false;
+
+				// RESTORING THE CUE LOCATION
 				this.cueImage.position.x = 0;
 
+				// SETTING THAT THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 				this.turnSwitch = true;
 				}
 
+			// SETTING THAT THE CUE BALL IS NOT SELECTED
 			this.cueballSelected = false;
+
+			// SETTING THAT THE CUE BALL MUST NOT SHOW A HAND CURSOR WHEN THE MOUSE IS OVER IT
 			this.cueball.input.useHandCursor = false;
 			}
 		},
