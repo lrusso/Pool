@@ -107,7 +107,7 @@ Pool.Game = function (game)
 	this.turn = Pool.turnPlayer1;
 	this.turnSwitch = false;
 
-	//this.debugKey = null;
+	this.debugKey = null;
 
 	// SCALING THE CANVAS SIZE FOR THE GAME
 	function resizeF()
