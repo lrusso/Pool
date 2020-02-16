@@ -377,29 +377,38 @@ Pool.Game.prototype = {
 
 	makeBall: function (x, y, color)
 		{
+		// CREATING THE BALL WITH AN SPECIFIC COLOR (INDEX FOR THE TEXTURE)
 		var ball = this.balls.create(x, y, "balls", color);
 		ball.body.setCircle(13);
 		ball.body.fixedRotation = true;
 		ball.body.setMaterial(this.ballMaterial);
 		ball.body.damping = 0.40;
 		ball.body.angularDamping = 0.45;
+
+		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE BALL HITS A POCKET
 		ball.body.createBodyCallback(this.pockets, this.hitPocket, this);
 
+		// CHECKING IF THE BALL IS THE WHITE ONE
 		if (color==Pool.WHITE)
 			{
+			// SETTING THAT THE USER CAN INTERACT WITH THE BALL
 			ball.inputEnabled = true;
+
+			// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER THE SPRITE
 			ball.input.useHandCursor = true;
+
+			// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS DOWN
 			ball.events.onInputDown.add(this.cueballSelection, this);
 			}
 
-		// Link the two sprites together
+		// CREATING THE BALL SHADOW AND LINKING THE TWO SPRITES TOGETHER
 		var shadow = this.shadows.create(x + 4, y + 4, "balls", color);
 		shadow.tint = 0x000000;
 		shadow.alpha = 0.6;
 		shadow.anchor.set(0.5);
-
 		ball.shadow = shadow;
 
+		// RETURNING THE CREATED BALL
 		return ball;
 		},
 
