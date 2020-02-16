@@ -24,7 +24,7 @@ Pool.Preloader.prototype = {
 		this.scale.pageAlignHorizontally = true;
 		this.scale.refresh();
 
-		// STARTING PHYSICS system
+		// STARTING THE PHYSICS SYSTEM
 		this.physics.startSystem(Phaser.Physics.P2JS);
 		},
 
