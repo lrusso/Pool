@@ -214,14 +214,14 @@ Pool.Game.prototype = {
 		// ADDING A RECTANGLE OVER THE TABLE (IN ORDER TO BE USED IN DEBUG MODE ONLY)
 		this.placeRect = new Phaser.Rectangle(100, 75, 602, 280);
 
-		// P2 Impact Events
+		// SETTING THE P2 IMPACT EVENTS
 		this.physics.p2.setImpactEvents(true);
 		var ballVsTableMaterial = this.physics.p2.createContactMaterial(this.ballMaterial, this.tableMaterial);
 		ballVsTableMaterial.restitution = 0.6;
 		var ballVsBallMaterial = this.physics.p2.createContactMaterial(this.ballMaterial, this.ballMaterial);
 		ballVsBallMaterial.restitution = 0.9;
 
-		// The cue
+		// ADDING THE CUE
 		this.cueContainer = this.add.sprite(0, 0, "cueContainer");
 		this.cueContainer.anchor.y = 0.5;
 		var dashedLine01 = new Phaser.Line(10, 0, 5, 0);
@@ -291,7 +291,7 @@ Pool.Game.prototype = {
 		this.cueContainer.addChild(this.cueImage);
 		this.aimLine = new Phaser.Line(this.cueball.x, this.cueball.y, this.cueball.x, this.cueball.y);
 
-		// Restart
+		// ADDING THE RESTART BUTTON
 		var buttonRestartShadow = game.add.sprite(29, 29, "restart");
 		buttonRestartShadow.anchor.set(0.5);
 		buttonRestartShadow.tint = 0x000000;
@@ -299,7 +299,7 @@ Pool.Game.prototype = {
 		var buttonRestart = this.add.button(3, 3, "restart", null, this, 2, 1, 0);
 		buttonRestart.onInputUp.add(this.restartGame, this);
 
-		// Player 1
+		// ADDING THE PLAYER 1 ICON
 		var buttonPlayer1Shadow = game.add.sprite(29, 29, "player1");
 		buttonPlayer1Shadow.anchor.set(0.5);
 		buttonPlayer1Shadow.tint = 0x000000;
@@ -308,7 +308,7 @@ Pool.Game.prototype = {
 		this.player1Icon = game.add.sprite(3, 380, "player1");
 		this.player1Icon.loadTexture("player1selected");
 
-		// Player 2
+		// ADDING THE PLAYER 2 ICON
 		var buttonPlayer2Shadow = game.add.sprite(29, 29, "player2");
 		buttonPlayer2Shadow.anchor.set(0.5);
 		buttonPlayer2Shadow.tint = 0x000000;
@@ -317,20 +317,25 @@ Pool.Game.prototype = {
 		buttonPlayer2Shadow.position.y = 405;
 		this.player2Icon = game.add.sprite(749, 380, "player2");
 
-		// About
+		// CHECKING IF THE SPLASH MUST BE DISPLAYED
 		if (this.splash==true)
 			{
+			// ADDING THE SPLASH
 			var toastShadow = game.add.graphics();
 			toastShadow.beginFill(0x000000, 0.4);
 			var toastText = game.add.text(0, 0, "Designed by www.lrusso.com", { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
 			toastText.setShadow(3, 3, "rgba(0,0,0,0.5)", 2);
 			toastText.setTextBounds(0, 300, 800, 55);
 			toastShadow.drawRoundedRect(800 / 2 - toastText._width / 2 - 11, 303, toastText._width + 23, 46, 10);
+
+			// SETTING THAT IN 3 SECONDS THE SPLASH MUST FADE OUT
 			setTimeout(function()
 				{
 				game.add.tween(toastShadow).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 				game.add.tween(toastText).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 				}, 3000);
+
+			// SETTING THAT THE SPLASH MUST NOT BE DISPLAYED AGAIN
 			this.splash = false;
 			}
 
