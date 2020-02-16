@@ -558,13 +558,15 @@ Pool.Game.prototype = {
 						}
 					else
 						{
-						// 8 black
+						// THE PLAYER 1 HITTED THE BLACK BALL.
+						// COUNTING IF THE PLAYER 1 HAS ENOUGH HITTED BALLS TO WIN THE GAME
 						if (this.player1Hitted==7)
 							{
 							this.gameWin();
 							}
 							else
 							{
+							// IF IT IS NOT THE CASE, GAME OVER
 							this.gameOver();
 							}
 						}
