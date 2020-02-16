@@ -698,34 +698,36 @@ Pool.Game.prototype = {
 
 	placeCueBall: function ()
 		{
+		// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER IT
 		this.cueball.input.useHandCursor = true;
 
-		// Check it"s not colliding with other balls
+		// CHECKING THAT THE CUE BALL IT'S NOT COLLIDING WITH OTHER BALLS
 		var a = new Phaser.Circle(this.placeball.x, this.placeball.y, 26);
 		var b = new Phaser.Circle(0, 0, 26);
-
 		for (var i = 0; i < this.balls.length; i++)
 			{
 			var ball = this.balls.children[i];
-
 			if (ball.frame !== 2 && ball.exists)
 				{
 				b.x = ball.x;
 				b.y = ball.y;
-
 				if (Phaser.Circle.intersects(a, b))
 					{
-					// No point going any further
+					// NO POINT GOING ANY FURTHER
 					return;
 					}
 				}
 			}
 
+		// RESETTING THE CUE BALL POSITION
 		this.cueball.reset(this.placeball.x, this.placeball.y);
 		this.cueball.body.reset(this.placeball.x, this.placeball.y);
+
+		// SHOWING THE CUE BALL
 		this.cueball.visible = true;
 		this.cueball.shadow.visible = true;
 
+		// HIDING THE CUE BALL
 		this.placeball.visible = false;
 		this.placeballShadow.visible = false;
 
