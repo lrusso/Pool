@@ -677,18 +677,21 @@ Pool.Game.prototype = {
 
 	resetCueBall: function ()
 		{
+		// SETTING THE BALL VELOCITY TO 0
 		this.cueball.body.setZeroVelocity();
 
-		// Move it to a "safe" area
+		// MOVING THE CUE BALL TO A 'SAFE' AREA WHERE IT CANNOT HIT ANYTHING
 		this.cueball.body.x = 16;
 		this.cueball.body.y = 16;
 
+		// SETTING THE BALL ANGLE TO 0
 		this.cueball.angle = 0;
 
+		// SETTING THE RESETTING VARIABLES TO TRUE (WILL BE USED LATER)
 		this.resetting = true;
 		this.resettingRelocation = true;
 
-		// We disable the physics body and stick the ball to the pointer
+		// HIDING THE CUE BALL AND IT'S SHADOW
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
 		},
