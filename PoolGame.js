@@ -339,7 +339,7 @@ Pool.Game.prototype = {
 			this.splash = false;
 			}
 
-		// Press D to toggle the debug display
+		// SETTING THAT THE 'D' KEY WILL ENABLE OR DISABLE THE DEBUG MODE
 		//this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
 		//this.debugKey.onDown.add(this.toggleDebug, this);
 
