@@ -492,7 +492,7 @@ Pool.Game.prototype = {
 						// SETTING THAT THE PLAYER 2 WILL BE HITTING STRIPED BALLS
 						this.player2BallType = Pool.typeStripes;
 
-						// ADDING THE BALL TO THE LEFT CORNER OF THE SCREEN
+						// ADDING THE BALL TO THE BOTTOM-LEFT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
@@ -512,7 +512,7 @@ Pool.Game.prototype = {
 						// SETTING THAT THE PLAYER 2 WILL BE HITTING SOLID BALLS
 						this.player2BallType = Pool.typeSolids;
 
-						// ADDING THE BALL TO THE LEFT CORNER OF THE SCREEN
+						// ADDING THE BALL TO THE BOTTOM-LEFT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
@@ -534,7 +534,7 @@ Pool.Game.prototype = {
 					// CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 1
 					if ((ballNumber<8 && this.player1BallType == Pool.typeSolids) || (ballNumber>8 && this.player1BallType == Pool.typeStripes))
 						{
-						// ADDING THE BALL TO THE LEFT CORNER OF THE SCREEN
+						// ADDING THE BALL TO THE BOTTOM-LEFT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
@@ -548,7 +548,7 @@ Pool.Game.prototype = {
 					// CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 2
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
-						// ADDING THE BALL TO THE RIGHT CORNER OF THE SCREEN
+						// ADDING THE BALL TO THE BOTTOM-RIGHT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
@@ -572,21 +572,30 @@ Pool.Game.prototype = {
 						}
 					}
 				}
+			// CHECKING IF THE PLAYER 2 TURN
 			else if (this.turn == Pool.turnPlayer2)
 				{
+				// CHECKING IF THE PLAYER 2 HAS ANY TYPE OF BALLS ASSIGNED
 				if (this.player2BallType==null)
 					{
+					// CHECKING IF THE BALL IS A SOLID ONE
 					if (ballNumber<8)
 						{
-						// solid
+						// SETTING THAT THE PLAYER 2 WILL BE HITTING SOLID BALLS
 						this.player2BallType = Pool.typeSolids;
+
+						// SETTING THAT THE PLAYER 2 WILL BE HITTING STRIPPED BALLS
 						this.player1BallType = Pool.typeStripes;
 
+						// ADDING THE BALL TO THE BOTTOM-RIGHT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
+
+						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
 
+						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 						this.turnSwitch = false;
 						}
 					else if (ballNumber>8)
