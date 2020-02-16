@@ -506,19 +506,26 @@ Pool.Game.prototype = {
 					// CHECKING IF THE BALL IS A STRIPE ONE
 					else if (ballNumber>8)
 						{
+						// SETTING THAT THE PLAYER 1 WILL BE HITTING STRIPED BALLS
 						this.player1BallType = Pool.typeStripes;
+
+						// SETTING THAT THE PLAYER 2 WILL BE HITTING SOLID BALLS
 						this.player2BallType = Pool.typeSolids;
 
+						// ADDING THE BALL TO THE LEFT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
+
+						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
 
+						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 						this.turnSwitch = false;
 						}
 					else
 						{
-						// 8 black
+						// IF THE PLAYER 1 HITS THE BLACK BALL, GAME OVER
 						this.gameOver();
 						}
 					}
