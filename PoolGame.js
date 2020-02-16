@@ -343,19 +343,28 @@ Pool.Game.prototype = {
 		//this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
 		//this.debugKey.onDown.add(this.toggleDebug, this);
 
+		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS MOVING
 		this.input.addMoveCallback(this.updateCue, this);
+
+		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
 		this.input.onUp.add(this.takeShot, this);
 		},
 
 	toggleDebug: function ()
 		{
+		// ENABLING OR DISABLING THE DEBUG MODE
 		Pool.showDebug = (Pool.showDebug) ? false : true;
+
+		// RESTARTING THE GAME
 		this.state.restart();
 		},
 
 	restartGame: function ()
 		{
+		// RESTARTING THE GAME
 		this.state.restart();
+
+		// SETTING ALL THE DEFAULT VALUES
 		this.turn = Pool.turnPlayer1;
 		this.turnSwitch = false;
 		this.player1BallType = null;
