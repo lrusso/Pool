@@ -109,6 +109,7 @@ Pool.Game = function (game)
 
 	//this.debugKey = null;
 
+	// SCALING THE CANVAS SIZE FOR THE GAME
 	function resizeF()
 		{
 		var scaleX = window.innerWidth / 800;
@@ -134,12 +135,13 @@ Pool.Game.prototype = {
 
 	create: function ()
 		{
-		// Setting the background image
+		// ADDING THE BACKGROUND IMAGE
 		this.add.sprite(0, 0, "backgroundImg");
 
+		// ADDING THE BACK LAYER GROUP
 		this.back_layer = game.add.group();
 
-		// The table
+		// ADDING THE TABLE
 		this.table = this.add.sprite(400, 217, "table");
 		this.physics.p2.enable(this.table, Pool.showDebug);
 		this.table.body.static = true;
@@ -147,7 +149,7 @@ Pool.Game.prototype = {
 		this.table.body.loadPolygon("table", "pool-table-physics-shape");
 		this.tableMaterial = this.physics.p2.createMaterial("tableMaterial", this.table.body);
 
-		// The pockets
+		// ADDING THE POCKETS
 		this.pockets = this.add.sprite();
 		this.physics.p2.enable(this.pockets, Pool.showDebug);
 		this.pockets.body.static = true;
@@ -159,15 +161,15 @@ Pool.Game.prototype = {
 		this.pockets.body.addCircle(16, 400, 392);
 		this.pockets.body.addCircle(32, 739, 394);
 
-		// Ball shadows
+		// ADDING THE BALL SHADOWS GROUP
 		this.shadows = this.add.group();
 
-		// The balls
+		// ADDING THE BALLS PHYSICS GROUP
 		this.balls = this.add.physicsGroup(Phaser.Physics.P2JS);
 		this.balls.enableBodyDebug = Pool.showDebug;
 		this.ballMaterial = this.physics.p2.createMaterial("ballMaterial");
 
-		// Row 1 (5 balls)
+		// ADDING THE COLUMN 1 (5 BALLS)
 		var y = 152.5;
 		this.makeBall(618, y, Pool.PURPLE);
 		this.makeBall(618, y + 32, Pool.TWELVE);
@@ -175,41 +177,41 @@ Pool.Game.prototype = {
 		this.makeBall(618, y + 96, Pool.GREEN);
 		this.makeBall(618, y + 128, Pool.FOURTEEN);
 
-		// Row 2 (4 balls)
+		// ADDING THE COLUMN 2 (4 BALLS)
 		y = 168.5;
 		this.makeBall(586, y, Pool.FIFTEEN);
 		this.makeBall(586, y + 32, Pool.BROWN);
 		this.makeBall(586, y + 64, Pool.THIRTHEEN);
 		this.makeBall(586, y + 96, Pool.RED);
 
-		// Row 3 (3 balls)
+		// ADDING THE COLUMN 3 (3 BALLS)
 		y = 184.5;
 		this.makeBall(554, y, Pool.BLUE);
 		this.makeBall(554, y + 32, Pool.BLACK);
 		this.makeBall(554, y + 64, Pool.ELEVEN);
 
-		// Row 4 (2 balls)
+		// ADDING THE COLUMN 4 (2 BALLS)
 		y = 200.5;
 		this.makeBall(522, y, Pool.TEN);
 		this.makeBall(522, y + 32, Pool.NINE);
 
-		// Row 5 (1 ball)
+		// ADDING THE COLUMN 5 (1 BALL)
 		this.makeBall(490, 216.5, Pool.YELLOW);
 
-		// The cue ball
+		// ADDING THE CUE BALL
 		this.cueball = this.makeBall(239, 216.5, Pool.WHITE);
 
-		// Our placing cue ball and its shadow
+		// ADDING THE PLACING CUE BALL AND IT'S SHADOW
 		this.placeball = this.add.sprite(0, 0, "balls", Pool.WHITE);
 		this.placeball.anchor.set(0.5);
 		this.placeball.visible = false;
-
 		this.placeballShadow = this.shadows.create(0, 0, "balls");
 		this.placeballShadow.tint = 0x000000;
 		this.placeballShadow.alpha = 0.6;
 		this.placeballShadow.anchor.set(0.5);
 		this.placeballShadow.visible = false;
 
+		// ADDING A RECTANGLE OVER THE TABLE (IN ORDER TO BE USED IN DEBUG MODE ONLY)
 		this.placeRect = new Phaser.Rectangle(100, 75, 602, 280);
 
 		// P2 Impact Events
