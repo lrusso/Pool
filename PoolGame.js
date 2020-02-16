@@ -466,17 +466,21 @@ Pool.Game.prototype = {
 
 	hitPocket: function (ball, pocket)
 		{
-		// Cue ball reset
+		// CHECKING IF THE BALL THAT HIT THE POCKET IS THE CUE BALL
 		if (ball.sprite === this.cueball)
 			{
+			// RESETTING THE CUE BALL LOCATION
 			this.resetCueBall();
 			}
 			else
 			{
+			// GETTING THE BALL NUMBER
 			var ballNumber = ball.sprite._frame.index;
 
+			// CHECKING IF THE PLAYER 1 TURN
 			if (this.turn == Pool.turnPlayer1)
 				{
+				// CHECKING IF THE PLAYER 1 HAS ANY TYPE OF BALLS ASSIGNED
 				if (this.player1BallType==null)
 					{
 					if (ballNumber<8)
