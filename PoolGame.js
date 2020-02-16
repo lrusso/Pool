@@ -531,20 +531,29 @@ Pool.Game.prototype = {
 					}
 				else
 					{
+					// CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 1
 					if ((ballNumber<8 && this.player1BallType == Pool.typeSolids) || (ballNumber>8 && this.player1BallType == Pool.typeStripes))
 						{
+						// ADDING THE BALL TO THE LEFT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 6;
 						tempBall.position.y = 348 - (30 * this.player1Hitted);
+
+						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
 
+						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 						this.turnSwitch = false;
 						}
+					// CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 2
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
+						// ADDING THE BALL TO THE RIGHT CORNER OF THE SCREEN
 						var tempBall = this.back_layer.create(0, 0, "balls", ballNumber);
 						tempBall.position.x = 768;
 						tempBall.position.y = 348 - (30 * this.player2Hitted);
+
+						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
 						}
 					else
