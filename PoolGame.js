@@ -800,21 +800,28 @@ Pool.Game.prototype = {
 
 	updateSpeed: function ()
 		{
+		// SETTING A VARIABLE IN ORDER TO CHECK IF ANY OF THE BALLS ARE ACTUALLY MOVING
 		var ballsInMovement = false;
 
+		// LOOPING ALL THE BALLS
 		for (var i = 0; i < this.balls.length; i++)
 			{
+			// GETTING A BALL
 			var ball = this.balls.children[i];
+
+			// CHECKING IF THE BALL IS MOVING
 			if (Math.abs(ball.body.velocity.x) >= 0.5 && Math.abs(ball.body.velocity.y) >= 0.5)
 				{
+				// SETTING THE VARIABLE 'BALLSINMOVEMENT' TO TRUE
 				ballsInMovement = true;
 
+				// ROTATING THE BALL ACCORDING TO THE SPEED THAT IT HAS
 				var myTempSpeed = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y);
 				ball.angle = ball.angle + (myTempSpeed * 0.05);
-
 				}
 				else
 				{
+				// SETTING THE BALL VELOCITY TO 0
 				ball.body.setZeroVelocity();
 				}
 			}
