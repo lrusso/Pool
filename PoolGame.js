@@ -869,7 +869,7 @@ Pool.Game.prototype = {
 							}
 						}
 
-					// SETTING THAT THE TURN WILL NOT SWITCH (TO THE OTHE PLAYER)
+					// SETTING THAT THE TURN WILL NOT SWITCH (TO THE OTHER PLAYER)
 					this.turnSwitch=false;
 
 					if (this.resettingRelocation==true)
