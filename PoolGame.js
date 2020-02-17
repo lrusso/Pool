@@ -885,9 +885,12 @@ Pool.Game.prototype = {
 						}
 						else
 						{
+						// GETTING THE MOUSE OR FINGER POSITION
 						var locationX = this.input.activePointer.x;
 						var locationY = this.input.activePointer.y;
 
+						// CHECKING IF THE MOUSE OR FINGER (THAT IT'S CURRENTLY MOVING THE CUE BALL)
+						// IS ON THE PLAYABLE SURFACE IN ORDER TO ALLOW (OR NOT) THE CUE BALL MOVEMENT.
 						if (locationX >= this.placeRect.left - 2 && locationX <= this.placeRect.left + this.placeRect.width)
 							{
 							this.placeball.x = locationX;
@@ -904,6 +907,8 @@ Pool.Game.prototype = {
 								}
 							}
 
+						// CHECKING IF THE MOUSE OR FINGER (THAT IT'S CURRENTLY MOVING THE CUE BALL)
+						// IS ON THE PLAYABLE SURFACE IN ORDER TO ALLOW (OR NOT) THE CUE BALL MOVEMENT.
 						if (locationY >= this.placeRect.top && locationY <= this.placeRect.top + this.placeRect.height + 5)
 							{
 							this.placeball.y = locationY;
