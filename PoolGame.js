@@ -872,10 +872,15 @@ Pool.Game.prototype = {
 					// SETTING THAT THE TURN WILL NOT SWITCH (TO THE OTHER PLAYER)
 					this.turnSwitch=false;
 
+					// CHECKING IF THE RESETTINGLOCATION VARIABLE IS TRUE (MEANING THAT THE CUE BALL HIT A POCKET)
 					if (this.resettingRelocation==true)
 						{
+						// UPDATING THE PLACEBALL LOCATION TO THE DEFAULT LOCATION
 						this.placeball.x = 200;
 						this.placeball.y = 217.5;
+
+						// SETTING THE RESETTINGLOCATION VARIABLE TO FALSE.
+						// THIS IS A ONE TIME EVENT IN ORDER TO SET THE PLACEBALL AT THE DEFAULT LOCATION.
 						this.resettingRelocation = false;
 						}
 						else
