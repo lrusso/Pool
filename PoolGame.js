@@ -1050,21 +1050,34 @@ Pool.Game.prototype = {
 
 	render: function ()
 		{
+		// CHECKING IF THE DEBUG MODE IS ENABLED
 		if (Pool.showDebug)
 			{
+			// CHECKING IF THE SHOT SPEED INDICATOR MUST BE DRAWN
 			if (this.speed < 6)
 				{
+				// DRAWING THE SHOT SPEED
 				this.game.debug.geom(this.aimLine);
 				}
 
+			// INSERTING THE TEXT WITH THE SHOT SPEED
 			this.game.debug.text("speed: " + this.speed, 540, 24);
+
+			// INSERTING THE TEXT WITH THE SHOT POWER
 			this.game.debug.text("power: " + (this.aimLine.length / 3), 540, 48);
+
+			// DISPLAYING THE PLAYABLE SURFACE ON THE TABLE
 			this.game.debug.geom(this.placeRect,"#ffffff");
 			}
 		}
 	};
 
+// CREATING THE GAME INSTANCE
 var game = new Phaser.Game(800, 432, Phaser.WEBGL, "game", null, false, true);
+
+// CREATING THE STATES
 game.state.add("Pool.Preloader", Pool.Preloader);
 game.state.add("Pool.Game", Pool.Game);
+
+// STARTING THE FIRST STATE
 game.state.start("Pool.Preloader");
