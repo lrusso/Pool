@@ -925,8 +925,11 @@ Pool.Game.prototype = {
 								}
 							}
 						}
+
+					// SHOWING THE PLACEBALL
 					this.placeball.visible = true;
 
+					// SHOWING THE PLACEBALL SHADOW
 					this.placeballShadow.x = this.placeball.x + 2;
 					this.placeballShadow.y = this.placeball.y + 2;
 					this.placeballShadow.visible = true;
