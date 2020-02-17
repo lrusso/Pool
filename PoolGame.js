@@ -969,9 +969,14 @@ Pool.Game.prototype = {
 							this.turn = Pool.turnPlayer1;
 							}
 						}
+
+					// SETTING THE TURNSWITCH VARIABLE TO FALSE
 					this.turnSwitch=false;
 
+					// SHOWING THE CUE
 					this.cueContainer.visible = true;
+
+					// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER THE CUE BALL
 					this.cueball.input.useHandCursor = true;
 					}
 				}
@@ -980,11 +985,13 @@ Pool.Game.prototype = {
 
 	preRender: function ()
 		{
+		// SHOWING THE BALL SHADOWS
 		this.balls.forEach(this.positionShadow, this);
 		},
 
 	positionShadow: function (ball)
 		{
+		// LOCATING THE BALL SHADOWS
 		ball.shadow.x = ball.x + 2;
 		ball.shadow.y = ball.y + 2;
 		},
