@@ -826,31 +826,50 @@ Pool.Game.prototype = {
 				}
 			}
 
+		// GETTING THE CUE BALL VELOCITY
 		this.speed = Math.sqrt(this.cueball.body.velocity.x * this.cueball.body.velocity.x + this.cueball.body.velocity.y * this.cueball.body.velocity.y);
 
+		// CHECKING IF THE SPEED IS BELOW THE ALLOWSHOTSPEED
 		if (this.speed < this.allowShotSpeed)
 			{
+			// SETTING THE BALL VELOCITY TO 0
 			this.cueball.body.setZeroVelocity();
 
+			// CHECKING IF THERE IS ANY BALL IN MOVEMENT
 			if (ballsInMovement==false)
 				{
-				if (this.resetting)
+				// CHECKING IF THE RESETTING VARIBLE IS TRUE (MEANING THAT THE CUE BALL HIT A POCKET)
+				if (this.resetting==true)
 					{
+					// CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 					if (this.turnSwitch==true)
 						{
+						// CHECKING IF THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
+							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
 							this.player1Icon.loadTexture("player1");
+
+							// UPDATING THE PLAYER 2 ICON TO SELECTED
 							this.player2Icon.loadTexture("player2selected");
+
+							// UPDATING THE TURN VARIABLE TO PLAYER 2
 							this.turn = Pool.turnPlayer2;
 							}
 							else
 							{
+							// UPDATING THE PLAYER 1 ICON TO SELECTED
 							this.player1Icon.loadTexture("player1selected");
+
+							// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
 							this.player2Icon.loadTexture("player2");
+
+							// UPDATING THE TURN VARIABLE TO PLAYER 1
 							this.turn = Pool.turnPlayer1;
 							}
 						}
+
+					// SETTING THAT THE TURN WILL NOT SWITCH (TO THE OTHE PLAYER)
 					this.turnSwitch=false;
 
 					if (this.resettingRelocation==true)
