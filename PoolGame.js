@@ -767,16 +767,24 @@ Pool.Game.prototype = {
 			this.aimLine.end.set(this.input.activePointer.x, this.input.activePointer.y);
 			}
 
+		// LOCATING THE CUE AT THE INITIAL POINT
 		this.cueContainer.position.copyFrom(this.aimLine.start);
+
+		// ROTATING THE CUE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
 		this.cueContainer.rotation = this.aimLine.angle;
 
+		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected == false)
 			{
+			// SETTING AN EMPTY VALUE (FROM THE INITIAL AND FINAL POINT) FOR THE NEXT SHOT
+			// IN ORDER TO SHOW THE CUE RIGHT NEXT TO THE BALL.
 			this.aimLine.end.set(this.cueball.x, this.cueball.y);
 			}
 
+		// CHECKING THAT THE CUE DOESN'T GO TOO FAR FROM THE BALL
 		if (this.aimLine.length <= 190)
 			{
+			// UPDATING THE CUE LOCATION
 			this.cueImage.position.x = this.aimLine.length;
 			}
 		},
