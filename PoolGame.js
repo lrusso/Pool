@@ -998,17 +998,22 @@ Pool.Game.prototype = {
 
 	gameOver: function ()
 		{
+		// CREATING THE VARIABLE FOR THE GAME STATUS
 		var textGameStatus;
 
+		// CHECKING THE CURRENT TURN
 		if (this.turn==Pool.turnPlayer1)
 			{
+			// UPDATING THE GAME STATUS
 			textGameStatus = "Player 2 Wins";
 			}
 		else if (this.turn==Pool.turnPlayer2)
 			{
+			// UPDATING THE GAME STATUS
 			textGameStatus = "Player 1 Wins";
 			}
 
+		// DISPLAYING THE MESSAGE WITH THE GAME STATUS
 		var toastShadow = game.add.graphics();
 		toastShadow.beginFill(0x000000, 0.4);
 		var toastText = game.add.text(0, 0, textGameStatus, { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
@@ -1019,17 +1024,22 @@ Pool.Game.prototype = {
 
 	gameWin: function ()
 		{
+		// CREATING THE VARIABLE FOR THE GAME STATUS
 		var textGameStatus;
 
+		// CHECKING THE CURRENT TURN
 		if (this.turn==Pool.turnPlayer1)
 			{
+			// UPDATING THE GAME STATUS
 			textGameStatus = "Player 1 Wins";
 			}
 		else if (this.turn==Pool.turnPlayer2)
 			{
+			// UPDATING THE GAME STATUS
 			textGameStatus = "Player 2 Wins";
 			}
 
+		// DISPLAYING THE MESSAGE WITH THE GAME STATUS
 		var toastShadow = game.add.graphics();
 		toastShadow.beginFill(0x000000, 0.4);
 		var toastText = game.add.text(0, 0, textGameStatus, { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
