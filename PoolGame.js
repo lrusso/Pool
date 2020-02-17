@@ -791,7 +791,10 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
+		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
 		this.updateSpeed();
+
+		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
 		this.updateCue();
 		},
 
