@@ -477,7 +477,7 @@ Pool.Game.prototype = {
 			// GETTING THE BALL NUMBER
 			var ballNumber = ball.sprite._frame.index;
 
-			// CHECKING IF THE PLAYER 1 TURN
+			// CHECKING IF IT IS THE PLAYER 1 TURN
 			if (this.turn == Pool.turnPlayer1)
 				{
 				// CHECKING IF THE PLAYER 1 HAS ANY TYPE OF BALLS ASSIGNED
@@ -572,7 +572,7 @@ Pool.Game.prototype = {
 						}
 					}
 				}
-			// CHECKING IF THE PLAYER 2 TURN
+			// CHECKING IF IT IS THE PLAYER 2 TURN
 			else if (this.turn == Pool.turnPlayer2)
 				{
 				// CHECKING IF THE PLAYER 2 HAS ANY TYPE OF BALLS ASSIGNED
@@ -844,7 +844,7 @@ Pool.Game.prototype = {
 					// CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 					if (this.turnSwitch==true)
 						{
-						// CHECKING IF THE PLAYER 1 TURN
+						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
 							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
@@ -934,23 +934,38 @@ Pool.Game.prototype = {
 					this.placeballShadow.y = this.placeball.y + 2;
 					this.placeballShadow.visible = true;
 
+					// REMOVING THE REFERENCE TO THE 'TAKESHOT' FUNCTION, THAT WAS CALLED WHEN THE MOUSE OR FINGER IS UP
 					this.input.onUp.remove(this.takeShot, this);
+
+					// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
 					this.input.onUp.add(this.placeCueBall, this);
 					}
 					else
 					{
+					// CHECKINF IG THE 'TURN SWITCH' (TO THE OTHER PLAYER) VARIABLE IS TRUE
 					if (this.turnSwitch==true)
 						{
+						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
+							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
 							this.player1Icon.loadTexture("player1");
+
+							// UPDATING THE PLAYER 2 ICON TO SELECTED
 							this.player2Icon.loadTexture("player2selected");
+
+							// UPDATING THE TURN VARIABLE TO PLAYER 2
 							this.turn = Pool.turnPlayer2;
 							}
 							else
 							{
+							// UPDATING THE PLAYER 1 ICON TO SELECTED
 							this.player1Icon.loadTexture("player1selected");
+
+							// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
 							this.player2Icon.loadTexture("player2");
+
+							// UPDATING THE TURN VARIABLE TO PLAYER 1
 							this.turn = Pool.turnPlayer1;
 							}
 						}
