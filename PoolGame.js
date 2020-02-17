@@ -414,13 +414,13 @@ Pool.Game.prototype = {
 
 	cueballSelection: function()
 		{
-		// SETTING THAT THE CUE BALL WAS SELECTED
+		// SETTING THAT THE CUE BALL IS SELECTED
 		this.cueballSelected = true;
 		},
 
 	takeShot: function ()
 		{
-		// CHECKING IF THE CUE BALL WAS SELECTED
+		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==true)
 			{
 			// CHECKING IF THE SPEED IS ENOUGH TO ALLOW THE SHOT
@@ -743,7 +743,10 @@ Pool.Game.prototype = {
 
 	updateCue: function ()
 		{
+		// SETTING THE INITIAL POINT FROM WHERE THE CUE WILL BE DRAWN
 		this.aimLine.start.set(this.cueball.x, this.cueball.y);
+
+		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==false)
 			{
 			if (this.cueball.x >= 400)
