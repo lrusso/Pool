@@ -749,17 +749,21 @@ Pool.Game.prototype = {
 		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==false)
 			{
+			// CHECKING IF THE CUE BALL IS ON THE RIGHT SIDE OF TABLE
 			if (this.cueball.x >= 400)
 				{
+				// SETTING THE FINAL POINT FOR THE CUE TO BE DRAWN POINTING AT THE RIGHT SIDE OF THE TABLE
 				this.aimLine.end.set(800, 217.5);
 				}
 				else
 				{
+				// SETTING THE FINAL POINT FOR THE CUE TO BE DRAWN POINTING AT THE LEFT SIDE OF THE TABLE
 				this.aimLine.end.set(0, 217.5);
 				}
 			}
 		else
 			{
+			// SETTING THE FINAL POINT FOR THE CUE TO BE DRAWN POINTING AT THE MOUSE OR FINGER LOCATION
 			this.aimLine.end.set(this.input.activePointer.x, this.input.activePointer.y);
 			}
 
