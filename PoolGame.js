@@ -1073,7 +1073,8 @@ Pool.Game.prototype = {
 	};
 
 // CREATING THE GAME INSTANCE
-var game = new Phaser.Game(800, 432, Phaser.WEBGL, "game", null, false, true);
+var config = {width: 800, height: 432, renderer: Phaser.WEBGL, parent: "content", disableVisibilityChange: true, preserveDrawingBuffer: true};
+var game = new Phaser.Game(config);
 
 // CREATING THE STATES
 game.state.add("Pool.Preloader", Pool.Preloader);
