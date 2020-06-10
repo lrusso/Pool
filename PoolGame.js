@@ -438,9 +438,9 @@ Pool.Game.prototype = {
 				var speed = (this.aimLine.length / 3);
 
 				// SETTING A LIMIT TO THE SPEED
-				if (speed > 90)
+				if (speed > 70)
 					{
-					speed = 90;
+					speed = 70;
 					}
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
