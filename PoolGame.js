@@ -294,11 +294,11 @@ Pool.Game.prototype = {
 		this.aimLine = new Phaser.Line(this.cueball.x, this.cueball.y, this.cueball.x, this.cueball.y);
 
 		// ADDING THE RESTART BUTTON
-		var buttonRestartShadow = game.add.sprite(29, 29, "restart");
+		var buttonRestartShadow = game.add.sprite(776, 29, "restart");
 		buttonRestartShadow.anchor.set(0.5);
 		buttonRestartShadow.tint = 0x000000;
 		buttonRestartShadow.alpha = 0.7;
-		var buttonRestart = this.add.button(3, 3, "restart", null, this, 2, 1, 0);
+		var buttonRestart = this.add.button(749, 3, "restart", null, this, 2, 1, 0);
 		buttonRestart.onInputUp.add(this.restartGame, this);
 
 		// ADDING THE PLAYER 1 ICON
