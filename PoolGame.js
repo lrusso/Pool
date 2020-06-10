@@ -384,8 +384,8 @@ Pool.Game.prototype = {
 		ball.body.setCircle(13);
 		ball.body.fixedRotation = true;
 		ball.body.setMaterial(this.ballMaterial);
-		ball.body.damping = 0.5;
-		ball.body.angularDamping = 0.5;
+		ball.body.damping = 0.40;
+		ball.body.angularDamping = 0.45;
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE BALL HITS A POCKET
 		ball.body.createBodyCallback(this.pockets, this.hitPocket, this);
@@ -436,8 +436,6 @@ Pool.Game.prototype = {
 				{
 				// CHECKING THE SPEED THAT THE CUE BALL IS GOING TO HAVE
 				var speed = (this.aimLine.length / 3);
-
-				// SETTING A LIMIT TO THE SPEED
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
 				var px = (Math.cos(this.aimLine.angle) * speed);
