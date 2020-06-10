@@ -384,8 +384,8 @@ Pool.Game.prototype = {
 		ball.body.setCircle(13);
 		ball.body.fixedRotation = true;
 		ball.body.setMaterial(this.ballMaterial);
-		ball.body.damping = 0.40;
-		ball.body.angularDamping = 0.45;
+		ball.body.damping = 0.5;
+		ball.body.angularDamping = 0.5;
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE BALL HITS A POCKET
 		ball.body.createBodyCallback(this.pockets, this.hitPocket, this);
@@ -438,10 +438,6 @@ Pool.Game.prototype = {
 				var speed = (this.aimLine.length / 3);
 
 				// SETTING A LIMIT TO THE SPEED
-				if (speed > 70)
-					{
-					speed = 70;
-					}
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
 				var px = (Math.cos(this.aimLine.angle) * speed);
@@ -791,8 +787,39 @@ Pool.Game.prototype = {
 			}
 		},
 
+	constrainVelocity: function(sprite, maxVelocity)
+		{
+		if (!sprite || !sprite.body)
+			{
+			return;
+			}
+		var body = sprite.body
+		var angle, currVelocitySqr, vx, vy;
+		vx = body.data.velocity[0];
+		vy = body.data.velocity[1];
+		currVelocitySqr = vx * vx + vy * vy;
+		if (currVelocitySqr > maxVelocity * maxVelocity)
+			{
+			angle = Math.atan2(vy, vx);
+			vx = Math.cos(angle) * maxVelocity;
+			vy = Math.sin(angle) * maxVelocity;
+			body.data.velocity[0] = vx;
+			body.data.velocity[1] = vy;
+			}
+		},
+
 	update: function ()
 		{
+		// CONSTRAINING EVERY BALL MAX VELOCITY
+		for (var i = 0; i < this.balls.length; i++)
+			{
+			// GETTING A BALL
+			var ball = this.balls.children[i];
+
+			// CONSTRAINING THE MAX VELOCITY
+			this.constrainVelocity(ball, 45);
+			}
+
 		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
 		this.updateSpeed();
 
@@ -820,11 +847,6 @@ Pool.Game.prototype = {
 				// ROTATING THE BALL ACCORDING TO THE SPEED THAT IT HAS
 				var myTempSpeed = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y);
 				ball.angle = ball.angle + (myTempSpeed * 0.05);
-				}
-				else
-				{
-				// SETTING THE BALL VELOCITY TO 0
-				ball.body.setZeroVelocity();
 				}
 			}
 
