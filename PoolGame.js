@@ -15,7 +15,6 @@ if (userLanguage.substring(0,2)=="es")
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	}
-
 	else
 	{
 	STRING_ABOUT = "Designed by www.lrusso.com";
