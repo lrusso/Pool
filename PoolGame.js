@@ -835,14 +835,18 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
-		// CONSTRAINING EVERY BALL MAX VELOCITY
-		for (var i = 0; i < this.balls.length; i++)
+		// CHECKING IF THE CUE BALL IS SELECTED
+		if (this.cueballSelected==false)
 			{
-			// GETTING A BALL
-			var ball = this.balls.children[i];
+			// CONSTRAINING EVERY BALL MAX VELOCITY
+			for (var i = 0; i < this.balls.length; i++)
+				{
+				// GETTING A BALL
+				var ball = this.balls.children[i];
 
-			// CONSTRAINING THE MAX VELOCITY
-			this.constrainVelocity(ball, 45);
+				// CONSTRAINING THE MAX VELOCITY
+				this.constrainVelocity(ball, 45);
+				}
 			}
 
 		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
