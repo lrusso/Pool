@@ -837,6 +837,12 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
+		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
+		this.updateSpeed();
+
+		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
+		this.updateCue();
+
 		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==false)
 			{
@@ -850,12 +856,6 @@ Pool.Game.prototype = {
 				this.constrainVelocity(ball, 45);
 				}
 			}
-
-		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
-		this.updateSpeed();
-
-		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
-		this.updateCue();
 		},
 
 	updateSpeed: function ()
@@ -870,7 +870,7 @@ Pool.Game.prototype = {
 			var ball = this.balls.children[i];
 
 			// CHECKING IF THE BALL IS MOVING
-			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
+			if (Math.abs(ball.body.velocity.x) >= 0.5 && Math.abs(ball.body.velocity.y) >= 0.5)
 				{
 				// SETTING THE VARIABLE 'BALLSINMOVEMENT' TO TRUE
 				ballsInMovement = true;
