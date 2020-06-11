@@ -15,6 +15,7 @@ if (userLanguage.substring(0,2)=="es")
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	}
+
 	else
 	{
 	STRING_ABOUT = "Designed by www.lrusso.com";
@@ -465,8 +466,13 @@ Pool.Game.prototype = {
 					}
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
-				var px = (Math.cos(this.aimLine.angle) * speed);
-				var py = (Math.sin(this.aimLine.angle) * speed);
+				var px = Math.cos(this.aimLine.angle) * speed;
+				var py = Math.sin(this.aimLine.angle) * speed;
+
+				// BUGFIX FOR IMPULSE CALCULATION
+				if (parseFloat(py).toFixed(1)==0){if(py<0){py=-0.1}else{py=0.1}}
+				if (parseFloat(px).toFixed(1)==0){if(px<0){px=-0.1}else{px=0.1}}
+
 				this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
 
 				// HIDING THE CUE
@@ -837,14 +843,8 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
-		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
-		this.updateSpeed();
-
-		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
-		this.updateCue();
-
-		// CHECKING IF THE CUE BALL IS SELECTED
-		if (this.cueballSelected==false)
+		// CHECKING IF THE CUE CONTAINER IS VISIBLE
+		if (this.cueContainer.visible==false)
 			{
 			// CONSTRAINING EVERY BALL MAX VELOCITY
 			for (var i = 0; i < this.balls.length; i++)
@@ -856,6 +856,12 @@ Pool.Game.prototype = {
 				this.constrainVelocity(ball, 45);
 				}
 			}
+
+		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
+		this.updateSpeed();
+
+		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
+		this.updateCue();
 		},
 
 	updateSpeed: function ()
