@@ -469,8 +469,8 @@ Pool.Game.prototype = {
 				var py = Math.sin(this.aimLine.angle) * speed;
 
 				// BUGFIX FOR IMPULSE CALCULATION
-				if (parseFloat(py).toFixed(1)==0){if(py<0){py=-0.1}else{py=0.1}}
 				if (parseFloat(px).toFixed(1)==0){if(px<0){px=-0.1}else{px=0.1}}
+				if (parseFloat(py).toFixed(1)==0){if(py<0){py=-0.1}else{py=0.1}}
 
 				this.cueball.body.applyImpulse([ px, py ], this.cueball.x, this.cueball.y);
 
