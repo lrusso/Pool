@@ -867,6 +867,11 @@ Pool.Game.prototype = {
 				var myTempSpeed = Math.sqrt(ball.body.velocity.x * ball.body.velocity.x + ball.body.velocity.y * ball.body.velocity.y);
 				ball.angle = ball.angle + (myTempSpeed * 0.05);
 				}
+				else
+				{
+				// SETTING THE BALL VELOCITY TO 0
+				ball.body.setZeroVelocity();
+				}
 			}
 
 		// GETTING THE CUE BALL VELOCITY
