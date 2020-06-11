@@ -837,12 +837,6 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
-		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
-		this.updateSpeed();
-
-		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
-		this.updateCue();
-
 		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==false)
 			{
@@ -856,6 +850,12 @@ Pool.Game.prototype = {
 				this.constrainVelocity(ball, 45);
 				}
 			}
+
+		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
+		this.updateSpeed();
+
+		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
+		this.updateCue();
 		},
 
 	updateSpeed: function ()
