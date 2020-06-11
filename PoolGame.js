@@ -459,9 +459,9 @@ Pool.Game.prototype = {
 				var speed = (this.aimLine.length / 3);
 
 				// SETTING A LIMIT TO THE SPEED
-				if (speed > 70)
+				if (speed > 45)
 					{
-					speed = 70;
+					speed = 45;
 					}
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
@@ -818,11 +818,13 @@ Pool.Game.prototype = {
 			{
 			return;
 			}
+
 		var body = sprite.body
 		var angle, currVelocitySqr, vx, vy;
 		vx = body.data.velocity[0];
 		vy = body.data.velocity[1];
 		currVelocitySqr = vx * vx + vy * vy;
+
 		if (currVelocitySqr > maxVelocity * maxVelocity)
 			{
 			angle = Math.atan2(vy, vx);
@@ -835,6 +837,12 @@ Pool.Game.prototype = {
 
 	update: function ()
 		{
+		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
+		this.updateSpeed();
+
+		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
+		this.updateCue();
+
 		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==false)
 			{
@@ -848,12 +856,6 @@ Pool.Game.prototype = {
 				this.constrainVelocity(ball, 45);
 				}
 			}
-
-		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
-		this.updateSpeed();
-
-		// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
-		this.updateCue();
 		},
 
 	updateSpeed: function ()
@@ -868,7 +870,7 @@ Pool.Game.prototype = {
 			var ball = this.balls.children[i];
 
 			// CHECKING IF THE BALL IS MOVING
-			if (Math.abs(ball.body.velocity.x) >= 0.5 && Math.abs(ball.body.velocity.y) >= 0.5)
+			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
 				{
 				// SETTING THE VARIABLE 'BALLSINMOVEMENT' TO TRUE
 				ballsInMovement = true;
