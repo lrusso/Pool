@@ -875,7 +875,7 @@ Pool.Game.prototype = {
 			var ball = this.balls.children[i];
 
 			// CHECKING IF THE BALL IS MOVING
-			if (Math.abs(ball.body.velocity.x) >= 0.5 && Math.abs(ball.body.velocity.y) >= 0.5)
+			if (Math.abs(ball.body.velocity.x) >= 0.1 && Math.abs(ball.body.velocity.y) >= 0.1)
 				{
 				// SETTING THE VARIABLE 'BALLSINMOVEMENT' TO TRUE
 				ballsInMovement = true;
