@@ -1062,20 +1062,23 @@ Pool.Game.prototype = {
 				// CHECKING IF THE BALL EXISTS
 				if (ball.exists)
 					{
+					// CREATING LINE FOR COLLISION CHECKING
 					var line = {
 								p1: this.point(this.cueball.x,this.cueball.y),
 								p2: this.point(finalX2,finalY2),
 								};
 
+					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
 								radius: 26,
 								center: this.point(ball.x,ball.y),
 								};
 
+					// CHECKING THE DISTANCE BETWEEN THE LINE AND THE BALL
 					var distance = this.circleDistFromLineSeg(circle,line);
 
-					// CHECKING IF COLLIDES
-					if (distance<=25.5)
+					// CHECKING IF THE LINE AND THE BALL COLLIDES
+					if (distance<25.4)
 						{
 						// UPDATING THE VARIABLE TO SET THAT THERE WAS A HIT
 						someHit = true;
