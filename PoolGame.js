@@ -1014,13 +1014,23 @@ Pool.Game.prototype = {
 	updateGuideLine: function ()
 		{
 		// CHECKING IF THE CUEBALL IS SELECTED AND THE CUE CONTAINER (THE STICK) IS VISIBLE
-		if (this.cueballSelected==true && this.cueContainer.visible == true)
+		if (this.cueContainer.visible == true)
 			{
 			// LOCATING THE GUIDE LINE AT THE INITIAL POINT
-			this.guideLineContainer.position.copyFrom(this.aimLine.start);
+			this.guideLineContainer.position.x = this.cueball.x;
+			this.guideLineContainer.position.y = this.cueball.y;
 
-			// ROTATING THE GUIDE LINE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
-			this.guideLineContainer.rotation = this.aimLine.angle;
+			// CHECKING IF THE CUE BALL IS SELECTED
+			if (this.cueballSelected==true)
+				{
+				// ROTATING THE GUIDE LINE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
+				this.guideLineContainer.rotation = this.aimLine.angle;
+				}
+				else
+				{
+				// OTHERWISE, USING THE CUE CONTAINER ROTATION
+				this.guideLineContainer.rotation = this.cueContainer.rotation;
+				}
 
 			// GETTING THE PARENT SPRITE ROTATION
 			var parentSpriteRotation = this.guideLineContainer.rotation;
