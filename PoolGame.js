@@ -1064,21 +1064,21 @@ Pool.Game.prototype = {
 					{
 					// CREATING LINE FOR COLLISION CHECKING
 					var line = {
-								p1: this.point(this.cueball.x,this.cueball.y),
-								p2: this.point(finalX2,finalY2),
+								p1: this.point(parseFloat(this.cueball.x).toFixed(2),parseFloat(this.cueball.y).toFixed(2)),
+								p2: this.point(parseFloat(finalX2).toFixed(2),parseFloat(finalY2).toFixed(2)),
 								};
 
 					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
-								radius: 26,
-								center: this.point(ball.x,ball.y),
+								radius: 25.5,
+								center: this.point(parseFloat(ball.x).toFixed(2),parseFloat(ball.y).toFixed(2)),
 								};
 
 					// CHECKING THE DISTANCE BETWEEN THE LINE AND THE BALL
-					var distance = parseFloat(this.circleDistFromLineSeg(circle,line)).toFixed(2);
+					var distance = this.circleDistFromLineSeg(circle,line);
 
 					// CHECKING IF THE LINE AND THE BALL COLLIDES
-					if (distance<=25.5)
+					if (distance.length>0)
 						{
 						// UPDATING THE VARIABLE TO SET THAT THERE WAS A HIT
 						someHit = true;
@@ -1125,33 +1125,45 @@ Pool.Game.prototype = {
 	circleDistFromLineSeg: function (circle,line)
 		{
 		// https://stackoverflow.com/questions/37224912/circle-line-segment-collision/37225895
-		var v1, v2, v3, u;
+
+		var a, b, c, d, u1, u2, ret, retP1, retP2, v1, v2;
 		v1 = {};
 		v2 = {};
-		v3 = {};
 		v1.x = line.p2.x - line.p1.x;
 		v1.y = line.p2.y - line.p1.y;
-		v2.x = circle.center.x - line.p1.x;
-		v2.y = circle.center.y - line.p1.y;
-		u = (v2.x * v1.x + v2.y * v1.y) / (v1.y * v1.y + v1.x * v1.x); // unit dist of point on line
+		v2.x = line.p1.x - circle.center.x;
+		v2.y = line.p1.y - circle.center.y;
+		b = (v1.x * v2.x + v1.y * v2.y);
+		c = 2 * (v1.x * v1.x + v1.y * v1.y);
+		b *= -2;
+		d = Math.sqrt(b * b - 2 * c * (v2.x * v2.x + v2.y * v2.y - circle.radius * circle.radius));
 
-		if(u >= 0 && u <= 1)
-			{
-			v3.x = (v1.x * u + line.p1.x) - circle.center.x;
-			v3.y = (v1.y * u + line.p1.y) - circle.center.y;
-			v3.x *= v3.x;
-			v3.y *= v3.y;
-			return Math.sqrt(v3.y + v3.x); // return distance from line
+		if(isNaN(d))
+			{ // no intercept
+			return [];
 			}
 
-		// get distance from end points
-		v3.x = circle.center.x - line.p2.x;
-		v3.y = circle.center.y - line.p2.y;
-		v3.x *= v3.x;  // square vectors
-		v3.y *= v3.y;
-		v2.x *= v2.x;
-		v2.y *= v2.y;
-		return Math.min(Math.sqrt(v2.y + v2.x), Math.sqrt(v3.y + v3.x)); // return smaller of two distances as the result
+		u1 = (b - d) / c;  // these represent the unit distance of point one and two on the line
+		u2 = (b + d) / c;    
+		retP1 = {};   // return points
+		retP2 = {}  
+		ret = []; // return array
+
+		if(u1 <= 1 && u1 >= 0)
+			{  // add point if on the line segment
+			retP1.x = line.p1.x + v1.x * u1;
+			retP1.y = line.p1.y + v1.y * u1;
+			ret[0] = retP1;
+			}
+
+		if(u2 <= 1 && u2 >= 0)
+			{  // second add point if on the line segment
+			retP2.x = line.p1.x + v1.x * u2;
+			retP2.y = line.p1.y + v1.y * u2;
+			ret[ret.length] = retP2;
+			}
+
+		return ret;
 		},
 
 	point: function (a,b)
