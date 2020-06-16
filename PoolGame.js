@@ -1059,7 +1059,7 @@ Pool.Game.prototype = {
 					var circle = [ball.x, ball.y];
 
 					// GETTING THE RADIUS
-					var radius = 25;
+					var radius = 26;
 
 					// GETTING THE CUEBALL POSITION
 					var a = [this.cueball.x, this.cueball.y];
