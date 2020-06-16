@@ -1085,7 +1085,7 @@ Pool.Game.prototype = {
 
 			var parentSpriteRotation = this.guideLineContainer.rotation;
 			var jumpX = 0;
-			var jumpY = 100;
+			var jumpY = 800;
 
 			var x2 = ((jumpY * Math.cos(parentSpriteRotation)) + (jumpX * Math.sin(parentSpriteRotation)));
 			var y2 = ((jumpY * Math.sin(parentSpriteRotation)) - (jumpX * Math.cos(parentSpriteRotation)));
@@ -1093,24 +1093,115 @@ Pool.Game.prototype = {
 			var finalX2 = this.cueball.x - x2;
 			var finalY2 = this.cueball.y - y2;
 
+
+
+
+
+
+
+// ------------------------------------------------------------------
+
+function pointCircleCollide(point, circle, r) {
+    if (r===0) return false
+    var dx = circle[0] - point[0]
+    var dy = circle[1] - point[1]
+    return dx * dx + dy * dy <= r * r
+}
+
+var tmp = [0, 0];
+
+function lineCircleCollide(a, b, circle, radius, nearest) {
+    //check to see if start or end points lie within circle
+    if (pointCircleCollide(a, circle, radius)) {
+        if (nearest) {
+            nearest[0] = a[0]
+            nearest[1] = a[1]
+        }
+        return true
+    } if (pointCircleCollide(b, circle, radius)) {
+        if (nearest) {
+            nearest[0] = b[0]
+            nearest[1] = b[1]
+        }
+        return true
+    }
+
+    var x1 = a[0],
+        y1 = a[1],
+        x2 = b[0],
+        y2 = b[1],
+        cx = circle[0],
+        cy = circle[1]
+
+    //vector d
+    var dx = x2 - x1
+    var dy = y2 - y1
+
+    //vector lc
+    var lcx = cx - x1
+    var lcy = cy - y1
+
+    //project lc onto d, resulting in vector p
+    var dLen2 = dx * dx + dy * dy //len2 of d
+    var px = dx
+    var py = dy
+    if (dLen2 > 0) {
+        var dp = (lcx * dx + lcy * dy) / dLen2
+        px *= dp
+        py *= dp
+    }
+
+    if (!nearest)
+        nearest = tmp
+    nearest[0] = x1 + px
+    nearest[1] = y1 + py
+
+    //len2 of p
+    var pLen2 = px * px + py * py
+
+    //check collision
+    return pointCircleCollide(nearest, circle, radius)
+            && pLen2 <= dLen2 && (px * dx + py * dy) >= 0
+}
+
+
+// ------------------------------------------------------------------
+
+
+
+
 			// CHECKING THAT THE CUE BALL IT'S NOT COLLIDING WITH OTHER BALLS
-			var a = new Phaser.Circle(finalX2, finalY2, 26);
-			var b = new Phaser.Circle(0, 0, 26);
 			for (var i = 0; i < this.balls.length; i++)
 				{
 				var ball = this.balls.children[i];
 				if (ball.frame !== 2 && ball.exists)
 					{
-					b.x = ball.x;
-					b.y = ball.y;
-					if (Phaser.Circle.intersects(a, b))
+					if (i!=15)
 						{
-						alert('hits');
+						var circle = [ball.x, ball.y],
+						radius = 26,
+						a = [this.cueball.x, this.cueball.y],
+						b = [finalX2, finalY2];
+						tmp = [0, 0];
+
+						var hit = lineCircleCollide(a, b, circle, radius);
+
+						if (hit==true)
+							{
+							jumpX = 0;
+							jumpY = ball.y + (this.cueball.y/2); // ESTA MAL! ARREGLAR!
+
+							x2 = ((jumpY * Math.cos(parentSpriteRotation)) + (jumpX * Math.sin(parentSpriteRotation)));
+							y2 = ((jumpY * Math.sin(parentSpriteRotation)) - (jumpX * Math.cos(parentSpriteRotation)));
+
+							finalX2 = this.cueball.x - x2;
+							finalY2 = this.cueball.y - y2;
+							}
 						}
 					}
 				}
 
-			// SHWOING THE GUIDE LINE POINT
+			// SHOWING THE GUIDE LINE POINT
 			this.guideLinePoint.clear();
 			this.guideLinePoint.beginFill(0xFFFFFF, 0.5);
 			this.guideLinePoint.drawCircle(finalX2, finalY2, 26);
