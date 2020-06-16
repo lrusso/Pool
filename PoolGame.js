@@ -1075,22 +1075,22 @@ Pool.Game.prototype = {
 								};
 
 					// CHECKING THE DISTANCE BETWEEN THE LINE AND THE BALL
-					var distance = this.circleDistFromLineSeg(circle,line);
+					var distance = parseFloat(this.circleDistFromLineSeg(circle,line)).toFixed(2);
 
 					// CHECKING IF THE LINE AND THE BALL COLLIDES
-					if (distance<=25.4)
+					if (distance<=25.7)
 						{
 						// UPDATING THE VARIABLE TO SET THAT THERE WAS A HIT
 						someHit = true;
 
 						// GETTING THE NEW GUIDELINE DISTANCE/LENGTH
-						var newDistance = Phaser.Math.distance(this.cueball.x,this.cueball.y,ball.x,ball.y);
+						var newDistance = Math.abs(Phaser.Math.distance(this.cueball.x,this.cueball.y,ball.x,ball.y));
 
 						// CHECKING IF THE NEW DISTANCE/LENGTH IS SHORTER THAT THE ONE STORED (IF ANY)
-						if (Math.abs(newDistance)<=finalDistance)
+						if (newDistance<=finalDistance)
 							{
 							// UPDATING THE LAST GUIDELINE DISTANCE/LENGTH
-							finalDistance = Math.abs(newDistance);
+							finalDistance = newDistance;
 
 							// REDRAWING THE GUIDELINE WITH THE NEW DISTANCE/LENGTH
 							this.guideLine.clear();
