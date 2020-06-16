@@ -188,7 +188,7 @@ Pool.Game.prototype = {
 		this.guideLine = this.add.graphics(0,0);
 		this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
 		this.guideLine.moveTo(0, -1);
-		this.guideLine.lineTo(-500, -1);
+		this.guideLine.lineTo(-800, -1);
 		this.guideLineContainer.addChild(this.guideLine);
 		this.guideLineContainer.mask = this.guideLineContainerMask;
 
@@ -755,7 +755,7 @@ Pool.Game.prototype = {
 		for (var i = 0; i < this.balls.length; i++)
 			{
 			var ball = this.balls.children[i];
-			if (ball.frame !== 2 && ball.exists)
+			if (ball.exists)
 				{
 				b.x = ball.x;
 				b.y = ball.y;
@@ -1084,7 +1084,7 @@ Pool.Game.prototype = {
 
 			var parentSpriteRotation = this.guideLineContainer.rotation;
 			var jumpX = 0;
-			var jumpY = 500;
+			var jumpY = 800;
 
 			var x2 = ((jumpY * Math.cos(parentSpriteRotation)) + (jumpX * Math.sin(parentSpriteRotation)));
 			var y2 = ((jumpY * Math.sin(parentSpriteRotation)) - (jumpX * Math.cos(parentSpriteRotation)));
@@ -1093,31 +1093,34 @@ Pool.Game.prototype = {
 			var finalY2 = this.cueball.y - y2;
 
 			var someHit = false;
+			var finalDistance = 999;
 
 			// CHECKING THAT THE CUE BALL IT'S NOT COLLIDING WITH OTHER BALLS
-			for (var i = 0; i < this.balls.length; i++)
+			for (var i = 0; i < this.balls.length-1; i++)
 				{
 				var ball = this.balls.children[i];
-				if (ball.frame !== 2 && ball.exists)
+				if (ball.exists)
 					{
-					if (i!=15)
+					var circle = [ball.x, ball.y];
+					var radius = 25;
+					var a = [this.cueball.x, this.cueball.y];
+					var b = [finalX2, finalY2];
+
+					var hit = lineCircleCollide(a, b, circle, radius);
+
+					if (hit==true)
 						{
-						var circle = [ball.x, ball.y];
-						var radius = 25;
-						var a = [this.cueball.x, this.cueball.y];
-						var b = [finalX2, finalY2];
-						var tmp = [0, 0];
+						someHit = true;
 
-						var hit = lineCircleCollide(a, b, circle, radius);
+						var newDistance = Phaser.Math.distance(this.cueball.x,this.cueball.y,ball.x,ball.y);
 
-						if (hit==true)
+						if (Math.abs(newDistance)<=finalDistance)
 							{
-							someHit = true;
-
+							finalDistance = Math.abs(newDistance);
 							this.guideLine.clear();
 							this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
 							this.guideLine.moveTo(0, -1);
-							this.guideLine.lineTo(Phaser.Math.distance(this.cueball.x,this.cueball.y,ball.x,ball.y)*-1, -1);
+							this.guideLine.lineTo(newDistance*-1, -1);
 							}
 						}
 					}
@@ -1128,7 +1131,7 @@ Pool.Game.prototype = {
 				this.guideLine.clear();
 				this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
 				this.guideLine.moveTo(0, -1);
-				this.guideLine.lineTo(-500, -1);
+				this.guideLine.lineTo(-800, -1);
 				}
 
 			// SHOWING THE GUIDE LINE
