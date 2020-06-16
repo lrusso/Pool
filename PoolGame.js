@@ -1056,16 +1056,16 @@ Pool.Game.prototype = {
 				if (ball.exists)
 					{
 					// GETTING THE BALL (CIRCLE) POSITION
-					var circle = [ball.x, ball.y];
+					var circle = [Math.ceil(ball.x), Math.ceil(ball.y)];
 
 					// GETTING THE RADIUS
 					var radius = 26;
 
 					// GETTING THE CUEBALL POSITION
-					var a = [this.cueball.x, this.cueball.y];
+					var a = [Math.ceil(this.cueball.x), Math.ceil(this.cueball.y)];
 
 					// GETTING THE NEW GUIDELINE POSITION AFTER ROTATION
-					var b = [finalX2, finalY2];
+					var b = [Math.ceil(finalX2), Math.ceil(finalY2)];
 
 					// CHECKING IF THE GUIDELINE COLLIDES WITH THE BALL
 					var hit = lineCircleCollide(a, b, circle, radius);
