@@ -1078,7 +1078,7 @@ Pool.Game.prototype = {
 					var distance = parseFloat(this.circleDistFromLineSeg(circle,line)).toFixed(2);
 
 					// CHECKING IF THE LINE AND THE BALL COLLIDES
-					if (distance<=25.7)
+					if (distance<=25.5)
 						{
 						// UPDATING THE VARIABLE TO SET THAT THERE WAS A HIT
 						someHit = true;
