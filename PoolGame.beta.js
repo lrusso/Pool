@@ -107,6 +107,7 @@ Pool.Game = function (game)
 	this.guideLineContainerMask = null;
 	this.guideLineContainer = null;
 	this.guideLine = null;
+	this.guideLinePoint = null;
 
 	this.cueContainer = null;
 	this.cueImage = null;
@@ -188,6 +189,9 @@ Pool.Game.prototype = {
 		this.guideLine.lineTo(-800, -1);
 		this.guideLineContainer.addChild(this.guideLine);
 		this.guideLineContainer.mask = this.guideLineContainerMask;
+
+		// ADDING THE GUIDE LINE POINT
+		this.guideLinePoint = this.add.graphics(0, 0);
 
 		// ADDING THE POCKETS
 		this.pockets = this.add.sprite();
@@ -1079,11 +1083,46 @@ Pool.Game.prototype = {
 			// ROTATING THE GUIDE LINE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
 			this.guideLineContainer.rotation = this.aimLine.angle;
 
+			var parentSpriteRotation = this.guideLineContainer.rotation;
+			var jumpX = 0;
+			var jumpY = 100;
+
+			var x2 = ((jumpY * Math.cos(parentSpriteRotation)) + (jumpX * Math.sin(parentSpriteRotation)));
+			var y2 = ((jumpY * Math.sin(parentSpriteRotation)) - (jumpX * Math.cos(parentSpriteRotation)));
+
+			var finalX2 = this.cueball.x - x2;
+			var finalY2 = this.cueball.y - y2;
+
+			// CHECKING THAT THE CUE BALL IT'S NOT COLLIDING WITH OTHER BALLS
+			var a = new Phaser.Circle(finalX2, finalY2, 26);
+			var b = new Phaser.Circle(0, 0, 26);
+			for (var i = 0; i < this.balls.length; i++)
+				{
+				var ball = this.balls.children[i];
+				if (ball.frame !== 2 && ball.exists)
+					{
+					b.x = ball.x;
+					b.y = ball.y;
+					if (Phaser.Circle.intersects(a, b))
+						{
+						alert('hits');
+						}
+					}
+				}
+
+			// SHWOING THE GUIDE LINE POINT
+			this.guideLinePoint.clear();
+			this.guideLinePoint.beginFill(0xFFFFFF, 0.5);
+			this.guideLinePoint.drawCircle(finalX2, finalY2, 26);
+
 			// SHOWING THE GUIDE LINE
 			this.guideLineContainer.visible = true;
 			}
 			else
 			{
+			// HIDING THE GUIDE LINE POINT
+			this.guideLinePoint.clear();
+
 			// HIDING THE GUIDE LINE
 			this.guideLineContainer.visible = false;
 			}
