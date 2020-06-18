@@ -419,8 +419,8 @@ Pool.Game.prototype = {
 					}
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
-				var px = Math.cos(this.aimLine.angle) * speed;
-				var py = Math.sin(this.aimLine.angle) * speed;
+				var px = Math.cos(parseFloat(this.aimLine.angle).toFixed(2)) * speed;
+				var py = Math.sin(parseFloat(this.aimLine.angle).toFixed(2)) * speed;
 
 				// BUGFIX FOR IMPULSE CALCULATION
 				if (parseFloat(px).toFixed(1)==0){if(px<0){px=-0.1}else{px=0.1}}
@@ -759,7 +759,7 @@ Pool.Game.prototype = {
 		this.cueContainer.position.copyFrom(this.aimLine.start);
 
 		// ROTATING THE CUE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
-		this.cueContainer.rotation = this.aimLine.angle;
+		this.cueContainer.rotation = parseFloat(this.aimLine.angle).toFixed(2);
 
 		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected == false)
@@ -1024,7 +1024,7 @@ Pool.Game.prototype = {
 			if (this.cueballSelected==true)
 				{
 				// ROTATING THE GUIDE LINE ACCORDING THE ANGLE OBTAINED FROM THE INITIAL AND FINAL POINT.
-				this.guideLineContainer.rotation = this.aimLine.angle;
+				this.guideLineContainer.rotation = parseFloat(this.aimLine.angle).toFixed(2);
 				}
 				else
 				{
@@ -1070,7 +1070,7 @@ Pool.Game.prototype = {
 
 					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
-								radius: 25.5,
+								radius: 26,
 								center: this.point(parseFloat(ball.x).toFixed(2),parseFloat(ball.y).toFixed(2)),
 								};
 
