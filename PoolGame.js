@@ -1070,7 +1070,7 @@ Pool.Game.prototype = {
 
 					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
-								radius: 25.9,
+								radius: 25.8,
 								center: this.point(parseFloat(ball.x).toFixed(1),parseFloat(ball.y).toFixed(1)),
 								};
 
