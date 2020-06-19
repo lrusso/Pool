@@ -1064,14 +1064,14 @@ Pool.Game.prototype = {
 					{
 					// CREATING LINE FOR COLLISION CHECKING
 					var line = {
-								p1: this.point(parseFloat(this.cueball.x).toFixed(1),parseFloat(this.cueball.y).toFixed(1)),
-								p2: this.point(parseFloat(finalX2).toFixed(1),parseFloat(finalY2).toFixed(1)),
+								p1: this.point(this.cueball.x,this.cueball.y),
+								p2: this.point(finalX2,finalY2),
 								};
 
 					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
-								radius: 25.7,
-								center: this.point(parseFloat(ball.x).toFixed(1),parseFloat(ball.y).toFixed(1)),
+								radius: 25.75,
+								center: this.point(ball.x,ball.y),
 								};
 
 					// CHECKING THE DISTANCE BETWEEN THE LINE AND THE BALL
