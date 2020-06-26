@@ -106,6 +106,7 @@ Pool.Game = function (game)
 
 	this.guideLineContainerMask = null;
 	this.guideLineContainer = null;
+	this.guideLineBall = null;
 	this.guideLine = null;
 
 	this.cueContainer = null;
@@ -188,6 +189,9 @@ Pool.Game.prototype = {
 		this.guideLine.lineTo(-800, 0);
 		this.guideLineContainer.addChild(this.guideLine);
 		this.guideLineContainer.mask = this.guideLineContainerMask;
+
+		// ADDING THE GUIDE LINE BALL
+		this.guideLineBall = game.add.graphics(0, 0);
 
 		// ADDING THE POCKETS
 		this.pockets = this.add.sprite();
@@ -438,6 +442,9 @@ Pool.Game.prototype = {
 				this.turnSwitch = true;
 				}
 
+			// HIDING THE GUIDE LINE BALL
+			this.guideLineBall.clear();
+
 			// SETTING THAT THE CUE BALL IS NOT SELECTED
 			this.cueballSelected = false;
 
@@ -683,9 +690,13 @@ Pool.Game.prototype = {
 		// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER IT
 		this.cueball.input.useHandCursor = true;
 
-		// CHECKING THAT THE CUE BALL IT'S NOT COLLIDING WITH OTHER BALLS
+		// CREATING A TEMP CIRCLE WITH THE PLACEBALL LOCATION
 		var a = new Phaser.Circle(this.placeball.x, this.placeball.y, 26);
+
+		// CREATING A TEMP CIRCLE FOR CHECKING EVERY BALL
 		var b = new Phaser.Circle(0, 0, 26);
+
+		// CHECKING THAT THE CUE BALL IT'S NOT COLLIDING WITH OTHER BALLS
 		for (var i = 0; i < this.balls.length; i++)
 			{
 			// GETTING THE BALL
@@ -1070,7 +1081,7 @@ Pool.Game.prototype = {
 
 					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
-								radius: 25.75,
+								radius: 25.8,
 								center: this.point(ball.x,ball.y),
 								};
 
@@ -1080,23 +1091,38 @@ Pool.Game.prototype = {
 					// CHECKING IF THE LINE AND THE BALL COLLIDES
 					if (distance.length>0)
 						{
-						// UPDATING THE VARIABLE TO SET THAT THERE WAS A HIT
-						someHit = true;
+						// CREATING A TEMP CIRCLE WITH THE CUE BALL LOCATION
+						var a = new Phaser.Circle(ball.x, ball.y, 26);
 
-						// GETTING THE NEW GUIDELINE DISTANCE/LENGTH
-						var newDistance = Math.abs(Phaser.Math.distance(this.cueball.x,this.cueball.y,ball.x,ball.y));
+						// CREATING A TEMP CIRCLE WITH THE BALL LOCATION
+						var b = new Phaser.Circle(distance[0].x, distance[0].y, 25.8);
 
-						// CHECKING IF THE NEW DISTANCE/LENGTH IS SHORTER THAT THE ONE STORED (IF ANY)
-						if (newDistance<=finalDistance)
+						// CHECKING IF THE CUE BALL AND THE BALL OVERLAPS
+						if (Phaser.Circle.intersects(a, b))
 							{
-							// UPDATING THE LAST GUIDELINE DISTANCE/LENGTH
-							finalDistance = newDistance;
+							// UPDATING THE VARIABLE TO SET THAT THERE WAS A HIT
+							someHit = true;
 
-							// REDRAWING THE GUIDELINE WITH THE NEW DISTANCE/LENGTH
-							this.guideLine.clear();
-							this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
-							this.guideLine.moveTo(0, 0);
-							this.guideLine.lineTo(newDistance*-1, 0);
+							// GETTING THE NEW GUIDELINE DISTANCE/LENGTH
+							var newDistance = Math.abs(Phaser.Math.distance(this.cueball.x,this.cueball.y,b.x,b.y));
+
+							// CHECKING IF THE NEW DISTANCE/LENGTH IS SHORTER THAT THE ONE STORED (IF ANY)
+							if (newDistance<=finalDistance)
+								{
+								// UPDATING THE LAST GUIDELINE DISTANCE/LENGTH
+								finalDistance = newDistance;
+
+								// REDRAWING THE GUIDE LINE WITH THE NEW DISTANCE/LENGTH
+								this.guideLine.clear();
+								this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
+								this.guideLine.moveTo(0, 0);
+								this.guideLine.lineTo((newDistance*-1)+12.5, 0);
+
+								// REDRAWING THE GUIDE LINE
+								this.guideLineBall.clear();
+								this.guideLineBall.beginFill(0xFFFFFF, 0.2);
+								this.guideLineBall.drawCircle(b.x, b.y, 26);
+								}
 							}
 						}
 					}
@@ -1110,6 +1136,9 @@ Pool.Game.prototype = {
 				this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
 				this.guideLine.moveTo(0, 0);
 				this.guideLine.lineTo(-800, 0);
+
+				// HIDING THE GUIDE LINE BALL
+				this.guideLineBall.clear();
 				}
 
 			// SHOWING THE GUIDE LINE
