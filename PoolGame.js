@@ -1115,13 +1115,13 @@ Pool.Game.prototype = {
 								// REDRAWING THE GUIDE LINE WITH THE NEW DISTANCE/LENGTH
 								this.guideLine.clear();
 								this.guideLine.lineStyle(1, 0xFFFFFF, 0.2);
-								this.guideLine.moveTo(0, 0);
-								this.guideLine.lineTo((newDistance*-1)+12.5, 0);
+								this.guideLine.moveTo(0, -1);
+								this.guideLine.lineTo((newDistance*-1)+12, -1);
 
 								// REDRAWING THE GUIDE LINE
 								this.guideLineBall.clear();
 								this.guideLineBall.beginFill(0xFFFFFF, 0.2);
-								this.guideLineBall.drawCircle(b.x, b.y, 26);
+								this.guideLineBall.drawCircle(Math.ceil(b.x), Math.ceil(b.y), 26);
 								}
 							}
 						}
