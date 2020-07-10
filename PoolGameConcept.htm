@@ -31,7 +31,7 @@ Pool.Preloader.prototype = {
 		this.scale.refresh();
 		},
 
-	createBall: function(ballNumber, ballColor)
+	createBallTexture: function(ballNumber, ballColor)
 		{
 		// CREATING A TEMP CANVAS
 		var canvas = document.createElement("canvas");
@@ -41,24 +41,38 @@ Pool.Preloader.prototype = {
 		// GETTING THE DRAWING TEMP CANVAS CONTEXT
 		var context = canvas.getContext("2d");
 
-		// DRAWING THE BACKGROUND
-		context.fillStyle = "#01177f";
-		context.fillRect(0, 0, 78, 78);
+		// CHECKING THE BALL NUMBER
+		if (ballNumber<=8)
+			{
+			// DRAWING THE BACKGROUND USING THE BALL COLOR
+			context.fillStyle = ballColor;
+			context.fillRect(0, 0, 78, 78);
+			}
+			else
+			{
+			// DRAWING THE WHITE BACKGROUND
+			context.fillStyle = "white";
+			context.fillRect(0, 0, 78, 78);
+
+			// DRAWING A RECTANGLE USING THE BALL COLOR
+			context.fillStyle = ballColor;
+			context.fillRect(0, 30, 78, 18);
+			}
 
 		// DRAWING THE BALL NUMBER CONTAINER
 		context.fillStyle = "white";
 		context.beginPath();
-		context.arc(39, 38.5, 8, 0, 2 * Math.PI);
+		context.arc(39, 39, 8, 0, 2 * Math.PI);
 		context.fill();
 
 		// SETTING THE FONT STYLE
-		context.font = "13px Arial";
+		context.font = "11px Arial";
 		context.fillStyle = "black";
 
 		// DRAWING THE BALL NUMBER
 		var textWidth = context.measureText(ballNumber).width;
-		var textCenteredX = canvas.width / 2 - textWidth / 2;
-		context.fillText("2", textCenteredX, 43);
+		var textCenteredX = canvas.width / 2 - textWidth / 2 - 0.5;
+		context.fillText(ballNumber, textCenteredX, 43);
 
 		// CREATING A BASE64 IMAGE OF THE BALL TEXTURE
 		var finalBallData = canvas.toDataURL("data/png");
@@ -75,7 +89,21 @@ Pool.Preloader.prototype = {
 		this.load.image("sphere", "data:image/png;base64,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");
 
 		// TO DO: the texture MUST NOT BE a plain color in order to show the illusion of a rotating ball
-		this.load.image("texture", this.createBall("2", "#01177f"));
+		this.load.image("ball1", this.createBallTexture("1", "#CCCC00"));
+		this.load.image("ball2", this.createBallTexture("2", "#01177f"));
+		this.load.image("ball3", this.createBallTexture("3", "#8B0000"));
+		this.load.image("ball4", this.createBallTexture("4", "#800080"));
+		this.load.image("ball5", this.createBallTexture("5", "#b36200"));
+		this.load.image("ball6", this.createBallTexture("6", "#228B22"));
+		this.load.image("ball7", this.createBallTexture("7", "#d11d53"));
+		this.load.image("ball8", this.createBallTexture("8", "#000000"));
+		this.load.image("ball9", this.createBallTexture("9", "#CCCC00"));
+		this.load.image("ball10", this.createBallTexture("10", "#01177f"));
+		this.load.image("ball11", this.createBallTexture("11", "#8B0000"));
+		this.load.image("ball12", this.createBallTexture("12", "#800080"));
+		this.load.image("ball13", this.createBallTexture("13", "#b36200"));
+		this.load.image("ball14", this.createBallTexture("14", "#228B22"));
+		this.load.image("ball15", this.createBallTexture("15", "#d11d53"));
 		},
 
 	create: function ()
@@ -114,34 +142,23 @@ Pool.Game.prototype = {
 
 	create: function ()
 		{
-		this.ball = game.add.sprite(100, 100);
-		this.texture1 = game.make.sprite(0, 0, "texture");
-		this.texture2 = game.make.sprite(0, 0, "texture");
+		this.createBallSprite(50,   50, "ball1");
+		this.createBallSprite(150,  50, "ball2");
+		this.createBallSprite(250,  50, "ball3");
+		this.createBallSprite(350,  50, "ball4");
+		this.createBallSprite(450,  50, "ball5");
 
-		this.mask = game.add.graphics(100, 100);
-		this.mask.beginFill(0xFFFFFF);
-		this.mask.drawCircle(0, 0, 26);
-		this.ball.mask = this.mask;
+		this.createBallSprite(50,  125, "ball6");
+		this.createBallSprite(150, 125, "ball7");
+		this.createBallSprite(250, 125, "ball8");
+		this.createBallSprite(350, 125, "ball9");
+		this.createBallSprite(450, 125, "ball10");
 
-		this.sphere = game.add.sprite(100, 100, "sphere");
-		this.sphere.alpha = 0.25;
-		this.sphere.anchor.set(0.5, 0.5);
-
-		this.rotation = Phaser.Math.degToRad(-15);
-
-		this.texture1.anchor.set(0.5, 0.5);
-		this.texture2.anchor.set(0.5, 0.5);
-
-		this.ball.addChild(this.texture1);
-		this.ball.addChild(this.texture2);
-
-		this.texture1.rotation = this.rotation;
-		this.texture2.rotation = this.rotation;
-
-		this.texture1.x += this.texture1.width / 2 * Math.cos(this.rotation);
-		this.texture2.x -= this.texture1.width / 2 * Math.cos(this.rotation);
-		this.texture1.y += this.texture1.width / 2 * Math.sin(this.rotation);
-		this.texture2.y -= this.texture1.width / 2 * Math.sin(this.rotation);
+		this.createBallSprite(50,  200, "ball11");
+		this.createBallSprite(150, 200, "ball12");
+		this.createBallSprite(250, 200, "ball13");
+		this.createBallSprite(350, 200, "ball14");
+		this.createBallSprite(450, 200, "ball15");
 		},
 
 	update: function ()
@@ -178,6 +195,39 @@ Pool.Game.prototype = {
 
 	render: function ()
 		{
+		},
+
+	createBallSprite: function (x,y,texture)
+		{
+		this.ball = game.add.sprite(x, y);
+		this.texture1 = game.make.sprite(0, 0, texture);
+		this.texture2 = game.make.sprite(0, 0, texture);
+
+		this.mask = game.add.graphics(x, y);
+		this.mask.beginFill(0xFFFFFF);
+		this.mask.drawCircle(0, 0, 26);
+		this.ball.mask = this.mask;
+
+		this.sphere = game.add.sprite(x, y, "sphere");
+		this.sphere.alpha = 0.25;
+		this.sphere.anchor.set(0.5, 0.5);
+
+		this.rotation = Phaser.Math.degToRad(-15);
+
+		this.texture1.anchor.set(0.5, 0.5);
+		this.texture2.anchor.set(0.5, 0.5);
+
+		this.ball.addChild(this.texture1);
+		this.ball.addChild(this.texture2);
+
+		this.texture1.rotation = this.rotation;
+		this.texture2.rotation = this.rotation;
+
+		this.texture1.x += this.texture1.width / 2 * Math.cos(this.rotation);
+		this.texture2.x -= this.texture1.width / 2 * Math.cos(this.rotation);
+		this.texture1.y += this.texture1.width / 2 * Math.sin(this.rotation);
+		this.texture2.y -= this.texture1.width / 2 * Math.sin(this.rotation);
+
 		},
 	};
 
