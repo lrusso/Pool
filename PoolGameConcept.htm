@@ -59,6 +59,21 @@ Pool.Preloader.prototype = {
 			context.fillRect(0, 30, 78, 18);
 			}
 
+		// CREATING THE BALL NUMBER LABEL OFFSET VARIABLE
+		var ballNumberLabelOffset = 0;
+
+		// CHECKING THE BALL NUMBER
+		if (ballNumber<10)
+			{
+			// UPDATING THE BALL NUMBER LABEL OFFSET
+			ballNumberLabelOffset = 0.2;
+			}
+			else
+			{
+			// UPDATING THE BALL NUMBER LABEL OFFSET
+			ballNumberLabelOffset = -0.5;
+			}
+
 		// DRAWING THE BALL NUMBER CONTAINER
 		context.fillStyle = "white";
 		context.beginPath();
@@ -71,7 +86,7 @@ Pool.Preloader.prototype = {
 
 		// DRAWING THE BALL NUMBER
 		var textWidth = context.measureText(ballNumber).width;
-		var textCenteredX = canvas.width / 2 - textWidth / 2 - 0.5;
+		var textCenteredX = canvas.width / 2 - textWidth / 2 + ballNumberLabelOffset;
 		context.fillText(ballNumber, textCenteredX, 43);
 
 		// CREATING A BASE64 IMAGE OF THE BALL TEXTURE
