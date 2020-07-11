@@ -92,9 +92,6 @@ Pool.Preloader.prototype = {
 		// CREATING A BASE64 IMAGE OF THE BALL TEXTURE
 		var finalBallData = canvas.toDataURL("data/png");
 
-		// SHOWING IN THE CONSOLE THE BASE64 IMAGE (FOR DEBUGGING)
-		console.log(finalBallData);
-
 		// EXPORTING THE BALL TEXTURE AS AN IMAGE IN BASE64 FORMAT
 		return finalBallData;
 		},
@@ -134,8 +131,9 @@ Pool.Game = function (game)
 	this.balls_textures1 = [];
 	this.balls_textures2 = [];
 
-	this.mask = null;
-	this.sphere = null;
+	this.masks = [];
+	this.spheres = [];
+
 	this.speedRotation = 0.5;
 
 	// SCALING THE CANVAS SIZE FOR THE GAME
@@ -205,15 +203,15 @@ Pool.Game.prototype = {
 		this.balls.push(game.add.sprite(x, y));
 		this.balls_textures1.push(game.make.sprite(0, 0, texture));
 		this.balls_textures2.push(game.make.sprite(0, 0, texture));
+		this.masks.push(game.add.graphics(x, y));
+		this.spheres.push(game.add.sprite(x, y, "sphere"));
 
-		this.mask = game.add.graphics(x, y);
-		this.mask.beginFill(0xFFFFFF);
-		this.mask.drawCircle(0, 0, 26);
-		this.balls[index].mask = this.mask;
+		this.masks[index].beginFill(0xFFFFFF);
+		this.masks[index].drawCircle(0, 0, 26);
+		this.balls[index].mask = this.masks[index];
 
-		this.sphere = game.add.sprite(x, y, "sphere");
-		this.sphere.alpha = 0.25;
-		this.sphere.anchor.set(0.5, 0.5);
+		this.spheres[index].alpha = 0.25;
+		this.spheres[index].anchor.set(0.5, 0.5);
 
 		this.rotation = Phaser.Math.degToRad(-15);
 
