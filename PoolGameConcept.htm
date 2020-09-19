@@ -134,6 +134,8 @@ Pool.Game = function (game)
 	this.masks = [];
 	this.spheres = [];
 
+	this.rotation = [];
+
 	this.speedRotation = 0.5;
 
 	// SCALING THE CANVAS SIZE FOR THE GAME
@@ -156,23 +158,23 @@ Pool.Game.prototype = {
 
 	create: function ()
 		{
-		this.createBallSprite(50,   50, "ball1", 0);
-		this.createBallSprite(150,  50, "ball2", 1);
-		this.createBallSprite(250,  50, "ball3", 2);
-		this.createBallSprite(350,  50, "ball4", 3);
-		this.createBallSprite(450,  50, "ball5", 4);
+		this.createBallSprite(50,   50, "ball1", 0, -15);
+		this.createBallSprite(150,  50, "ball2", 1, 0);
+		this.createBallSprite(250,  50, "ball3", 2, 15);
+		this.createBallSprite(350,  50, "ball4", 3, 0);
+		this.createBallSprite(450,  50, "ball5", 4, -15);
 
-		this.createBallSprite(50,  125, "ball6", 5);
-		this.createBallSprite(150, 125, "ball7", 6);
-		this.createBallSprite(250, 125, "ball8", 7);
-		this.createBallSprite(350, 125, "ball9", 8);
-		this.createBallSprite(450, 125, "ball10", 9);
+		this.createBallSprite(50,  125, "ball6", 5, 0);
+		this.createBallSprite(150, 125, "ball7", 6, 15);
+		this.createBallSprite(250, 125, "ball8", 7, 0);
+		this.createBallSprite(350, 125, "ball9", 8, -15);
+		this.createBallSprite(450, 125, "ball10", 9, 0);
 
-		this.createBallSprite(50,  200, "ball11", 10);
-		this.createBallSprite(150, 200, "ball12", 11);
-		this.createBallSprite(250, 200, "ball13", 12);
-		this.createBallSprite(350, 200, "ball14", 13);
-		this.createBallSprite(450, 200, "ball15", 14);
+		this.createBallSprite(50,  200, "ball11", 10, -15);
+		this.createBallSprite(150, 200, "ball12", 11, 0);
+		this.createBallSprite(250, 200, "ball13", 12, 15);
+		this.createBallSprite(350, 200, "ball14", 13, 0);
+		this.createBallSprite(450, 200, "ball15", 14, -15);
 		},
 
 	update: function ()
@@ -198,7 +200,7 @@ Pool.Game.prototype = {
 		{
 		},
 
-	createBallSprite: function (x,y,texture,index)
+	createBallSprite: function (x,y,texture,index,rotation)
 		{
 		this.balls.push(game.add.sprite(x, y));
 		this.balls_textures1.push(game.make.sprite(0, 0, texture));
@@ -213,7 +215,7 @@ Pool.Game.prototype = {
 		this.spheres[index].alpha = 0.25;
 		this.spheres[index].anchor.set(0.5, 0.5);
 
-		this.rotation = Phaser.Math.degToRad(-15);
+		this.rotation[index] = Phaser.Math.degToRad(rotation);
 
 		this.balls_textures1[index].anchor.set(0.5, 0.5);
 		this.balls_textures2[index].anchor.set(0.5, 0.5);
@@ -221,22 +223,22 @@ Pool.Game.prototype = {
 		this.balls[index].addChild(this.balls_textures1[index]);
 		this.balls[index].addChild(this.balls_textures2[index]);
 
-		this.balls_textures1[index].rotation = this.rotation;
-		this.balls_textures2[index].rotation = this.rotation;
+		this.balls_textures1[index].rotation = this.rotation[index];
+		this.balls_textures2[index].rotation = this.rotation[index];
 
-		this.balls_textures1[index].x += this.balls_textures1[index].width / 2 * Math.cos(this.rotation);
-		this.balls_textures2[index].x -= this.balls_textures1[index].width / 2 * Math.cos(this.rotation);
-		this.balls_textures1[index].y += this.balls_textures1[index].width / 2 * Math.sin(this.rotation);
-		this.balls_textures2[index].y -= this.balls_textures1[index].width / 2 * Math.sin(this.rotation);
+		this.balls_textures1[index].x += this.balls_textures1[index].width / 2 * Math.cos(this.rotation[index]);
+		this.balls_textures2[index].x -= this.balls_textures1[index].width / 2 * Math.cos(this.rotation[index]);
+		this.balls_textures1[index].y += this.balls_textures1[index].width / 2 * Math.sin(this.rotation[index]);
+		this.balls_textures2[index].y -= this.balls_textures1[index].width / 2 * Math.sin(this.rotation[index]);
 		},
 
 	updateBallSprite: function(index)
 		{
-		this.balls_textures1[index].rotation = this.rotation;
-		this.balls_textures2[index].rotation = this.rotation;
+		this.balls_textures1[index].rotation = this.rotation[index];
+		this.balls_textures2[index].rotation = this.rotation[index];
 
-		var xshift = Math.cos(this.rotation);
-		var yshift = Math.sin(this.rotation);
+		var xshift = Math.cos(this.rotation[index]);
+		var yshift = Math.sin(this.rotation[index]);
 
 		this.balls_textures1[index].x -= this.speedRotation * xshift;
 		this.balls_textures1[index].y -= this.speedRotation * yshift;
@@ -245,8 +247,8 @@ Pool.Game.prototype = {
 		this.balls_textures2[index].y -= this.speedRotation * yshift;
 
 		var l = this.balls_textures1[index].width / 2;
-		var xdist = l * Math.cos(this.rotation);
-		var ydist = l * Math.sin(this.rotation);
+		var xdist = l * Math.cos(this.rotation[index]);
+		var ydist = l * Math.sin(this.rotation[index]);
 		var buffer = 60;
 
 		if (this.balls_textures1[index].x + xdist + buffer < 0)
