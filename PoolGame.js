@@ -125,13 +125,18 @@ Pool.Game = function (game)
 	this.placeballShadow = null;
 	this.placeRect = null;
 
-	this.player1Icon = null;
 	this.player1BallType = null;
 	this.player1Hitted = 0;
 
-	this.player2Icon = null;
 	this.player2BallType = null;
 	this.player2Hitted = 0;
+
+	this.buttonRestart = null;
+	this.buttonRestartShadow = null;
+	this.buttonPlayer1 = null;
+	this.buttonPlayer1Shadow = null;
+	this.buttonPlayer2 = null;
+	this.buttonPlayer2Shadow = null;
 
 	this.turn = Pool.turnPlayer1;
 	this.turnSwitch = false;
@@ -275,30 +280,30 @@ Pool.Game.prototype = {
 		this.aimLine = new Phaser.Line(this.cueball.x, this.cueball.y, this.cueball.x, this.cueball.y);
 
 		// ADDING THE RESTART BUTTON
-		var buttonRestartShadow = game.add.sprite(776, 29, "restart");
-		buttonRestartShadow.anchor.set(0.5);
-		buttonRestartShadow.tint = 0x000000;
-		buttonRestartShadow.alpha = 0.7;
-		var buttonRestart = this.add.button(749, 3, "restart", null, this, 2, 1, 0);
-		buttonRestart.onInputUp.add(this.restartGame, this);
+		this.buttonRestartShadow = game.add.sprite(776, 29, "restart");
+		this.buttonRestartShadow.anchor.set(0.5);
+		this.buttonRestartShadow.tint = 0x000000;
+		this.buttonRestartShadow.alpha = 0.7;
+		this.buttonRestart = this.add.button(749, 3, "restart", null, this, 2, 1, 0);
+		this.buttonRestart.onInputUp.add(this.restartGame, this);
 
 		// ADDING THE PLAYER 1 ICON
-		var buttonPlayer1Shadow = game.add.sprite(29, 29, "player1");
-		buttonPlayer1Shadow.anchor.set(0.5);
-		buttonPlayer1Shadow.tint = 0x000000;
-		buttonPlayer1Shadow.alpha = 0.7;
-		buttonPlayer1Shadow.position.y = 405;
-		this.player1Icon = game.add.sprite(3, 380, "player1");
-		this.player1Icon.loadTexture("player1selected");
+		this.buttonPlayer1Shadow = game.add.sprite(29, 29, "player1");
+		this.buttonPlayer1Shadow.anchor.set(0.5);
+		this.buttonPlayer1Shadow.tint = 0x000000;
+		this.buttonPlayer1Shadow.alpha = 0.7;
+		this.buttonPlayer1Shadow.position.y = 405;
+		this.buttonPlayer1 = game.add.sprite(3, 380, "player1");
+		this.buttonPlayer1.loadTexture("player1selected");
 
 		// ADDING THE PLAYER 2 ICON
-		var buttonPlayer2Shadow = game.add.sprite(29, 29, "player2");
-		buttonPlayer2Shadow.anchor.set(0.5);
-		buttonPlayer2Shadow.tint = 0x000000;
-		buttonPlayer2Shadow.alpha = 0.7;
-		buttonPlayer2Shadow.position.x = 776;
-		buttonPlayer2Shadow.position.y = 405;
-		this.player2Icon = game.add.sprite(749, 380, "player2");
+		this.buttonPlayer2Shadow = game.add.sprite(29, 29, "player2");
+		this.buttonPlayer2Shadow.anchor.set(0.5);
+		this.buttonPlayer2Shadow.tint = 0x000000;
+		this.buttonPlayer2Shadow.alpha = 0.7;
+		this.buttonPlayer2Shadow.position.x = 776;
+		this.buttonPlayer2Shadow.position.y = 405;
+		this.buttonPlayer2 = game.add.sprite(749, 380, "player2");
 
 		// CHECKING IF THE ABOUT TOAST MUST BE DISPLAYED
 		if (this.toast==true)
@@ -877,10 +882,10 @@ Pool.Game.prototype = {
 						if (this.turn == Pool.turnPlayer1)
 							{
 							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
-							this.player1Icon.loadTexture("player1");
+							this.buttonPlayer1.loadTexture("player1");
 
 							// UPDATING THE PLAYER 2 ICON TO SELECTED
-							this.player2Icon.loadTexture("player2selected");
+							this.buttonPlayer2.loadTexture("player2selected");
 
 							// UPDATING THE TURN VARIABLE TO PLAYER 2
 							this.turn = Pool.turnPlayer2;
@@ -888,10 +893,10 @@ Pool.Game.prototype = {
 							else
 							{
 							// UPDATING THE PLAYER 1 ICON TO SELECTED
-							this.player1Icon.loadTexture("player1selected");
+							this.buttonPlayer1.loadTexture("player1selected");
 
 							// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
-							this.player2Icon.loadTexture("player2");
+							this.buttonPlayer2.loadTexture("player2");
 
 							// UPDATING THE TURN VARIABLE TO PLAYER 1
 							this.turn = Pool.turnPlayer1;
@@ -978,10 +983,10 @@ Pool.Game.prototype = {
 						if (this.turn == Pool.turnPlayer1)
 							{
 							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
-							this.player1Icon.loadTexture("player1");
+							this.buttonPlayer1.loadTexture("player1");
 
 							// UPDATING THE PLAYER 2 ICON TO SELECTED
-							this.player2Icon.loadTexture("player2selected");
+							this.buttonPlayer2.loadTexture("player2selected");
 
 							// UPDATING THE TURN VARIABLE TO PLAYER 2
 							this.turn = Pool.turnPlayer2;
@@ -989,10 +994,10 @@ Pool.Game.prototype = {
 							else
 							{
 							// UPDATING THE PLAYER 1 ICON TO SELECTED
-							this.player1Icon.loadTexture("player1selected");
+							this.buttonPlayer1.loadTexture("player1selected");
 
 							// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
-							this.player2Icon.loadTexture("player2");
+							this.buttonPlayer2.loadTexture("player2");
 
 							// UPDATING THE TURN VARIABLE TO PLAYER 1
 							this.turn = Pool.turnPlayer1;
