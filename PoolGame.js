@@ -316,8 +316,8 @@ Pool.Game.prototype = {
 			}
 
 		// SETTING THAT THE 'D' KEY WILL ENABLE OR DISABLE THE DEBUG MODE
-		//this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
-		//this.debugKey.onDown.add(this.toggleDebug, this);
+		this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
+		this.debugKey.onDown.add(this.toggleDebug, this);
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS MOVING
 		this.input.addMoveCallback(this.updateCue, this);
@@ -328,8 +328,17 @@ Pool.Game.prototype = {
 
 	toggleDebug: function ()
 		{
-		// ENABLING OR DISABLING THE DEBUG MODE
-		Pool.showDebug = (Pool.showDebug) ? false : true;
+		// CHECKING IF THE DEBUG MODE IS ENABLED
+		if (Pool.showDebug==true)
+			{
+			// DISABLING THE DEBUG MODE
+			Pool.showDebug = false;
+			}
+			else
+			{
+			// ENABLING THE DEBUG MODE
+			Pool.showDebug = true;
+			}
 
 		// RESTARTING THE GAME
 		this.state.restart();
@@ -1275,7 +1284,7 @@ Pool.Game.prototype = {
 	render: function ()
 		{
 		// CHECKING IF THE DEBUG MODE IS ENABLED
-		if (Pool.showDebug)
+		if (Pool.showDebug==true)
 			{
 			// CHECKING IF THE SHOT SPEED INDICATOR MUST BE DRAWN
 			if (this.speed < 6)
