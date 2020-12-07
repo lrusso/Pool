@@ -316,8 +316,8 @@ Pool.Game.prototype = {
 			}
 
 		// SETTING THAT THE 'D' KEY WILL ENABLE OR DISABLE THE DEBUG MODE
-		this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
-		this.debugKey.onDown.add(this.toggleDebug, this);
+		//this.debugKey = this.input.keyboard.addKey(Phaser.Keyboard.D);
+		//this.debugKey.onDown.add(this.toggleDebug, this);
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS MOVING
 		this.input.addMoveCallback(this.updateCue, this);
