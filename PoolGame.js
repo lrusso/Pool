@@ -1262,25 +1262,6 @@ Pool.Game.prototype = {
 		this.showToast(textGameStatus,false);
 		},
 
-	showToast: function(myText, mustFade)
-		{
-		this.toastShadow = game.add.graphics();
-		this.toastShadow.beginFill(0x000000, 0.4);
-		this.toastText = game.add.text(0, 0, myText, { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
-		this.toastText.setShadow(3, 3, "rgba(0,0,0,0.5)", 2);
-		this.toastText.setTextBounds(0, 300, 800, 55);
-		this.toastShadow.drawRoundedRect(800 / 2 - this.toastText._width / 2 - 11, 303, this.toastText._width + 23, 46, 10);
-
-		if (mustFade==true)
-			{
-			setTimeout(function()
-				{
-				game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
-				game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
-				}, 3000);
-			}
-		},
-
 	render: function ()
 		{
 		// CHECKING IF THE DEBUG MODE IS ENABLED
@@ -1301,6 +1282,33 @@ Pool.Game.prototype = {
 
 			// DISPLAYING THE PLAYABLE SURFACE ON THE TABLE
 			this.game.debug.geom(this.placeRect,"#ffffff");
+			}
+		},
+
+	showToast: function(myText, mustFade)
+		{
+		// CREATING THE TOAST SHADOW
+		this.toastShadow = game.add.graphics();
+		this.toastShadow.beginFill(0x000000, 0.4);
+
+		// CREATING THE TOAST TEXT
+		this.toastText = game.add.text(0, 0, myText, { font: "bold 24px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" });
+		this.toastText.setShadow(3, 3, "rgba(0,0,0,0.5)", 2);
+		this.toastText.setTextBounds(0, 300, 800, 55);
+
+		// DRAWING THE TOAST SHADOW
+		this.toastShadow.drawRoundedRect(800 / 2 - this.toastText._width / 2 - 11, 303, this.toastText._width + 23, 46, 10);
+
+		// CHECKING IF THE TOAST MUST FADE OUT
+		if (mustFade==true)
+			{
+			// SETTING THAT IN 3 SECONDS THE TOAST MUST FADE OUT
+			setTimeout(function()
+				{
+				// FADING OUT THE TOAST SHADOW AND TEXT
+				game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
+				game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
+				}, 3000);
 			}
 		}
 	};
