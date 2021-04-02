@@ -1347,10 +1347,11 @@ Pool.Game.prototype = {
 		{
 		// CREATING THE TOAST SHADOW
 		this.toastShadow = game.add.graphics();
-		this.toastShadow.beginFill(0x000000, 0.5);
+		this.toastShadow.beginFill(0x000000, 0.6);
 
 		// CREATING THE TOAST TEXT
 		this.toastText = game.add.bitmapText(0, 0, "ArialBlackShadow", myText, 20.5);
+		this.toastText.height = 24;
 		this.toastText.position.x = game.width / 2 - this.toastText.width / 2;
 		this.toastText.position.y = game.height - this.toastText.height - 19;
 
