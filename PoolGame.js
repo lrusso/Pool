@@ -15,17 +15,20 @@ var userLanguage = window.navigator.userLanguage || window.navigator.language;
 
 var STRING_PLAYER1_WINS = "";
 var STRING_PLAYER2_WINS = "";
+var STRING_AI_WINS = "";
 
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
 	{
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
+	STRING_AI_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
 	}
 	else
 	{
 	STRING_PLAYER1_WINS = "Player 1 Wins";
 	STRING_PLAYER2_WINS = "Player 2 Wins";
+	STRING_AI_WINS = "AI Wins";
 	}
 
 var versusAI = false;
@@ -1434,8 +1437,17 @@ Pool.Game.prototype = {
 			}
 		else if (this.turn==Pool.turnPlayer2)
 			{
-			// UPDATING THE GAME STATUS
-			textGameStatus = STRING_PLAYER2_WINS;
+			// CHECKING IF THE USER IS PLAYING AGAINST THE AI
+			if (versusAI==true)
+				{
+				// UPDATING THE GAME STATUS
+				textGameStatus = STRING_AI_WINS;
+				}
+				else
+				{
+				// UPDATING THE GAME STATUS
+				textGameStatus = STRING_PLAYER2_WINS;
+				}
 			}
 
 		// DISPLAYING THE MESSAGE WITH THE GAME STATUS
