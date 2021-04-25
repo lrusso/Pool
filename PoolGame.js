@@ -407,10 +407,6 @@ Pool.Game.prototype = {
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
 		this.input.onUp.add(function(){if(this.turn==Pool.turnPlayer2 && versusAI==true){return};this.takeShot();},this);
-
-
-
-		this.counter = 0;
 		},
 
 	toggleDebug: function()
@@ -1471,43 +1467,42 @@ Pool.Game.prototype = {
 
 	playingAI: function()
 		{
-		// CHECKING IF AT LEAST 20 MS PASSED SINCE THE LAST CHECKING (IN ORDER TO PREVENT HANGINGS)
-			// SETTING THAT THE CUE BALL IS SELECTED BY THE AI
-			this.cueballSelected = true;
+		// SETTING THAT THE CUE BALL IS SELECTED BY THE AI
+		this.cueballSelected = true;
 
-			// HIDING THE CUE AND THE GUIDE LINE WHILE THE AI IS CHECKING EVERY SHOT
-			this.cueContainer.alpha = 0;
-			this.guideLineBall.alpha = 0;
-			this.guideLineContainer.alpha = 0;
+		// HIDING THE CUE AND THE GUIDE LINE WHILE THE AI IS CHECKING EVERY SHOT
+		this.cueContainer.alpha = 0;
+		this.guideLineBall.alpha = 0;
+		this.guideLineContainer.alpha = 0;
 
-			// SETTING HOW ACCURATE THE SEARCH FOR THE NEXT SHOT WILL BE
-			var accurateRate = 0.02;
+		// SETTING HOW ACCURATE THE SEARCH FOR THE SHOT WILL BE
+		var accurateRate = 0.02;
 
-			// HOW THE 'AI' IS CURRENTLY WORKING HERE:
-			// IT WILL CHECK EVERY AVAILABLE ANGLE
-			// AND IF IT CHECKS THAT IT WILL HIT A BALL,
-			// IT WILL TAKE THE SHOT.
+		// HOW THE 'AI' IS CURRENTLY WORKING HERE:
+		// IT WILL CHECK EVERY AVAILABLE ANGLE
+		// AND IF IT CHECKS THAT IT WILL HIT A BALL,
+		// IT WILL TAKE THE SHOT.
 
-			// CHECKING IF ALL THE POSSIBLE ANGLES WEREN'T CHECKED
-			if (this.lastCheckAIAngleCounter<6.28)
-				{
-				// https://stackoverflow.com/questions/35002707/moving-one-end-of-a-phaser-graphics-line
-				var x = 80 * Math.cos(this.lastCheckAIAngleCounter);
-				var y = 80 * Math.sin(this.lastCheckAIAngleCounter);
-				this.lastCheckAIAngleCounter = this.lastCheckAIAngleCounter + (Math.PI * 2 / 360) + accurateRate;
-				}
+		// CHECKING IF ALL THE POSSIBLE ANGLES WEREN'T CHECKED
+		if (this.lastCheckAIAngleCounter<6.28)
+			{
+			// https://stackoverflow.com/questions/35002707/moving-one-end-of-a-phaser-graphics-line
+			var x = 80 * Math.cos(this.lastCheckAIAngleCounter);
+			var y = 80 * Math.sin(this.lastCheckAIAngleCounter);
+			this.lastCheckAIAngleCounter = this.lastCheckAIAngleCounter + (Math.PI * 2 / 360) + accurateRate;
+			}
 
-			// CHECKING IF THE AI CAN HIT A BALL USING THE CURRENT CUE ANGLE
-			if (this.lastCheckAIWillHitBall!=null)
-				{
-				// TAKING THE SHOT WITH A SPEED VALUE
-				this.takeShot(120);
-				}
-				else
-				{
-				// UPDATING THE CUE ANGLE
-				this.updateCue(this.cueball.x + x, this.cueball.y + y);
-				}
+		// CHECKING IF THE AI CAN HIT A BALL USING THE CURRENT CUE ANGLE
+		if (this.lastCheckAIWillHitBall!=null)
+			{
+			// TAKING THE SHOT WITH A SPEED VALUE
+			this.takeShot(120);
+			}
+			else
+			{
+			// UPDATING THE CUE ANGLE
+			this.updateCue(this.cueball.x + x, this.cueball.y + y);
+			}
 		},
 
 	showToast: function(myText)
