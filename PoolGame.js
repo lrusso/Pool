@@ -508,7 +508,7 @@ Pool.Game.prototype = {
 		this.cueballSelected = true;
 		},
 
-	takeShot: function()
+	takeShot: function(AIShotSpeed)
 		{
 		// CHECKING IF THE CUE BALL IS SELECTED
 		if (this.cueballSelected==true)
@@ -522,13 +522,24 @@ Pool.Game.prototype = {
 			// CHECKING IF THE CUE IS VISIBLE
 			if (this.cueContainer.visible == true)
 				{
-				// CHECKING THE SPEED THAT THE CUE BALL IS GOING TO HAVE
-				var speed = (this.aimLine.length / 3);
+				// CREATING THE VARIABLE THAT WILL CONTAIN THE BALL SPEED VALUE
+				var speed;
 
-				// SETTING A LIMIT TO THE SPEED
-				if (speed > 45)
+				// CHECKING IF THE AI SET A SHOT SPEED
+				if (AIShotSpeed)
 					{
-					speed = 45;
+					speed = AIShotSpeed;
+					}
+					else
+					{
+					// CHECKING THE SPEED THAT THE CUE BALL IS GOING TO HAVE
+					speed = (this.aimLine.length / 3);
+
+					// SETTING A LIMIT TO THE SPEED
+					if (speed > 45)
+						{
+						speed = 45;
+						}
 					}
 
 				// APPLYING THE IMPULSE (SHOT) TO THE CUE BALL
@@ -937,8 +948,8 @@ Pool.Game.prototype = {
 
 			// CLEARING ALL THE AI VALUES (IF ANY)
 			this.lastCheckAIPhase = 0;
-			this.lastCheckAIX = 0;
-			this.lastCheckAIY = 0;
+			this.lastCheckAIX = this.cueball.x - 30;
+			this.lastCheckAIY = this.cueball.y - 30;
 			this.lastCheckAIWillHit = false;
 			this.lastCheckAIWillHitBall = null;
 			}
@@ -1476,7 +1487,7 @@ Pool.Game.prototype = {
 			this.guideLineContainer.alpha = 0;
 
 			// SETTING HOW ACCURATE THE SEARCH FOR THE NEXT SHOT WILL BE
-			var accurateRate = 30;
+			var accurateRate = 5;
 
 			// HOW THE 'AI' IS CURRENTLY WORKING HERE:
 			// IT WILL CHECK EVERY AVAILABLE ANGLE
@@ -1486,7 +1497,7 @@ Pool.Game.prototype = {
 			// CHECKING THE AI PHASE
 			if (this.lastCheckAIPhase==0)
 				{
-				if (this.lastCheckAIX<=game.width)
+				if (this.lastCheckAIX<=this.cueball.x + 30)
 					{
 					this.lastCheckAIX = this.lastCheckAIX + accurateRate;
 					}
@@ -1497,7 +1508,7 @@ Pool.Game.prototype = {
 				}
 			else if (this.lastCheckAIPhase==1)
 				{
-				if (this.lastCheckAIY<=game.height)
+				if (this.lastCheckAIY<=this.cueball.y + 30)
 					{
 					this.lastCheckAIY = this.lastCheckAIY + accurateRate;
 					}
@@ -1508,7 +1519,7 @@ Pool.Game.prototype = {
 				}
 			else if (this.lastCheckAIPhase==2)
 				{
-				if (this.lastCheckAIX>1)
+				if (this.lastCheckAIX>this.cueball.x - 30)
 					{
 					this.lastCheckAIX = this.lastCheckAIX - accurateRate;
 					}
@@ -1519,7 +1530,7 @@ Pool.Game.prototype = {
 				}
 			else if (this.lastCheckAIPhase==3)
 				{
-				if (this.lastCheckAIY>1)
+				if (this.lastCheckAIY>this.cueball.y - 30)
 					{
 					this.lastCheckAIY = this.lastCheckAIY - accurateRate;
 					}
@@ -1532,11 +1543,8 @@ Pool.Game.prototype = {
 			// CHECKING IF THE AI CAN HIT A BALL USING THE CURRENT CUE ANGLE
 			if (this.lastCheckAIWillHitBall!=null)
 				{
-				// SETTING THE SHOT SPEED
-				this.speed = 4;
-
 				// TAKING THE SHOT
-				this.takeShot();
+				this.takeShot(120);
 				}
 				else
 				{
