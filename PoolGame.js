@@ -401,7 +401,7 @@ Pool.Game.prototype = {
 		this.buttonPlayer2Shadow.alpha = 0.7;
 		this.buttonPlayer2 = game.add.sprite(749, 380, "imagePlayer2");
 
-		// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
+		// CHECKING IF THE USER IS PLAYING AGAINST THE AI
 		if (versusAI==true)
 			{
 			this.buttonPlayer2.loadTexture("imageAI");
@@ -1543,7 +1543,7 @@ Pool.Game.prototype = {
 			// CHECKING IF THE AI CAN HIT A BALL USING THE CURRENT CUE ANGLE
 			if (this.lastCheckAIWillHitBall!=null)
 				{
-				// TAKING THE SHOT
+				// TAKING THE SHOT WITH A SPEED VALUE
 				this.takeShot(120);
 				}
 				else
