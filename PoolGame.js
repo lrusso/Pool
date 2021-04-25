@@ -220,12 +220,9 @@ Pool.Game = function (game)
 	this.turn = Pool.turnPlayer1;
 	this.turnSwitch = false;
 
-	this.lastCheckAI = 0;
-	this.lastCheckAIX = 0;
-	this.lastCheckAIY = 0;
 	this.lastCheckAIWillHit = null;
 	this.lastCheckAIWillHitBall = null;
-	this.lastCheckAIPhase = 0;
+	this.lastCheckAIAngleCounter = null;
 
 	this.debugKey = null;
 
@@ -253,12 +250,9 @@ Pool.Game.prototype = {
 		this.resetting = false;
 		this.turn = Pool.turnPlayer1;
 
-		this.lastCheckAI = 0;
-		this.lastCheckAIX = 0;
-		this.lastCheckAIY = 0;
 		this.lastCheckAIWillHit = null;
 		this.lastCheckAIWillHitBall = null;
-		this.lastCheckAIPhase = 0;
+		this.lastCheckAIAngleCounter = 0;
 		},
 
 	create: function()
@@ -413,6 +407,10 @@ Pool.Game.prototype = {
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
 		this.input.onUp.add(function(){if(this.turn==Pool.turnPlayer2 && versusAI==true){return};this.takeShot();},this);
+
+
+
+		this.counter = 0;
 		},
 
 	toggleDebug: function()
@@ -947,11 +945,9 @@ Pool.Game.prototype = {
 				}
 
 			// CLEARING ALL THE AI VALUES (IF ANY)
-			this.lastCheckAIPhase = 0;
-			this.lastCheckAIX = this.cueball.x - 30;
-			this.lastCheckAIY = this.cueball.y - 30;
 			this.lastCheckAIWillHit = false;
 			this.lastCheckAIWillHitBall = null;
+			this.lastCheckAIAngleCounter = 0;
 			}
 
 		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
@@ -1476,8 +1472,6 @@ Pool.Game.prototype = {
 	playingAI: function()
 		{
 		// CHECKING IF AT LEAST 20 MS PASSED SINCE THE LAST CHECKING (IN ORDER TO PREVENT HANGINGS)
-		if (this.lastCheckAI+20<this.getCurrentTime())
-			{
 			// SETTING THAT THE CUE BALL IS SELECTED BY THE AI
 			this.cueballSelected = true;
 
@@ -1487,57 +1481,20 @@ Pool.Game.prototype = {
 			this.guideLineContainer.alpha = 0;
 
 			// SETTING HOW ACCURATE THE SEARCH FOR THE NEXT SHOT WILL BE
-			var accurateRate = 5;
+			var accurateRate = 0.02;
 
 			// HOW THE 'AI' IS CURRENTLY WORKING HERE:
 			// IT WILL CHECK EVERY AVAILABLE ANGLE
 			// AND IF IT CHECKS THAT IT WILL HIT A BALL,
 			// IT WILL TAKE THE SHOT.
 
-			// CHECKING THE AI PHASE
-			if (this.lastCheckAIPhase==0)
+			// CHECKING IF ALL THE POSSIBLE ANGLES WEREN'T CHECKED
+			if (this.lastCheckAIAngleCounter<6.28)
 				{
-				if (this.lastCheckAIX<=this.cueball.x + 30)
-					{
-					this.lastCheckAIX = this.lastCheckAIX + accurateRate;
-					}
-					else
-					{
-					this.lastCheckAIPhase = 1;
-					}
-				}
-			else if (this.lastCheckAIPhase==1)
-				{
-				if (this.lastCheckAIY<=this.cueball.y + 30)
-					{
-					this.lastCheckAIY = this.lastCheckAIY + accurateRate;
-					}
-					else
-					{
-					this.lastCheckAIPhase = 2;
-					}
-				}
-			else if (this.lastCheckAIPhase==2)
-				{
-				if (this.lastCheckAIX>this.cueball.x - 30)
-					{
-					this.lastCheckAIX = this.lastCheckAIX - accurateRate;
-					}
-					else
-					{
-					this.lastCheckAIPhase = 3;
-					}
-				}
-			else if (this.lastCheckAIPhase==3)
-				{
-				if (this.lastCheckAIY>this.cueball.y - 30)
-					{
-					this.lastCheckAIY = this.lastCheckAIY - accurateRate;
-					}
-					else
-					{
-					this.lastCheckAIPhase = 4;
-					}
+				// https://stackoverflow.com/questions/35002707/moving-one-end-of-a-phaser-graphics-line
+				var x = 80 * Math.cos(this.lastCheckAIAngleCounter);
+				var y = 80 * Math.sin(this.lastCheckAIAngleCounter);
+				this.lastCheckAIAngleCounter = this.lastCheckAIAngleCounter + (Math.PI * 2 / 360) + accurateRate;
 				}
 
 			// CHECKING IF THE AI CAN HIT A BALL USING THE CURRENT CUE ANGLE
@@ -1549,17 +1506,8 @@ Pool.Game.prototype = {
 				else
 				{
 				// UPDATING THE CUE ANGLE
-				this.updateCue(this.lastCheckAIX, this.lastCheckAIY);
+				this.updateCue(this.cueball.x + x, this.cueball.y + y);
 				}
-
-			// UPDATING THE LAST TIME THAT THE AI PERFORMED A CHECKING
-			this.lastCheckAI = this.getCurrentTime();
-			}
-		},
-
-	getCurrentTime: function()
-		{
-		return window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
 		},
 
 	showToast: function(myText)
