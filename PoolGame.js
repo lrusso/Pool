@@ -16,6 +16,7 @@ var userLanguage = window.navigator.userLanguage || window.navigator.language;
 var STRING_PLAYER1_WINS = "";
 var STRING_PLAYER2_WINS = "";
 var STRING_AI_WINS = "";
+var STRING_VS_HUMAN = "";
 
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
@@ -23,12 +24,14 @@ if (userLanguage.substring(0,2)=="es")
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	STRING_AI_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
+	STRING_VS_HUMAN = "VS JUGADOR";
 	}
 	else
 	{
 	STRING_PLAYER1_WINS = "Player 1 Wins";
 	STRING_PLAYER2_WINS = "Player 2 Wins";
 	STRING_AI_WINS = "AI Wins";
+	STRING_VS_HUMAN = "VS HUMAN";
 	}
 
 var versusCPU = false;
@@ -232,7 +235,7 @@ Pool.Menu.prototype = {
 			},this);
 
 		// ADDING THE VS PLAYER TEXT
-		this.menuVSPlayerText = game.add.bitmapText(100, 327, "ArialBlackShadow", "VS HUMAN", 15.5);
+		this.menuVSPlayerText = game.add.bitmapText(100, 327, "ArialBlackShadow", STRING_VS_HUMAN, 15.5);
 		this.menuVSPlayerText.height = 19;
 		this.menuVSPlayerText.position.x = 100 + this.menuVSPlayerButton.width / 2 - this.menuVSPlayerText.width / 2;
 
@@ -298,6 +301,8 @@ Pool.Game = function (game)
 	this.player2BallType = null;
 	this.player2Hitted = null;
 
+	this.buttonBack = null;
+	this.buttonBackShadow = null;
 	this.buttonRestart = null;
 	this.buttonRestartShadow = null;
 	this.buttonPlayer1 = null;
@@ -370,6 +375,8 @@ Pool.Game.prototype = {
 		this.player2BallType = null;
 		this.player2Hitted = 0;
 
+		this.buttonBack = null;
+		this.buttonBackShadow = null;
 		this.buttonRestart = null;
 		this.buttonRestartShadow = null;
 		this.buttonPlayer1 = null;
@@ -1083,7 +1090,7 @@ Pool.Game.prototype = {
 		if (this.turn == Pool.turnPlayer2 && this.cueContainer.visible == true && versusCPU==true)
 			{
 			// STARTING THE CPU
-			this.playingAI();
+			this.playingCPU();
 			}
 			else
 			{
@@ -1604,7 +1611,7 @@ Pool.Game.prototype = {
 			}
 		},
 
-	playingAI: function()
+	playingCPU: function()
 		{
 		// SETTING THAT THE CUE BALL IS SELECTED BY THE CPU
 		this.cueballSelected = true;
