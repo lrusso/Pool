@@ -15,7 +15,7 @@ var userLanguage = window.navigator.userLanguage || window.navigator.language;
 
 var STRING_PLAYER1_WINS = "";
 var STRING_PLAYER2_WINS = "";
-var STRING_AI_WINS = "";
+var STRING_CPU_WINS = "";
 var STRING_VS_HUMAN = "";
 
 // CHECKING THE USER LANGUAGE
@@ -23,14 +23,14 @@ if (userLanguage.substring(0,2)=="es")
 	{
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
-	STRING_AI_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
+	STRING_CPU_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
 	STRING_VS_HUMAN = "VS JUGADOR";
 	}
 	else
 	{
 	STRING_PLAYER1_WINS = "Player 1 Wins";
 	STRING_PLAYER2_WINS = "Player 2 Wins";
-	STRING_AI_WINS = "AI Wins";
+	STRING_CPU_WINS = "CPU Wins";
 	STRING_VS_HUMAN = "VS HUMAN";
 	}
 
@@ -199,9 +199,11 @@ Pool.Menu.prototype = {
 		this.menuTitle = null;
 		this.menuVersion = null;
 		this.menuVSPlayerButton = null;
+		this.menuVSPlayerTextShadow = null;
 		this.menuVSPlayerText = null;
-		this.menuVSAIButton = null;
-		this.menuVSAIText = null;
+		this.menuVSCPUButton = null;
+		this.menuVSCPUTextShadow = null;
+		this.menuVSCPUText = null;
 		},
 
 	create: function()
@@ -232,16 +234,22 @@ Pool.Menu.prototype = {
 			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
 			},this);
 
+		// ADDING THE VS PLAYER TEXT SHADOW
+		this.menuVSPlayerTextShadow = game.add.bitmapText(101, 327.5, "ArialBlackShadow", STRING_VS_HUMAN, 15.5);
+		this.menuVSPlayerTextShadow.height = 19;
+		this.menuVSPlayerTextShadow.tint = 0x000000;
+		this.menuVSPlayerTextShadow.position.x = 102 + this.menuVSPlayerButton.width / 2 - this.menuVSPlayerTextShadow.width / 2;
+
 		// ADDING THE VS PLAYER TEXT
-		this.menuVSPlayerText = game.add.bitmapText(100, 327, "ArialBlackShadow", STRING_VS_HUMAN, 16);
+		this.menuVSPlayerText = game.add.bitmapText(100, 327, "ArialBlackShadow", STRING_VS_HUMAN, 15.5);
 		this.menuVSPlayerText.height = 19;
 		this.menuVSPlayerText.position.x = 101 + this.menuVSPlayerButton.width / 2 - this.menuVSPlayerText.width / 2;
 
-		// ADDING THE VS AI BUTTON
-		this.menuVSAIButton = game.add.sprite(541, 312.5, "imageMenuButton");
-		this.menuVSAIButton.inputEnabled = true;
-		this.menuVSAIButton.input.useHandCursor = true;
-		this.menuVSAIButton.events.onInputUp.add(function()
+		// ADDING THE VS CPU BUTTON
+		this.menuVSCPUButton = game.add.sprite(541, 312.5, "imageMenuButton");
+		this.menuVSCPUButton.inputEnabled = true;
+		this.menuVSCPUButton.input.useHandCursor = true;
+		this.menuVSCPUButton.events.onInputUp.add(function()
 			{
 			// SETTING THAT THE USER WON'T BE PLAYING AGAINST THE CPU
 			versusCPU = true;
@@ -250,10 +258,16 @@ Pool.Menu.prototype = {
 			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
 			},this);
 
-		// ADDING THE VS AI TEXT
-		this.menuVSAIText = game.add.bitmapText(100, 327, "ArialBlackShadow", "VS CPU", 16);
-		this.menuVSAIText.height = 19;
-		this.menuVSAIText.position.x = 541 + this.menuVSAIButton.width / 2 - this.menuVSAIText.width / 2;
+		// ADDING THE VS CPU TEXT SHADOW
+		this.menuVSCPUTextShadow = game.add.bitmapText(101, 327.5, "ArialBlackShadow", "VS CPU", 15.5);
+		this.menuVSCPUTextShadow.height = 19;
+		this.menuVSCPUTextShadow.tint = 0x000000;
+		this.menuVSCPUTextShadow.position.x = 542.25 + this.menuVSPlayerButton.width / 2 - this.menuVSCPUTextShadow.width / 2;
+
+		// ADDING THE VS CPU TEXT
+		this.menuVSCPUText = game.add.bitmapText(100, 327, "ArialBlackShadow", "VS CPU", 15.5);
+		this.menuVSCPUText.height = 19;
+		this.menuVSCPUText.position.x = 541 + this.menuVSCPUButton.width / 2 - this.menuVSCPUText.width / 2;
 		}
 	};
 
@@ -1569,7 +1583,7 @@ Pool.Game.prototype = {
 			if (versusCPU==true)
 				{
 				// UPDATING THE GAME STATUS
-				textGameStatus = STRING_AI_WINS;
+				textGameStatus = STRING_CPU_WINS;
 				}
 				else
 				{
