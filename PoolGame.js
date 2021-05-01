@@ -321,6 +321,8 @@ Pool.Game = function (game)
 	this.turn = null;
 	this.turnSwitch = null;
 
+	this.isGameOver = null;
+
 	this.lastCheckCPUWillHit = null;
 	this.lastCheckCPUWillHitBall = null;
 	this.lastCheckCPUAngleCounter = null;
@@ -394,6 +396,8 @@ Pool.Game.prototype = {
 
 		this.turn = Pool.turnPlayer1;
 		this.turnSwitch = false;
+
+		this.isGameOver = false;
 
 		this.lastCheckCPUWillHit = null;
 		this.lastCheckCPUWillHitBall = null;
@@ -775,6 +779,9 @@ Pool.Game.prototype = {
 						{
 						// IF THE PLAYER 1 HITS THE BLACK BALL, GAME OVER
 						this.gameOver();
+
+						// SETTING THAT THE GAME IS OVER
+						this.isGameOver = true;
 						}
 					}
 				else
@@ -817,6 +824,9 @@ Pool.Game.prototype = {
 							// IF IT IS NOT THE CASE, GAME OVER
 							this.gameOver();
 							}
+
+						// SETTING THAT THE GAME IS OVER
+						this.isGameOver = true;
 						}
 					}
 				}
@@ -870,6 +880,9 @@ Pool.Game.prototype = {
 						{
 						// IF THE PLAYER 2 HITS THE BLACK BALL, GAME OVER
 						this.gameOver();
+
+						// SETTING THAT THE GAME IS OVER
+						this.isGameOver = true;
 						}
 					}
 					else
@@ -911,6 +924,9 @@ Pool.Game.prototype = {
 							// IF IT IS NOT THE CASE, GAME OVER
 							this.gameOver();
 							}
+
+						// SETTING THAT THE GAME IS OVER
+						this.isGameOver = true;
 						}
 					}
 				}
@@ -1094,16 +1110,27 @@ Pool.Game.prototype = {
 		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
 		this.updateSpeed();
 
-		// CHECKING IF THE CPU IS PLAYING
-		if (this.turn == Pool.turnPlayer2 && this.cueContainer.visible == true && versusCPU==true)
+		// CHECKING IF THE GAME IS NOT OVER
+		if (this.isGameOver==false)
 			{
-			// STARTING THE CPU
-			this.playingCPU();
+			// CHECKING IF THE CPU IS PLAYING
+			if (this.turn == Pool.turnPlayer2 && this.cueContainer.visible == true && versusCPU==true)
+				{
+				// STARTING THE CPU
+				this.playingCPU();
+				}
+				else
+				{
+				// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
+				this.updateCue(this.input.activePointer.x,this.input.activePointer.y);
+				}
 			}
 			else
 			{
-			// CHECKING THE CUE LOCATION ACCORDING TO THE MOUSE OR FINGER LOCATION
-			this.updateCue(this.input.activePointer.x,this.input.activePointer.y);
+			// HIDING THE CUE AND THE GUIDE LINE BECAUSE THE GAME IS OVER
+			this.cueContainer.alpha = 0;
+			this.guideLineBall.alpha = 0;
+			this.guideLineContainer.alpha = 0;
 			}
 		},
 
@@ -1649,6 +1676,48 @@ Pool.Game.prototype = {
 		// CHECKING IF THE CPU CAN HIT A BALL USING THE CURRENT CUE ANGLE
 		if (this.lastCheckCPUWillHitBall!=null)
 			{
+			var mustTakeTheShot = false;
+
+			// CHECKING IF THE CPU MUST HIT THAT KIND OF BALL (STRIPE OR SOLID)
+			if ((this.lastCheckCPUWillHitBall<8 && this.player2BallType == Pool.typeSolids) || (this.lastCheckCPUWillHitBall>8 && this.player2BallType == Pool.typeStripes))
+				{
+				// SETTING THAT THE CPU MUST TAKE THE SHOT
+				mustTakeTheShot = true;
+				}
+
+			// CHECKING IF THERE ISN'T A BALL TYPE DEFINED
+			else if (this.player2BallType==null)
+				{
+				// SETTING THAT THE CPU MUST TAKE THE SHOT
+				mustTakeTheShot = true;
+				}
+
+			// CHECKING IF THE CPU MUST TAKE THE SHOT
+			if (mustTakeTheShot==true)
+				{
+				// TAKING THE SHOT WITH A SPEED VALUE
+				this.takeShot(120);
+
+				// CLEARING ALL THE CPU VALUES
+				this.lastCheckCPUWillHit = false;
+				this.lastCheckCPUWillHitBall = null;
+				this.lastCheckCPUAngleCounter = 0;
+				}
+				else
+				{
+				// UPDATING THE CUE ANGLE
+				this.updateCue(this.cueball.x + x, this.cueball.y + y);
+				}
+			}
+			else
+			{
+			// UPDATING THE CUE ANGLE
+			this.updateCue(this.cueball.x + x, this.cueball.y + y);
+			}
+
+		// CHECKING IF THE CPU DIDN'T FIND ANY SHOT - WILL TAKE THE LAST SHOT ANYWAY
+		if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null)
+			{
 			// TAKING THE SHOT WITH A SPEED VALUE
 			this.takeShot(120);
 
@@ -1656,11 +1725,6 @@ Pool.Game.prototype = {
 			this.lastCheckCPUWillHit = false;
 			this.lastCheckCPUWillHitBall = null;
 			this.lastCheckCPUAngleCounter = 0;
-			}
-			else
-			{
-			// UPDATING THE CUE ANGLE
-			this.updateCue(this.cueball.x + x, this.cueball.y + y);
 			}
 		},
 
