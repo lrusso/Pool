@@ -1679,10 +1679,18 @@ Pool.Game.prototype = {
 		// CHECKING IF THE CPU CAN HIT A BALL USING THE CURRENT CUE ANGLE
 		if (this.lastCheckCPUWillHitBall!=null)
 			{
+			// CREATING A VARIABLE TO KNOW WHEN THE CPU MUST TAKE THE SHOT
 			var mustTakeTheShot = false;
 
 			// CHECKING IF THE CPU MUST HIT THAT KIND OF BALL (STRIPE OR SOLID)
 			if ((this.lastCheckCPUWillHitBall<8 && this.player2BallType == Pool.typeSolids) || (this.lastCheckCPUWillHitBall>8 && this.player2BallType == Pool.typeStripes))
+				{
+				// SETTING THAT THE CPU MUST TAKE THE SHOT
+				mustTakeTheShot = true;
+				}
+
+			// CHECKING IF THE CPU HITTED 7 BALLS AND IF THE BALL 8 IS SELECTED FOR THE NEXT SHOT
+			if (this.player2Hitted==7 && this.lastCheckCPUWillHitBall==8)
 				{
 				// SETTING THAT THE CPU MUST TAKE THE SHOT
 				mustTakeTheShot = true;
