@@ -1044,8 +1044,12 @@ Pool.Game.prototype = {
 		// SETTING THE RESETTING VARIABLE TO FALSE
 		this.resetting = false;
 
-		// REMOVING THE REFERENCE TO THE 'PLACECUEBALL' FUNCTION, THAT WAS CALLED WHEN THE MOUSE OR FINGER IS UP
-		this.input.onUp.remove(this.placeCueBall, this);
+		// CHECKING IF A HUMAN IS PLAYING
+		if (this.turn == Pool.turnPlayer1 || (this.turn == Pool.turnPlayer2 && versusCPU==false))
+			{
+			// REMOVING THE REFERENCE TO THE 'PLACECUEBALL' FUNCTION, THAT WAS CALLED WHEN THE MOUSE OR FINGER IS UP
+			this.input.onUp.remove(this.placeCueBall, this);
+			}
 
 		// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
 		this.input.onUp.add(function(){if(this.turn==Pool.turnPlayer2 && versusCPU==true){return};this.takeShot();},this);
