@@ -244,13 +244,13 @@ Pool.Menu.prototype = {
 			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
 			},this);
 
-		// ADDING THE 'PLAY WITH' TEXT SHADOW
+		// ADDING THE 'MATCH WITH' TEXT SHADOW
 		this.menuVSPlayerLine1TextShadow = game.add.bitmapText(101, 332.5, "ArialBlackShadow", STRING_MATCHWITH, 15.5);
 		this.menuVSPlayerLine1TextShadow.height = 19;
 		this.menuVSPlayerLine1TextShadow.tint = 0x000000;
 		this.menuVSPlayerLine1TextShadow.position.x = 102 + this.menuVSPlayerButton.width / 2 - this.menuVSPlayerLine1TextShadow.width / 2;
 
-		// ADDING THE 'PLAY WITH' TEXT
+		// ADDING THE 'MATCH WITH' TEXT
 		this.menuVSPlayerLine1Text = game.add.bitmapText(100, 332, "ArialBlackShadow", STRING_MATCHWITH, 15.5);
 		this.menuVSPlayerLine1Text.height = 19;
 		this.menuVSPlayerLine1Text.position.x = 101 + this.menuVSPlayerButton.width / 2 - this.menuVSPlayerLine1Text.width / 2;
@@ -279,13 +279,13 @@ Pool.Menu.prototype = {
 			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
 			},this);
 
-		// ADDING THE 'PLAY WITH' TEXT SHADOW
+		// ADDING THE 'MATCH WITH' TEXT SHADOW
 		this.menuVSCPULine1TextShadow = game.add.bitmapText(101, 332.5, "ArialBlackShadow", STRING_MATCHWITH, 15.5);
 		this.menuVSCPULine1TextShadow.height = 19;
 		this.menuVSCPULine1TextShadow.tint = 0x000000;
 		this.menuVSCPULine1TextShadow.position.x = 542.25 + this.menuVSPlayerButton.width / 2 - this.menuVSCPULine1TextShadow.width / 2;
 
-		// ADDING THE 'PLAY WITH' TEXT
+		// ADDING THE 'MATCH WITH' TEXT
 		this.menuVSCPULine1Text = game.add.bitmapText(100, 332, "ArialBlackShadow", STRING_MATCHWITH, 15.5);
 		this.menuVSCPULine1Text.height = 19;
 		this.menuVSCPULine1Text.position.x = 541 + this.menuVSCPUButton.width / 2 - this.menuVSCPULine1Text.width / 2;
