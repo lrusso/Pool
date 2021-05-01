@@ -1630,7 +1630,7 @@ Pool.Game.prototype = {
 		this.guideLineContainer.alpha = 0;
 
 		// SETTING HOW ACCURATE THE SEARCH FOR THE SHOT WILL BE
-		var accurateRate = 0.02;
+		var accurateRate = 0.5;
 
 		// HOW THE 'CPU' IS CURRENTLY WORKING HERE:
 		// IT WILL CHECK EVERY AVAILABLE ANGLE
@@ -1651,11 +1651,6 @@ Pool.Game.prototype = {
 			{
 			// TAKING THE SHOT WITH A SPEED VALUE
 			this.takeShot(120);
-
-			// CLEARING ALL THE CPU VALUES
-			this.lastCheckCPUWillHit = false;
-			this.lastCheckCPUWillHitBall = null;
-			this.lastCheckCPUAngleCounter = 0;
 			}
 			else
 			{
