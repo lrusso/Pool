@@ -326,6 +326,7 @@ Pool.Game = function (game)
 	this.lastCheckCPUWillHit = null;
 	this.lastCheckCPUWillHitBall = null;
 	this.lastCheckCPUAngleCounter = null;
+	this.lastCheckCPUAngleAccurate = null;
 
 	this.debugKey = null;
 
@@ -402,6 +403,7 @@ Pool.Game.prototype = {
 		this.lastCheckCPUWillHit = null;
 		this.lastCheckCPUWillHitBall = null;
 		this.lastCheckCPUAngleCounter = null;
+		this.lastCheckCPUAngleAccurate = 0.5;
 
 		this.debugKey = null;
 		},
@@ -1105,6 +1107,7 @@ Pool.Game.prototype = {
 			this.lastCheckCPUWillHit = false;
 			this.lastCheckCPUWillHitBall = null;
 			this.lastCheckCPUAngleCounter = 0;
+			this.lastCheckCPUAngleAccurate = 0.5;
 			}
 
 		// CHECKING THE SPEED OF EVERY BALL ON THE TABLE
@@ -1656,13 +1659,13 @@ Pool.Game.prototype = {
 		this.guideLineBall.alpha = 0;
 		this.guideLineContainer.alpha = 0;
 
-		// SETTING HOW ACCURATE THE SEARCH FOR THE SHOT WILL BE
-		var accurateRate = 0.5;
-
 		// HOW THE 'CPU' IS CURRENTLY WORKING HERE:
 		// IT WILL CHECK EVERY AVAILABLE ANGLE
 		// AND IF IT CHECKS THAT IT WILL HIT A BALL,
 		// IT WILL TAKE THE SHOT.
+
+		// THE lastCheckCPUAngleAccurate VARIABLE WILL
+		// SET HOW ACCURATE THE SEARCH FOR THE SHOT WILL BE.
 
 		// CHECKING IF ALL THE POSSIBLE ANGLES WEREN'T CHECKED
 		if (this.lastCheckCPUAngleCounter<6.28)
@@ -1670,7 +1673,7 @@ Pool.Game.prototype = {
 			// https://stackoverflow.com/questions/35002707/moving-one-end-of-a-phaser-graphics-line
 			var x = 80 * Math.cos(this.lastCheckCPUAngleCounter);
 			var y = 80 * Math.sin(this.lastCheckCPUAngleCounter);
-			this.lastCheckCPUAngleCounter = this.lastCheckCPUAngleCounter + (Math.PI * 2 / 360) + accurateRate;
+			this.lastCheckCPUAngleCounter = this.lastCheckCPUAngleCounter + (Math.PI * 2 / 360) + this.lastCheckCPUAngleAccurate;
 			}
 
 		// CHECKING IF THE CPU CAN HIT A BALL USING THE CURRENT CUE ANGLE
@@ -1702,6 +1705,7 @@ Pool.Game.prototype = {
 				this.lastCheckCPUWillHit = false;
 				this.lastCheckCPUWillHitBall = null;
 				this.lastCheckCPUAngleCounter = 0;
+				this.lastCheckCPUAngleAccurate = 0.5;
 				}
 				else
 				{
@@ -1715,8 +1719,15 @@ Pool.Game.prototype = {
 			this.updateCue(this.cueball.x + x, this.cueball.y + y);
 			}
 
-		// CHECKING IF THE CPU DIDN'T FIND ANY SHOT - WILL TAKE THE LAST SHOT ANYWAY
-		if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null)
+		// CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE DEFAULT ACCURATE VALUE
+		if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null && this.lastCheckCPUAngleAccurate==0.5)
+			{
+			// PERFOMING A SECOND SEARCH WITH A MORE ACCURATE VALUE
+			this.lastCheckCPUAngleAccurate = 0.25;
+			this.lastCheckCPUAngleCounter = 0;
+			}
+		// CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE MORE ACCURATE VALUE - WILL TAKE THE LAST SHOT ANWAY
+		else if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null && this.lastCheckCPUAngleAccurate==0.25)
 			{
 			// TAKING THE SHOT WITH A SPEED VALUE
 			this.takeShot(120);
@@ -1725,6 +1736,7 @@ Pool.Game.prototype = {
 			this.lastCheckCPUWillHit = false;
 			this.lastCheckCPUWillHitBall = null;
 			this.lastCheckCPUAngleCounter = 0;
+			this.lastCheckCPUAngleAccurate = 0.5;
 			}
 		},
 
