@@ -1527,25 +1527,28 @@ Pool.Game.prototype = {
 		d = Math.sqrt(b * b - 2 * c * (v2.x * v2.x + v2.y * v2.y - circle.radius * circle.radius));
 
 		if(isNaN(d))
-			{ // no intercept
+			{
+			// NO INTERCEPT
 			return [];
 			}
 
-		u1 = (b - d) / c;  // these represent the unit distance of point one and two on the line
-		u2 = (b + d) / c;    
-		retP1 = {};   // return points
-		retP2 = {}  
-		ret = []; // return array
+		u1 = (b - d) / c; // THESE REPRESENT THE UNIT DISTANCE OF POINT ONE AND TWO ON THE LINE
+		u2 = (b + d) / c;
+		retP1 = {}; // RETURN POINTS
+		retP2 = {}
+		ret = []; // RETURN ARRAY
 
 		if(u1 <= 1 && u1 >= 0)
-			{  // add point if on the line segment
+			{
+			// ADD POINT IF ON THE LINE SEGMENT
 			retP1.x = line.p1.x + v1.x * u1;
 			retP1.y = line.p1.y + v1.y * u1;
 			ret[0] = retP1;
 			}
 
 		if(u2 <= 1 && u2 >= 0)
-			{  // second add point if on the line segment
+			{
+			// SECOND ADD POINT IF ON THE LINE SEGMENT
 			retP2.x = line.p1.x + v1.x * u2;
 			retP2.y = line.p1.y + v1.y * u2;
 			ret[ret.length] = retP2;
