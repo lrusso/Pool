@@ -1651,6 +1651,11 @@ Pool.Game.prototype = {
 			{
 			// TAKING THE SHOT WITH A SPEED VALUE
 			this.takeShot(120);
+
+			// CLEARING ALL THE CPU VALUES
+			this.lastCheckCPUWillHit = false;
+			this.lastCheckCPUWillHitBall = null;
+			this.lastCheckCPUAngleCounter = 0;
 			}
 			else
 			{
