@@ -1288,9 +1288,23 @@ Pool.Game.prototype = {
 						}
 						else
 						{
-						// GETTING THE MOUSE OR FINGER POSITION
-						var locationX = this.input.activePointer.x;
-						var locationY = this.input.activePointer.y;
+						// CREATING VARIABLES TO SET THE CUEBALL POSITION
+						var locationX;
+						var locationY;
+
+						// CHECKING IF A HUMAN IS PLAYING
+						if (this.turn == Pool.turnPlayer1 || (this.turn == Pool.turnPlayer2 && versusCPU==false))
+							{
+							// GETTING THE MOUSE OR FINGER POSITION
+							locationX = this.input.activePointer.x;
+							locationY = this.input.activePointer.y;
+							}
+						// OTHERWISE, THE CPU IS PLAYING AND RANDOM VALUES FOR X AND Y ARE USED
+						else
+							{
+							locationX = Math.floor(Math.random() * game.width);
+							locationY = Math.floor(Math.random() * game.height);
+							}
 
 						// CHECKING IF THE MOUSE OR FINGER (THAT IT'S CURRENTLY MOVING THE CUE BALL)
 						// IS ON THE PLAYABLE SURFACE IN ORDER TO ALLOW (OR NOT) THE CUE BALL MOVEMENT.
@@ -1340,8 +1354,17 @@ Pool.Game.prototype = {
 					// REMOVING THE REFERENCE TO THE 'TAKESHOT' FUNCTION, THAT WAS CALLED WHEN THE MOUSE OR FINGER IS UP
 					this.input.onUp.remove(this.takeShot, this);
 
-					// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
-					this.input.onUp.add(this.placeCueBall, this);
+					// CHECKING IF A HUMAN IS PLAYING
+					if (this.turn == Pool.turnPlayer1 || (this.turn == Pool.turnPlayer2 && versusCPU==false))
+						{
+						// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS UP
+						this.input.onUp.add(this.placeCueBall, this);
+						}
+						else
+						{
+						// OTHERWISE, TRYING TO PLACE THE CUEBALL FOR THE CPU WITH THE RANDOM X AND Y VALUES GENERATED
+						this.placeCueBall();
+						}
 					}
 					else
 					{
