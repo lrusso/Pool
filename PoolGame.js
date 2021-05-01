@@ -1654,8 +1654,17 @@ Pool.Game.prototype = {
 		// CHECKING THE CURRENT TURN
 		if (this.turn==Pool.turnPlayer1)
 			{
-			// UPDATING THE GAME STATUS
-			textGameStatus = STRING_PLAYER2_WINS;
+			// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
+			if (versusCPU==true)
+				{
+				// UPDATING THE GAME STATUS
+				textGameStatus = STRING_CPU_WINS;
+				}
+				else
+				{
+				// UPDATING THE GAME STATUS
+				textGameStatus = STRING_PLAYER2_WINS;
+				}
 			}
 		else if (this.turn==Pool.turnPlayer2)
 			{
