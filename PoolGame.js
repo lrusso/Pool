@@ -788,8 +788,12 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
 
-						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
-						this.turnSwitch = false;
+						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
+						if (this.resetting==false)
+							{
+							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
+							this.turnSwitch = false;
+							}
 						}
 					// CHECKING IF THE BALL IS A STRIPE ONE
 					else if (ballNumber>8)
@@ -808,8 +812,12 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
 
-						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
-						this.turnSwitch = false;
+						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
+						if (this.resetting==false)
+							{
+							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
+							this.turnSwitch = false;
+							}
 						}
 					else
 						{
@@ -833,8 +841,12 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
 
-						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
-						this.turnSwitch = false;
+						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
+						if (this.resetting==false)
+							{
+							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
+							this.turnSwitch = false;
+							}
 						}
 					// CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 2
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
@@ -889,8 +901,12 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
 
-						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
-						this.turnSwitch = false;
+						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
+						if (this.resetting==false)
+							{
+							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
+							this.turnSwitch = false;
+							}
 						}
 					// CHECKING IF THE BALL IS A STRIPE ONE
 					else if (ballNumber>8)
@@ -909,8 +925,12 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
 
-						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
-						this.turnSwitch = false;
+						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
+						if (this.resetting==false)
+							{
+							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
+							this.turnSwitch = false;
+							}
 						}
 					else
 						{
@@ -944,8 +964,12 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
 
-						// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
-						this.turnSwitch = false;
+						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
+						if (this.resetting==false)
+							{
+							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
+							this.turnSwitch = false;
+							}
 						}
 					else
 						{
