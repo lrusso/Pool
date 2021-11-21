@@ -1741,8 +1741,8 @@ Pool.Game.prototype = {
 		if (this.getCurrentTime()>this.lastCheckCPUMustWait+1500)
 			{
 			// HOW THE 'CPU' IS CURRENTLY WORKING HERE:
-			// IT WILL CHECK EVERY AVAILABLE ANGLE
-			// AND IF IT CHECKS THAT IT WILL HIT A BALL,
+			// IT WILL CHECK EVERY AVAILABLE ANGLE,
+			// IF IT CHECKS THAT IT WILL HIT A BALL,
 			// IT WILL TAKE THE SHOT.
 
 			// THE lastCheckCPUAngleAccurate VARIABLE WILL
@@ -1815,7 +1815,8 @@ Pool.Game.prototype = {
 				this.lastCheckCPUAngleAccurate = 0.25;
 				this.lastCheckCPUAngleCounter = 0;
 				}
-			// CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE MORE ACCURATE VALUE - WILL TAKE THE LAST SHOT ANWAY
+
+			// CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE MORE ACCURATE VALUE - WILL TAKE THE LAST SHOT ANYWAY
 			else if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null && this.lastCheckCPUAngleAccurate==0.25)
 				{
 				// TAKING THE SHOT WITH A SPEED VALUE
