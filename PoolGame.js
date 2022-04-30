@@ -402,6 +402,7 @@ Pool.Game = function (game)
 	this.guideLineContainer = null;
 	this.guideLineBall = null;
 	this.guideLine = null;
+	this.guideLineResult = null;
 
 	this.cueContainer = null;
 	this.cueImage = null;
@@ -480,6 +481,7 @@ Pool.Game.prototype = {
 		this.guideLineContainer = null;
 		this.guideLineBall = null;
 		this.guideLine = null;
+		this.guideLineResult = null;
 
 		this.cueContainer = null;
 		this.cueImage = null;
@@ -634,6 +636,9 @@ Pool.Game.prototype = {
 		this.cueImage = this.add.sprite(0, -6.25, "imageCue");
 		this.cueContainer.addChild(this.cueImage);
 		this.aimLine = new Phaser.Line(this.cueball.x, this.cueball.y, this.cueball.x, this.cueball.y);
+
+		// ADDING THE GUIDE LINE RESULT
+		this.guideLineResult = this.add.graphics(0,0);
 
 		// ADDING THE BACK BUTTON
 		this.buttonBackShadow = game.add.sprite(5, 5, "imageBack");
@@ -825,6 +830,9 @@ Pool.Game.prototype = {
 
 			// HIDING THE GUIDE LINE BALL
 			this.guideLineBall.clear();
+
+			// HIDING THE GUIDE LINE RESULT
+			this.guideLineResult.clear();
 
 			// SETTING THAT THE CUE BALL IS NOT SELECTED
 			this.cueballSelected = false;
@@ -1651,6 +1659,28 @@ Pool.Game.prototype = {
 								this.guideLineBall.clear();
 								this.guideLineBall.beginFill(0xFFFFFF, 0.2);
 								this.guideLineBall.drawCircle(Math.ceil(b.x), Math.ceil(b.y), 26);
+
+								// GETTING THE BALL DIRECTION AFTER COLLISION
+								// https://stackoverflow.com/questions/30497287/elastic-2d-ball-collision-using-angles
+								var cx = ball.x;
+								var cy = ball.y;
+								var vx = 0;
+								var vy = 0;
+								var cx2 = distance[0].x;
+								var cy2 = distance[0].y;
+								var vx2 = 25;
+								var vy2 = 25;
+								var ang = Math.atan2(cy - cy2, cx - cx2);
+								var d2 = Math.atan2(vx, vy);
+								var newvx2 = vx2 * Math.cos(d2 - ang);
+								var newvy2 = vy2 * Math.sin(d2 - ang);
+								newvy2 = newvy2 * -1;
+
+								// DRAWING THE GUIDE LINE RESULT AFTER COLLISION
+								this.guideLineResult.clear();
+								this.guideLineResult.lineStyle(1, 0xFFFFFF, 0.25);
+								this.guideLineResult.moveTo(ball.x, ball.y);
+								this.guideLineResult.lineTo(ball.x + newvx2, ball.y + newvy2);
 								}
 							}
 						}
@@ -1672,6 +1702,9 @@ Pool.Game.prototype = {
 
 				// HIDING THE GUIDE LINE BALL
 				this.guideLineBall.clear();
+
+				// HIDING THE GUIDE LINE RESULT
+				this.guideLineResult.clear();
 				}
 
 			// SHOWING THE GUIDE LINE
