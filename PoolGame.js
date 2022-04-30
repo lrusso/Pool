@@ -303,8 +303,8 @@ Pool.Difficulty.prototype = {
 		{
 		this.difficultyBackground = null;
 		this.difficultyTitle = null;
-		this.difficultyGoBackShadow = null;
-		this.difficultyGoBack = null;
+		this.difficultyBackShadow = null;
+		this.difficultyBack = null;
 		this.difficultyEasyButton = null;
 		this.difficultyEasyText = null;
 		this.difficultyNormalButton = null;
@@ -319,11 +319,11 @@ Pool.Difficulty.prototype = {
 		this.difficultyBackground = game.add.sprite(0, 0, "imageMenuBackground");
 
 		// ADDING THE BACK BUTTON
-		this.buttonBackShadow = game.add.sprite(5, 5, "imageBack");
-		this.buttonBackShadow.tint = 0x000000;
-		this.buttonBackShadow.alpha = 0.7;
-		this.buttonBack = game.add.button(3, 3, "imageBack", null, this, 2, 1, 0);
-		this.buttonBack.onInputUp.add(function(){game.state.start("Pool.Menu", Phaser.Plugin.StateTransition.Out.SlideRight);}, this);
+		this.difficultyBackShadow = game.add.sprite(5, 5, "imageBack");
+		this.difficultyBackShadow.tint = 0x000000;
+		this.difficultyBackShadow.alpha = 0.7;
+		this.difficultyBack = game.add.button(3, 3, "imageBack", null, this, 2, 1, 0);
+		this.difficultyBack.onInputUp.add(function(){game.state.start("Pool.Menu", Phaser.Plugin.StateTransition.Out.SlideRight);}, this);
 
 		// ADDING THE DIFFICULTY SELECTOR TITLE LABEL
 		this.difficultyTitle = game.add.bitmapText(0, 30, "ArialBlackWhiteBig", STRING_DIFFICULTY, 35.5);
@@ -638,7 +638,7 @@ Pool.Game.prototype = {
 		this.buttonBackShadow.tint = 0x000000;
 		this.buttonBackShadow.alpha = 0.7;
 		this.buttonBack = game.add.button(3, 3, "imageBack", null, this, 2, 1, 0);
-		this.buttonBack.onInputUp.add(function(){game.state.start("Pool.Menu", Phaser.Plugin.StateTransition.Out.SlideRight);}, this);
+		this.buttonBack.onInputUp.add(function(){if(versusCPU==true){game.state.start("Pool.Difficulty", Phaser.Plugin.StateTransition.Out.SlideRight);}else{game.state.start("Pool.Menu", Phaser.Plugin.StateTransition.Out.SlideRight);}}, this);
 
 		// ADDING THE RESTART BUTTON
 		this.buttonRestartShadow = game.add.sprite(752, 5, "imageRestart");
