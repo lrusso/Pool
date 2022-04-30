@@ -13,6 +13,10 @@ function isMobileDevice(){return!!(navigator.userAgent.match(/Android/i)||naviga
 // GETTING THE USER LANGUAGE
 var userLanguage = window.navigator.userLanguage || window.navigator.language;
 
+var STRING_DIFFICULTY = "";
+var STRING_EASY = "";
+var STRING_NORMAL = "";
+var STRING_HARD = "";
 var STRING_PLAYER1_WINS = "";
 var STRING_PLAYER2_WINS = "";
 var STRING_CPU_WINS = "";
@@ -20,12 +24,20 @@ var STRING_CPU_WINS = "";
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
 	{
+	STRING_DIFFICULTY = "Dificultad";
+	STRING_EASY = "BAJA";
+	STRING_NORMAL = "NORMAL";
+	STRING_HARD = "ALTA";
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	STRING_CPU_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
 	}
 	else
 	{
+	STRING_DIFFICULTY = "Difficulty";
+	STRING_EASY = "EASY";
+	STRING_NORMAL = "NORMAL";
+	STRING_HARD = "HARD";
 	STRING_PLAYER1_WINS = "Player 1 Wins";
 	STRING_PLAYER2_WINS = "Player 2 Wins";
 	STRING_CPU_WINS = "CPU Wins";
@@ -262,8 +274,8 @@ Pool.Menu.prototype = {
 			// SETTING THAT THE USER WON'T BE PLAYING AGAINST THE CPU
 			versusCPU = true;
 
-			// LAUCHING THE GAME
-			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
+			// LOADING THE DIFFICULTY SELECTOR
+			game.state.start("Pool.Difficulty", Phaser.Plugin.StateTransition.Out.SlideLeft);
 			},this);
 
 		// ADDING THE 'VS' TEXT
@@ -276,6 +288,98 @@ Pool.Menu.prototype = {
 
 		// ADDING THE VERSUS CPU ICON
 		this.menuVSCPUIcon2 = game.add.sprite(650, 333.5, "imagerVersusCPU");
+		}
+	};
+
+Pool.Difficulty = function(){};
+
+Pool.Difficulty.prototype = {
+
+	init: function()
+		{
+		},
+
+	preload: function()
+		{
+		this.difficultyBackground = null;
+		this.difficultyTitle = null;
+		this.difficultyGoBackShadow = null;
+		this.difficultyGoBack = null;
+		this.difficultyEasyButton = null;
+		this.difficultyEasyText = null;
+		this.difficultyNormalButton = null;
+		this.difficultyNormalText = null;
+		this.difficultyHardButton = null;
+		this.difficultyHardText = null;
+		},
+
+	create: function()
+		{
+		// ADDING THE DIFFICULTY SELECTOR BACKGROUND
+		this.difficultyBackground = game.add.sprite(0, 0, "imageMenuBackground");
+
+		// ADDING THE BACK BUTTON
+		this.buttonBackShadow = game.add.sprite(5, 5, "imageBack");
+		this.buttonBackShadow.tint = 0x000000;
+		this.buttonBackShadow.alpha = 0.7;
+		this.buttonBack = game.add.button(3, 3, "imageBack", null, this, 2, 1, 0);
+		this.buttonBack.onInputUp.add(function(){game.state.start("Pool.Menu", Phaser.Plugin.StateTransition.Out.SlideRight);}, this);
+
+		// ADDING THE DIFFICULTY SELECTOR TITLE LABEL
+		this.difficultyTitle = game.add.bitmapText(0, 30, "ArialBlackWhiteBig", STRING_DIFFICULTY, 35.5);
+		this.difficultyTitle.height = 40;
+		this.difficultyTitle.position.x = game.width / 2 - this.difficultyTitle.width / 2;
+
+		// ADDING THE EASY BUTTON
+		this.difficultyEasyButton = game.add.sprite(101, 110, "imageMenuButton");
+		this.difficultyEasyButton.position.x = game.width / 2 - this.difficultyEasyButton.width / 2;
+		this.difficultyEasyButton.inputEnabled = true;
+		this.difficultyEasyButton.input.useHandCursor = true;
+		this.difficultyEasyButton.events.onInputUp.add(function()
+			{
+			// LAUCHING THE GAME
+			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
+			},this);
+
+		// ADDING THE EASY TEXT
+		this.difficultyEasyText = game.add.bitmapText(172, 138, "ArialBlackWhite", STRING_EASY, 20);
+		this.difficultyEasyText.position.x = game.width / 2 - this.difficultyEasyText.width / 2;
+		this.difficultyEasyText.height = 25;
+		this.difficultyEasyText.tint = 0xFFFFFF;
+
+		// ADDING THE NORMAL BUTTON
+		this.difficultyNormalButton = game.add.sprite(101, 210, "imageMenuButton");
+		this.difficultyNormalButton.position.x = game.width / 2 - this.difficultyNormalButton.width / 2;
+		this.difficultyNormalButton.inputEnabled = true;
+		this.difficultyNormalButton.input.useHandCursor = true;
+		this.difficultyNormalButton.events.onInputUp.add(function()
+			{
+			// LAUCHING THE GAME
+			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
+			},this);
+
+		// ADDING THE NORMAL TEXT
+		this.difficultyNormalText = game.add.bitmapText(172, 238, "ArialBlackWhite", STRING_NORMAL, 20);
+		this.difficultyNormalText.position.x = game.width / 2 - this.difficultyNormalText.width / 2;
+		this.difficultyNormalText.height = 25;
+		this.difficultyNormalText.tint = 0xFFFFFF;
+
+		// ADDING THE HARD BUTTON
+		this.difficultyHardButton = game.add.sprite(101, 310, "imageMenuButton");
+		this.difficultyHardButton.position.x = game.width / 2 - this.difficultyHardButton.width / 2;
+		this.difficultyHardButton.inputEnabled = true;
+		this.difficultyHardButton.input.useHandCursor = true;
+		this.difficultyHardButton.events.onInputUp.add(function()
+			{
+			// LAUCHING THE GAME
+			game.state.start("Pool.Game", Phaser.Plugin.StateTransition.Out.SlideLeft);
+			},this);
+
+		// ADDING THE HARD TEXT
+		this.difficultyHardText = game.add.bitmapText(172, 338, "ArialBlackWhite", STRING_HARD, 20);
+		this.difficultyHardText.position.x = game.width / 2 - this.difficultyHardText.width / 2;
+		this.difficultyHardText.height = 25;
+		this.difficultyHardText.tint = 0xFFFFFF;
 		}
 	};
 
@@ -1873,6 +1977,7 @@ var game = new Phaser.Game(config);
 game.state.add("Pool.Preloader", Pool.Preloader);
 game.state.add("Pool.Splash", Pool.Splash);
 game.state.add("Pool.Menu", Pool.Menu);
+game.state.add("Pool.Difficulty", Pool.Difficulty);
 game.state.add("Pool.Game", Pool.Game);
 
 // STARTING THE GAME PRELOADER
