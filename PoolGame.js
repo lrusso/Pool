@@ -1556,19 +1556,10 @@ Pool.Game.prototype = {
 
 								// GETTING THE BALL DIRECTION AFTER COLLISION
 								// https://stackoverflow.com/questions/30497287/elastic-2d-ball-collision-using-angles
-								var cx = ball.x;
-								var cy = ball.y;
-								var vx = 0;
-								var vy = 0;
-								var cx2 = distance[0].x;
-								var cy2 = distance[0].y;
-								var vx2 = 25;
-								var vy2 = 25;
-								var ang = Math.atan2(cy - cy2, cx - cx2);
-								var d2 = Math.atan2(vx, vy);
-								var newvx2 = vx2 * Math.cos(d2 - ang);
-								var newvy2 = vy2 * Math.sin(d2 - ang);
-								newvy2 = newvy2 * -1;
+								var ang = Math.atan2(ball.y - distance[0].y, ball.x - distance[0].x);
+								var d2 = Math.atan2(0, 0);
+								var newvx2 = 25 * Math.cos(d2 - ang);
+								var newvy2 = (25 * Math.sin(d2 - ang)) * -1;
 
 								// DRAWING THE GUIDE LINE RESULT AFTER COLLISION
 								this.guideLineResult.clear();
