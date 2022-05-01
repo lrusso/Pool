@@ -1181,6 +1181,7 @@ Pool.Game.prototype = {
 			this.cueContainer.alpha = 0;
 			this.guideLineBall.alpha = 0;
 			this.guideLineContainer.alpha = 0;
+			this.guideLineResult.alpha = 0;
 			}
 		},
 
@@ -1281,6 +1282,7 @@ Pool.Game.prototype = {
 							this.cueContainer.alpha = 1;
 							this.guideLineBall.alpha = 1;
 							this.guideLineContainer.alpha = 1;
+							this.guideLineResult.alpha = 1;
 							}
 						}
 
@@ -1431,6 +1433,7 @@ Pool.Game.prototype = {
 							this.cueContainer.alpha = 1;
 							this.guideLineBall.alpha = 1;
 							this.guideLineContainer.alpha = 1;
+							this.guideLineResult.alpha = 1;
 							}
 						}
 
@@ -1762,6 +1765,7 @@ Pool.Game.prototype = {
 		this.cueContainer.alpha = 0;
 		this.guideLineBall.alpha = 0;
 		this.guideLineContainer.alpha = 0;
+		this.guideLineResult.alpha = 0;
 
 		// CHECKING IF THE CPU CAN PLAY
 		if (this.getCurrentTime()>this.lastCheckCPUMustWait+1500)
