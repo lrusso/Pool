@@ -1509,7 +1509,7 @@ Pool.Game.prototype = {
 
 					// CREATING THE CIRCLE (BALL) FOR COLLISION CHECKING
 					var circle = {
-								radius: 25.8,
+								radius: 25,
 								center: this.point(ball.x,ball.y),
 								};
 
@@ -1523,7 +1523,7 @@ Pool.Game.prototype = {
 						var a = new Phaser.Circle(ball.x, ball.y, 26);
 
 						// CREATING A TEMP CIRCLE WITH THE BALL LOCATION
-						var b = new Phaser.Circle(distance[0].x, distance[0].y, 25.8);
+						var b = new Phaser.Circle(distance[0].x, distance[0].y, 25);
 
 						// CHECKING IF THE CUE BALL AND THE BALL OVERLAPS
 						if (Phaser.Circle.intersects(a, b))
