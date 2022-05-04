@@ -1777,7 +1777,7 @@ Pool.Game.prototype = {
 			}
 
 		// CHECKING IF THE CPU CAN PLAY
-		if (this.getCurrentTime()>this.lastCheckCPUMustWait+1500)
+		if (this.getCurrentTime()>this.lastCheckCPUMustWait+500)
 			{
 			// HOW THE 'CPU' IS CURRENTLY WORKING HERE:
 			// IT WILL CHECK EVERY AVAILABLE ANGLE,
@@ -1823,51 +1823,42 @@ Pool.Game.prototype = {
 					canTakeTheShot = true;
 					}
 
-				// CHECKING IF THE CPU CAN TAKE THE SHOT
+				// CHECKING IF ANY BALL WAS ON TARGET YET OR ADDING THE CURRENT ANGLE AS A POSSIBLE BEST SHOT
 				if (canTakeTheShot==true)
 					{
-					// CHECKING IF ANY BALL WAS ON TARGET YET OR ADDING THE CURRENT ANGLE AS A POSSIBLE BEST SHOT
-					if (this.lastCheckCPUAngleBall==null || this.lastCheckCPUAngleBall==this.lastCheckCPUWillHitBall)
-						{
-						// SETTING THE BALL TARGET
-						this.lastCheckCPUAngleBall = this.lastCheckCPUWillHitBall;
+					// SETTING THE BALL TARGET
+					this.lastCheckCPUAngleBall = this.lastCheckCPUWillHitBall;
 
-						// ADDING THE CURRENT ANGLE
-						this.lastCheckCPUAngleList.push(this.lastCheckCPUAngleCounter);
+					// ADDING THE CURRENT ANGLE
+					this.lastCheckCPUAngleList.push(this.lastCheckCPUAngleCounter);
 
-						// UPDATING THE CUE ANGLE
-						this.updateCue(this.cueball.x + x, this.cueball.y + y);
-						}
-
-					// CHECKING IF ANOTHER BALL COULD BE ON TARGET (IF SO, TAKES SHOT)
-					else if (this.lastCheckCPUAngleBall!=this.lastCheckCPUWillHitBall)
-						{
-						// GETTING THE MIDDLE ANGLE OF ALL THE POSSIBLE ANGLES, THAT MEANS A DIRECT SHOT TO THE BALL
-						var bestPossibleShot = this.lastCheckCPUAngleList[Math.floor(this.lastCheckCPUAngleList.length/2)];
-
-						// GETTING THE POSITION FOR THE BEST POSSIBLE SHOT
-						var x2 = this.cueball.x + 80 * Math.cos(bestPossibleShot);
-						var y2 = this.cueball.y + 80 * Math.sin(bestPossibleShot);
-
-						// UPDATING THE CUE ANGLE FOR THE BEST POSSIBLE SHOT
-						this.updateCue(x2, y2);
-
-						// TAKING THE SHOT WITH A SPEED VALUE
-						this.takeShot(80);
-
-						// CLEARING ALL THE CPU VALUES
-						this.lastCheckCPUWillHit = false;
-						this.lastCheckCPUWillHitBall = null;
-						this.lastCheckCPUAngleBall = null;
-						this.lastCheckCPUAngleList = [];
-						this.lastCheckCPUAngleCounter = 0;
-						}
-					}
-					else
-					{
 					// UPDATING THE CUE ANGLE
 					this.updateCue(this.cueball.x + x, this.cueball.y + y);
 					}
+				}
+
+			// CHECKING IF THE CPU CAN TAKE THE SHOT
+			if (this.lastCheckCPUAngleList.length> 0 && (this.lastCheckCPUWillHitBall!=this.lastCheckCPUAngleBall || this.lastCheckCPUWillHitBall==null))
+				{
+				// GETTING THE MIDDLE ANGLE OF ALL THE POSSIBLE ANGLES, THAT MEANS A DIRECT SHOT TO THE BALL
+				var bestPossibleShot = this.lastCheckCPUAngleList[Math.floor(this.lastCheckCPUAngleList.length/2)];
+
+				// GETTING THE POSITION FOR THE BEST POSSIBLE SHOT
+				var x2 = this.cueball.x + 80 * Math.cos(bestPossibleShot);
+				var y2 = this.cueball.y + 80 * Math.sin(bestPossibleShot);
+
+				// UPDATING THE CUE ANGLE FOR THE BEST POSSIBLE SHOT
+				this.updateCue(x2, y2);
+
+				// TAKING THE SHOT WITH A SPEED VALUE
+				this.takeShot(80);
+
+				// CLEARING ALL THE CPU VALUES
+				this.lastCheckCPUWillHit = false;
+				this.lastCheckCPUWillHitBall = null;
+				this.lastCheckCPUAngleBall = null;
+				this.lastCheckCPUAngleList = [];
+				this.lastCheckCPUAngleCounter = 0;
 				}
 				else
 				{
