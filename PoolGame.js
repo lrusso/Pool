@@ -334,6 +334,8 @@ Pool.Game = function (game)
 
 	this.lastCheckCPUWillHit = null;
 	this.lastCheckCPUWillHitBall = null;
+	this.lastCheckCPUAngleBall = null;
+	this.lastCheckCPUAngleList = null;
 	this.lastCheckCPUAngleCounter = null;
 	this.lastCheckCPUAngleAccurate = null;
 	this.lastCheckCPUMustWait = null;
@@ -413,8 +415,10 @@ Pool.Game.prototype = {
 
 		this.lastCheckCPUWillHit = null;
 		this.lastCheckCPUWillHitBall = null;
+		this.lastCheckCPUAngleBall = null;
+		this.lastCheckCPUAngleList = [];
 		this.lastCheckCPUAngleCounter = null;
-		this.lastCheckCPUAngleAccurate = 0.5;
+		this.lastCheckCPUAngleAccurate = 0.01;
 		this.lastCheckCPUMustWait = 0;
 
 		this.debugKey = null;
@@ -1152,8 +1156,9 @@ Pool.Game.prototype = {
 			// CLEARING ALL THE CPU VALUES (IF ANY)
 			this.lastCheckCPUWillHit = false;
 			this.lastCheckCPUWillHitBall = null;
+			this.lastCheckCPUAngleBall = null;
+			this.lastCheckCPUAngleList = [];
 			this.lastCheckCPUAngleCounter = 0;
-			this.lastCheckCPUAngleAccurate = 0.5;
 			this.lastCheckCPUMustWait = 0;
 			}
 
@@ -1776,7 +1781,7 @@ Pool.Game.prototype = {
 			// IT WILL TAKE THE SHOT.
 
 			// THE lastCheckCPUAngleAccurate VARIABLE WILL
-			// SET HOW ACCURATE THE SEARCH FOR THE SHOT WILL BE.
+			// SET HOW ACCURATE THE SEARCH FOR THE BEST SHOT WILL BE.
 
 			// CHECKING IF ALL THE POSSIBLE ANGLES WEREN'T CHECKED
 			if (this.lastCheckCPUAngleCounter<6.28)
@@ -1784,47 +1789,75 @@ Pool.Game.prototype = {
 				// https://stackoverflow.com/questions/35002707/moving-one-end-of-a-phaser-graphics-line
 				var x = 80 * Math.cos(this.lastCheckCPUAngleCounter);
 				var y = 80 * Math.sin(this.lastCheckCPUAngleCounter);
-				this.lastCheckCPUAngleCounter = this.lastCheckCPUAngleCounter + (Math.PI * 2 / 360) + this.lastCheckCPUAngleAccurate;
+				this.lastCheckCPUAngleCounter = this.lastCheckCPUAngleCounter + this.lastCheckCPUAngleAccurate;
 				}
 
 			// CHECKING IF THE CPU CAN HIT A BALL USING THE CURRENT CUE ANGLE
 			if (this.lastCheckCPUWillHitBall!=null)
 				{
-				// CREATING A VARIABLE TO KNOW WHEN THE CPU MUST TAKE THE SHOT
-				var mustTakeTheShot = false;
+				// CREATING A VARIABLE TO KNOW WHEN THE CPU CAN TAKE THE SHOT
+				var canTakeTheShot = false;
 
 				// CHECKING IF THE CPU MUST HIT THAT KIND OF BALL (STRIPE OR SOLID)
 				if ((this.lastCheckCPUWillHitBall<8 && this.player2BallType == Pool.typeSolids) || (this.lastCheckCPUWillHitBall>8 && this.player2BallType == Pool.typeStripes))
 					{
-					// SETTING THAT THE CPU MUST TAKE THE SHOT
-					mustTakeTheShot = true;
+					// SETTING THAT THE CPU CAN TAKE THE SHOT
+					canTakeTheShot = true;
 					}
 
 				// CHECKING IF THE CPU HITTED 7 BALLS AND IF THE BALL 8 IS SELECTED FOR THE NEXT SHOT
 				if (this.player2Hitted==7 && this.lastCheckCPUWillHitBall==8)
 					{
-					// SETTING THAT THE CPU MUST TAKE THE SHOT
-					mustTakeTheShot = true;
+					// SETTING THAT THE CPU CAN TAKE THE SHOT
+					canTakeTheShot = true;
 					}
 
 				// CHECKING IF THERE ISN'T A BALL TYPE DEFINED
 				else if (this.player2BallType==null)
 					{
-					// SETTING THAT THE CPU MUST TAKE THE SHOT
-					mustTakeTheShot = true;
+					// SETTING THAT THE CPU CAN TAKE THE SHOT
+					canTakeTheShot = true;
 					}
 
-				// CHECKING IF THE CPU MUST TAKE THE SHOT
-				if (mustTakeTheShot==true)
+				// CHECKING IF THE CPU CAN TAKE THE SHOT
+				if (canTakeTheShot==true)
 					{
-					// TAKING THE SHOT WITH A SPEED VALUE
-					this.takeShot(120);
+					// CHECKING IF ANY BALL WAS ON TARGET YET OR ADDING THE CURRENT ANGLE AS A POSSIBLE BEST SHOT
+					if (this.lastCheckCPUAngleBall==null || this.lastCheckCPUAngleBall==this.lastCheckCPUWillHitBall)
+						{
+						// SETTING THE BALL TARGET
+						this.lastCheckCPUAngleBall = this.lastCheckCPUWillHitBall;
 
-					// CLEARING ALL THE CPU VALUES
-					this.lastCheckCPUWillHit = false;
-					this.lastCheckCPUWillHitBall = null;
-					this.lastCheckCPUAngleCounter = 0;
-					this.lastCheckCPUAngleAccurate = 0.5;
+						// ADDING THE CURRENT ANGLE
+						this.lastCheckCPUAngleList.push(this.lastCheckCPUAngleCounter);
+
+						// UPDATING THE CUE ANGLE
+						this.updateCue(this.cueball.x + x, this.cueball.y + y);
+						}
+
+					// CHECKING IF ANOTHER BALL COULD BE ON TARGET (IF SO, TAKES SHOT)
+					else if (this.lastCheckCPUAngleBall!=this.lastCheckCPUWillHitBall)
+						{
+						// GETTING THE MIDDLE ANGLE OF ALL THE POSSIBLE ANGLES, THAT MEANS A DIRECT SHOT TO THE BALL
+						var bestPossibleShot = this.lastCheckCPUAngleList[Math.floor(this.lastCheckCPUAngleList.length/2)];
+
+						// GETTING THE POSITION FOR THE BEST POSSIBLE SHOT
+						var x2 = this.cueball.x + 80 * Math.cos(bestPossibleShot);
+						var y2 = this.cueball.y + 80 * Math.sin(bestPossibleShot);
+
+						// UPDATING THE CUE ANGLE FOR THE BEST POSSIBLE SHOT
+						this.updateCue(x2, y2);
+
+						// TAKING THE SHOT WITH A SPEED VALUE
+						this.takeShot(80);
+
+						// CLEARING ALL THE CPU VALUES
+						this.lastCheckCPUWillHit = false;
+						this.lastCheckCPUWillHitBall = null;
+						this.lastCheckCPUAngleBall = null;
+						this.lastCheckCPUAngleList = [];
+						this.lastCheckCPUAngleCounter = 0;
+						}
 					}
 					else
 					{
@@ -1838,25 +1871,18 @@ Pool.Game.prototype = {
 				this.updateCue(this.cueball.x + x, this.cueball.y + y);
 				}
 
-			// CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE DEFAULT ACCURATE VALUE
-			if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null && this.lastCheckCPUAngleAccurate==0.5)
-				{
-				// PERFOMING A SECOND SEARCH WITH A MORE ACCURATE VALUE
-				this.lastCheckCPUAngleAccurate = 0.25;
-				this.lastCheckCPUAngleCounter = 0;
-				}
-
 			// CHECKING IF THE CPU DIDN'T FIND ANY SHOT WITH THE MORE ACCURATE VALUE - WILL TAKE THE LAST SHOT ANYWAY
-			else if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null && this.lastCheckCPUAngleAccurate==0.25)
+			if (this.lastCheckCPUAngleCounter>=6.28 && this.lastCheckCPUWillHitBall==null)
 				{
 				// TAKING THE SHOT WITH A SPEED VALUE
-				this.takeShot(120);
+				this.takeShot(80);
 
 				// CLEARING ALL THE CPU VALUES
 				this.lastCheckCPUWillHit = false;
 				this.lastCheckCPUWillHitBall = null;
+				this.lastCheckCPUAngleBall = null;
+				this.lastCheckCPUAngleList = [];
 				this.lastCheckCPUAngleCounter = 0;
-				this.lastCheckCPUAngleAccurate = 0.5;
 				}
 			}
 		},
