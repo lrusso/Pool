@@ -1838,7 +1838,7 @@ Pool.Game.prototype = {
 				}
 
 			// CHECKING IF THE CPU CAN TAKE THE SHOT
-			if (this.lastCheckCPUAngleList.length> 0 && (this.lastCheckCPUWillHitBall!=this.lastCheckCPUAngleBall || this.lastCheckCPUWillHitBall==null))
+			if (this.lastCheckCPUAngleList.length>0 && (this.lastCheckCPUWillHitBall!=this.lastCheckCPUAngleBall || this.lastCheckCPUWillHitBall==null))
 				{
 				// GETTING THE MIDDLE ANGLE OF ALL THE POSSIBLE ANGLES, THAT MEANS A DIRECT SHOT TO THE BALL
 				var bestPossibleShot = this.lastCheckCPUAngleList[Math.floor(this.lastCheckCPUAngleList.length/2)];
