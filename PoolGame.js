@@ -1757,7 +1757,7 @@ Pool.Game.prototype = {
 			this.game.debug.text("power: " + (this.aimLine.length / 3), 540, 48);
 
 			// DISPLAYING THE PLAYABLE SURFACE ON THE TABLE
-			this.game.debug.geom(this.placeRect,"#ffffff");
+			// this.game.debug.geom(this.placeRect,"#ffffff");
 			}
 		},
 
@@ -1766,11 +1766,15 @@ Pool.Game.prototype = {
 		// SETTING THAT THE CUE BALL IS SELECTED BY THE CPU
 		this.cueballSelected = true;
 
-		// HIDING THE CUE AND THE GUIDE LINE WHILE THE CPU IS CHECKING EVERY SHOT
-		this.cueContainer.alpha = 0;
-		this.guideLineBall.alpha = 0;
-		this.guideLineContainer.alpha = 0;
-		this.guideLineResult.alpha = 0;
+		// CHECKING IF THE DEBUG MODE IS DISABLED
+		if (Pool.showDebug==false)
+			{
+			// HIDING THE CUE AND THE GUIDE LINE WHILE THE CPU IS CHECKING EVERY SHOT
+			this.cueContainer.alpha = 0;
+			this.guideLineBall.alpha = 0;
+			this.guideLineContainer.alpha = 0;
+			this.guideLineResult.alpha = 0;
+			}
 
 		// CHECKING IF THE CPU CAN PLAY
 		if (this.getCurrentTime()>this.lastCheckCPUMustWait+1500)
