@@ -651,8 +651,16 @@ Pool.Game.prototype = {
 			// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER IT
 			ball.input.useHandCursor = true;
 
+			// INCREASING PHASER SENSIBILITY FOR THE WHITE BALL (SPECIALLY FOR MOBILE DEVICES)
+			ball.input.pixelPerfectClick = true;
+			ball.input.pixelPerfectOver = true;
+
 			// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS DOWN
-			ball.events.onInputDown.add(this.cueballSelection, this);
+			ball.events.onInputDown.add(function()
+				{
+				// SETTING THAT THE CUE BALL IS SELECTED
+				this.cueballSelected = true;
+				}, this);
 			}
 
 		// CREATING THE BALL SHADOW AND LINKING THE TWO SPRITES TOGETHER
@@ -664,12 +672,6 @@ Pool.Game.prototype = {
 
 		// RETURNING THE CREATED BALL
 		return ball;
-		},
-
-	cueballSelection: function()
-		{
-		// SETTING THAT THE CUE BALL IS SELECTED
-		this.cueballSelected = true;
 		},
 
 	takeShot: function(CPUShotSpeed)
