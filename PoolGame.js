@@ -666,7 +666,6 @@ Pool.Game.prototype = {
 				cueballMobileHandler.width = cueballMobileHandler.width * 2.5;
 				cueballMobileHandler.height = cueballMobileHandler.height * 2.5;
 				cueballMobileHandler.tint = 0x000000;
-				cueballMobileHandler.alpha = 0;
 				cueballMobileHandler.anchor.set(0.33);
 				cueballMobileHandler.inputEnabled = true;
 				cueballMobileHandler.events.onInputDown.add(function()
@@ -674,6 +673,7 @@ Pool.Game.prototype = {
 					// SETTING THAT THE CUE BALL IS SELECTED
 					this.cueballSelected = true;
 					}, this);
+				if (Pool.showDebug==true){cueballMobileHandler.alpha=0.6;}else{cueballMobileHandler.alpha=0;}
 				ball.cueballMobileHandler = cueballMobileHandler;
 				}
 			}
