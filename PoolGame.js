@@ -651,16 +651,31 @@ Pool.Game.prototype = {
 			// SETTING TO DISPLAY THE HAND CURSOR WHEN THE MOUSE IS OVER IT
 			ball.input.useHandCursor = true;
 
-			// INCREASING PHASER SENSIBILITY FOR THE WHITE BALL (SPECIALLY FOR MOBILE DEVICES)
-			ball.input.pixelPerfectClick = true;
-			ball.input.pixelPerfectOver = true;
-
 			// SETTING WHICH FUNCTION WILL BE CALLED WHEN THE MOUSE OR FINGER IS DOWN
 			ball.events.onInputDown.add(function()
 				{
 				// SETTING THAT THE CUE BALL IS SELECTED
 				this.cueballSelected = true;
 				}, this);
+
+			// CHECKING IF IT IS A MOBILE DEVICE
+			if (isMobileDevice()==true)
+				{
+				// CREATING THE MOBILE HANDLER FOR THE CUEBALL BECAUSE THE FINGER IS NOT AS ACCURATE AS THE MOUSE POINTER
+				var cueballMobileHandler = this.shadows.create(x - 20, y - 20, "imageBalls", color);
+				cueballMobileHandler.width = cueballMobileHandler.width * 2.5;
+				cueballMobileHandler.height = cueballMobileHandler.height * 2.5;
+				cueballMobileHandler.tint = 0x000000;
+				cueballMobileHandler.alpha = 0;
+				cueballMobileHandler.anchor.set(0.33);
+				cueballMobileHandler.inputEnabled = true;
+				cueballMobileHandler.events.onInputDown.add(function()
+					{
+					// SETTING THAT THE CUE BALL IS SELECTED
+					this.cueballSelected = true;
+					}, this);
+				ball.cueballMobileHandler = cueballMobileHandler;
+				}
 			}
 
 		// CREATING THE BALL SHADOW AND LINKING THE TWO SPRITES TOGETHER
@@ -1675,9 +1690,17 @@ Pool.Game.prototype = {
 
 	positionShadow: function (ball)
 		{
-		// LOCATING THE BALL SHADOWS
+		// RELOCATING THE BALL SHADOWS
 		ball.shadow.x = ball.x + 2;
 		ball.shadow.y = ball.y + 2;
+
+		// CHECKING IF THERE IS A CUEBALL MOBILE HANDLER
+		if (ball.cueballMobileHandler)
+			{
+			// RELOCATING THE CUEBALL MOBILE HANDLER
+			ball.cueballMobileHandler.x = ball.x - 10;
+			ball.cueballMobileHandler.y = ball.y - 10;
+			}
 		},
 
 	gameOver: function()
