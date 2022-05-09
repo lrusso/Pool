@@ -1028,7 +1028,7 @@ Pool.Game.prototype = {
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
 
-		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF THE FAULT
+		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 		this.mustPass = this.turn;
 		},
 
@@ -1266,10 +1266,12 @@ Pool.Game.prototype = {
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
+							// SWITCHING TO PLAYER 2
 							this.switchToPlayer2();
 							}
 							else
 							{
+							// SWITCHING TO PLAYER 1
 							this.switchToPlayer1();
 							}
 						}
@@ -1376,10 +1378,12 @@ Pool.Game.prototype = {
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
+							// SWITCHING TO PLAYER 2
 							this.switchToPlayer2();
 							}
 							else
 							{
+							// SWITCHING TO PLAYER 1
 							this.switchToPlayer1();
 							}
 						}
