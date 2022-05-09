@@ -308,6 +308,8 @@ Pool.Game = function (game)
 	this.resetting = null;
 	this.resettingRelocation = null;
 
+	this.mustPass = null;
+
 	this.placeball = null;
 	this.placeballShadow = null;
 	this.placeRect = null;
@@ -388,6 +390,8 @@ Pool.Game.prototype = {
 
 		this.resetting = false;
 		this.resettingRelocation = false;
+
+		this.mustPass = null;
 
 		this.placeball = null;
 		this.placeballShadow = null;
@@ -1023,6 +1027,9 @@ Pool.Game.prototype = {
 		// HIDING THE CUE BALL AND IT'S SHADOW
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
+
+		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF THE FAULT
+		this.mustPass = this.turn;
 		},
 
 	placeCueBall: function()
@@ -1259,52 +1266,11 @@ Pool.Game.prototype = {
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
-							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
-							this.buttonPlayer1.loadTexture("imagePlayer1");
-
-							// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-							if (versusCPU==true)
-								{
-								// UPDATING THE CPU ICON TO SELECTED
-								this.buttonPlayer2.loadTexture("imageCPUSelected");
-								}
-								else
-								{
-								// UPDATING THE PLAYER 2 ICON TO SELECTED
-								this.buttonPlayer2.loadTexture("imagePlayer2Selected");
-								}
-
-							// UPDATING THE TURN VARIABLE TO PLAYER 2
-							this.turn = Pool.turnPlayer2;
-
-							// SETTING A SMALL DELAY FOR THE CPU TO PLAY (IF THE CPU IS PLAYING)
-							this.lastCheckCPUMustWait = this.getCurrentTime();
+							this.switchToPlayer2();
 							}
 							else
 							{
-							// UPDATING THE PLAYER 1 ICON TO SELECTED
-							this.buttonPlayer1.loadTexture("imagePlayer1Selected");
-
-							// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-							if (versusCPU==true)
-								{
-								// UPDATING THE CPU ICON TO NOT SELECTED
-								this.buttonPlayer2.loadTexture("imageCPU");
-								}
-								else
-								{
-								// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
-								this.buttonPlayer2.loadTexture("imagePlayer2");
-								}
-
-							// UPDATING THE TURN VARIABLE TO PLAYER 1
-							this.turn = Pool.turnPlayer1;
-
-							// UPDATING THE ALPHA VALUE FOR THE CUE AND GUIDE LINE
-							this.cueContainer.alpha = 1;
-							this.guideLineBall.alpha = 1;
-							this.guideLineContainer.alpha = 1;
-							this.guideLineResult.alpha = 1;
+							this.switchToPlayer1();
 							}
 						}
 
@@ -1410,52 +1376,11 @@ Pool.Game.prototype = {
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
-							// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
-							this.buttonPlayer1.loadTexture("imagePlayer1");
-
-							// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-							if (versusCPU==true)
-								{
-								// UPDATING THE CPU ICON TO SELECTED
-								this.buttonPlayer2.loadTexture("imageCPUSelected");
-								}
-								else
-								{
-								// UPDATING THE PLAYER 2 ICON TO SELECTED
-								this.buttonPlayer2.loadTexture("imagePlayer2Selected");
-								}
-
-							// UPDATING THE TURN VARIABLE TO PLAYER 2
-							this.turn = Pool.turnPlayer2;
-
-							// SETTING A SMALL DELAY FOR THE CPU TO PLAY (IF THE CPU IS PLAYING)
-							this.lastCheckCPUMustWait = this.getCurrentTime();
+							this.switchToPlayer2();
 							}
 							else
 							{
-							// UPDATING THE PLAYER 1 ICON TO SELECTED
-							this.buttonPlayer1.loadTexture("imagePlayer1Selected");
-
-							// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
-							if (versusCPU==true)
-								{
-								// UPDATING THE CPU ICON TO NOT SELECTED
-								this.buttonPlayer2.loadTexture("imageCPU");
-								}
-								else
-								{
-								// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
-								this.buttonPlayer2.loadTexture("imagePlayer2");
-								}
-
-							// UPDATING THE TURN VARIABLE TO PLAYER 1
-							this.turn = Pool.turnPlayer1;
-
-							// UPDATING THE ALPHA VALUE FOR THE CUE AND GUIDE LINE
-							this.cueContainer.alpha = 1;
-							this.guideLineBall.alpha = 1;
-							this.guideLineContainer.alpha = 1;
-							this.guideLineResult.alpha = 1;
+							this.switchToPlayer1();
 							}
 						}
 
@@ -1701,6 +1626,63 @@ Pool.Game.prototype = {
 			ball.cueballMobileHandler.x = ball.x - 10;
 			ball.cueballMobileHandler.y = ball.y - 10;
 			}
+		},
+
+	switchToPlayer1: function()
+		{
+		// CHECKING IF THE PLAYER MUST PASS BECAUSE OF A FAULT
+		if (this.mustPass==Pool.turnPlayer1){this.mustPass=null;return}
+
+		// UPDATING THE PLAYER 1 ICON TO SELECTED
+		this.buttonPlayer1.loadTexture("imagePlayer1Selected");
+
+		// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
+		if (versusCPU==true)
+			{
+			// UPDATING THE CPU ICON TO NOT SELECTED
+			this.buttonPlayer2.loadTexture("imageCPU");
+			}
+			else
+			{
+			// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
+			this.buttonPlayer2.loadTexture("imagePlayer2");
+			}
+
+		// UPDATING THE TURN VARIABLE TO PLAYER 1
+		this.turn = Pool.turnPlayer1;
+
+		// UPDATING THE ALPHA VALUE FOR THE CUE AND GUIDE LINE
+		this.cueContainer.alpha = 1;
+		this.guideLineBall.alpha = 1;
+		this.guideLineContainer.alpha = 1;
+		this.guideLineResult.alpha = 1;
+		},
+
+	switchToPlayer2: function()
+		{
+		// CHECKING IF THE PLAYER OR CPU MUST PASS BECAUSE OF A FAULT
+		if (this.mustPass==Pool.turnPlayer2){this.mustPass=null;return}
+
+		// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
+		this.buttonPlayer1.loadTexture("imagePlayer1");
+
+		// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
+		if (versusCPU==true)
+			{
+			// UPDATING THE CPU ICON TO SELECTED
+			this.buttonPlayer2.loadTexture("imageCPUSelected");
+			}
+			else
+			{
+			// UPDATING THE PLAYER 2 ICON TO SELECTED
+			this.buttonPlayer2.loadTexture("imagePlayer2Selected");
+			}
+
+		// UPDATING THE TURN VARIABLE TO PLAYER 2
+		this.turn = Pool.turnPlayer2;
+
+		// SETTING A SMALL DELAY FOR THE CPU TO PLAY (IF THE CPU IS PLAYING)
+		this.lastCheckCPUMustWait = this.getCurrentTime();
 		},
 
 	gameOver: function()
