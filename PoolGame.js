@@ -1293,7 +1293,7 @@ Pool.Game.prototype = {
 					// CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 					if (this.turnSwitch==true)
 						{
-						// CHECKING FOR ANY PLAYER FAULT
+						// CHECKING FOR ANY PLAYER/CPU FAULT
 						this.checkForFaults();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
@@ -1408,7 +1408,7 @@ Pool.Game.prototype = {
 					// CHECKINF IG THE 'TURN SWITCH' (TO THE OTHER PLAYER) VARIABLE IS TRUE
 					if (this.turnSwitch==true)
 						{
-						// CHECKING FOR ANY PLAYER FAULT
+						// CHECKING FOR ANY PLAYER/CPU FAULT
 						this.checkForFaults();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
