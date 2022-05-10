@@ -1293,12 +1293,8 @@ Pool.Game.prototype = {
 					// CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 					if (this.turnSwitch==true)
 						{
-						// CHECKING IF THERE WASN'T A HIT
-						if (this.firstHit == null)
-							{
-							// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
-							this.mustPass = this.turn;
-							}
+						// CHECKING FOR ANY PLAYER FAULT
+						this.checkForFaults();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
@@ -1314,7 +1310,7 @@ Pool.Game.prototype = {
 						}
 
 					// SETTING THAT THE TURN WILL NOT SWITCH (TO THE OTHER PLAYER)
-					this.turnSwitch=false;
+					this.turnSwitch = false;
 
 					// CHECKING IF THE RESETTINGLOCATION VARIABLE IS TRUE (MEANING THAT THE CUE BALL HIT A POCKET)
 					if (this.resettingRelocation==true)
@@ -1412,12 +1408,8 @@ Pool.Game.prototype = {
 					// CHECKINF IG THE 'TURN SWITCH' (TO THE OTHER PLAYER) VARIABLE IS TRUE
 					if (this.turnSwitch==true)
 						{
-						// CHECKING IF THERE WASN'T A HIT
-						if (this.firstHit == null)
-							{
-							// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
-							this.mustPass = this.turn;
-							}
+						// CHECKING FOR ANY PLAYER FAULT
+						this.checkForFaults();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
@@ -1433,7 +1425,7 @@ Pool.Game.prototype = {
 						}
 
 					// SETTING THE TURNSWITCH VARIABLE TO FALSE
-					this.turnSwitch=false;
+					this.turnSwitch = false;
 
 					// SHOWING THE CUE
 					this.cueContainer.visible = true;
@@ -1731,6 +1723,41 @@ Pool.Game.prototype = {
 
 		// SETTING A SMALL DELAY FOR THE CPU TO PLAY (IF THE CPU IS PLAYING)
 		this.lastCheckCPUMustWait = this.getCurrentTime();
+		},
+
+	checkForFaults: function()
+		{
+		// CHECKING IF THERE WASN'T A HIT
+		if (this.firstHit == null)
+			{
+			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+			this.mustPass = this.turn;
+			}
+		// ELSE, CHECKING IF THE USER HIT THE RIGHT BALL TYPE
+		else
+			{
+			// GETTING THE BALL TYPE THAT SHOULD BE GETTING THE FIRS HIT
+			var turnType = null;
+			if (this.turn==Pool.turnPlayer1){turnType = this.player1BallType;}
+			else if (this.turn==Pool.turnPlayer2){turnType = this.player2BallType;}
+
+			// CHECKING IF THERE IS A BALL TYPE
+			if (turnType!=null)
+				{
+				// CHECKING IF THE BALL IS A SOLID ONE
+				if (this.firstHit<8 && turnType==Pool.typeStripes)
+					{
+					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+					this.mustPass = this.turn;
+					}
+				// CHECKING IF THE BALL IS A STRIPE ONE
+				else if (this.firstHit>8 && turnType==Pool.typeSolids)
+					{
+					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+					this.mustPass = this.turn;
+					}
+				}
+			}
 		},
 
 	gameOver: function()
