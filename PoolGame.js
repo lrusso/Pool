@@ -309,6 +309,7 @@ Pool.Game = function (game)
 	this.resettingRelocation = null;
 
 	this.mustPass = null;
+	this.firstHit = null;
 
 	this.placeball = null;
 	this.placeballShadow = null;
@@ -392,6 +393,7 @@ Pool.Game.prototype = {
 		this.resettingRelocation = false;
 
 		this.mustPass = null;
+		this.firstHit = null;
 
 		this.placeball = null;
 		this.placeballShadow = null;
@@ -511,6 +513,31 @@ Pool.Game.prototype = {
 
 		// ADDING THE CUE BALL
 		this.cueball = this.makeBall(239, 216.5, Pool.WHITE);
+
+		// LOOPING EVERY BALL
+		for (var i = 0; i < this.balls.length; i++)
+			{
+			// GETTING THE BALL
+			var ball = this.balls.children[i];
+
+			// CHECKING IF IT IS NOT THE CUEBALL
+			if (ball._frame.index!=Pool.WHITE)
+				{
+				// ADDING A CALLBACK WHEN THERE IS A COLLISION WITH ANOTHER BALL
+				this.cueball.body.createBodyCallback(ball, function(cueballSprite, otherBallSprite)
+					{
+					// CHECKING IF THERE WASN'T A FIRST HIT YET
+					if (this.firstHit==null)
+						{
+						// GETTING THE BALL NUMBER THAT RECEIVED THE HIT
+						var ballNumber = otherBallSprite.sprite._frame.index;
+
+						// UPDATING THE FIRST HIT VARIABLE
+						this.firstHit = ballNumber;
+						}
+					}, this);
+				}
+			}
 
 		// ADDING THE PLACING CUE BALL AND IT'S SHADOW
 		this.placeball = this.add.sprite(0, 0, "imageBalls", Pool.WHITE);
@@ -703,6 +730,8 @@ Pool.Game.prototype = {
 				{
 				return;
 				}
+
+			this.firstHit = null;
 
 			// CHECKING IF THE CUE IS VISIBLE
 			if (this.cueContainer.visible == true)
@@ -1263,6 +1292,13 @@ Pool.Game.prototype = {
 					// CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 					if (this.turnSwitch==true)
 						{
+						// CHECKING IF THERE WASN'T A HIT
+						if (this.firstHit == null)
+							{
+							// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+							this.mustPass = this.turn;
+							}
+
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
@@ -1375,6 +1411,13 @@ Pool.Game.prototype = {
 					// CHECKINF IG THE 'TURN SWITCH' (TO THE OTHER PLAYER) VARIABLE IS TRUE
 					if (this.turnSwitch==true)
 						{
+						// CHECKING IF THERE WASN'T A HIT
+						if (this.firstHit == null)
+							{
+							// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+							this.mustPass = this.turn;
+							}
+
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
 							{
