@@ -526,7 +526,7 @@ Pool.Game.prototype = {
 				// ADDING A CALLBACK WHEN THERE IS A COLLISION WITH ANOTHER BALL
 				this.cueball.body.createBodyCallback(ball, function(cueballSprite, otherBallSprite)
 					{
-					// CHECKING IF THERE WASN'T A FIRST HIT YET
+					// CHECKING IF THERE WASN'T A FIRST HIT
 					if (this.firstHit==null)
 						{
 						// GETTING THE BALL NUMBER THAT RECEIVED THE HIT
@@ -731,6 +731,7 @@ Pool.Game.prototype = {
 				return;
 				}
 
+			// CLEARING THE FIRST HIT VARIABLE
 			this.firstHit = null;
 
 			// CHECKING IF THE CUE IS VISIBLE
