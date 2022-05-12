@@ -16,6 +16,10 @@ var userLanguage = window.navigator.userLanguage || window.navigator.language;
 var STRING_PLAYER1_WINS = "";
 var STRING_PLAYER2_WINS = "";
 var STRING_CPU_WINS = "";
+var STRING_FAULT_WRONG_POCKET_HIT = "";
+var STRING_FAULT_CUEBALL_ENTERED = "";
+var STRING_FAULT_NO_HIT = ""
+var STRING_FAULT_FIRST_HIT = "";
 
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
@@ -23,12 +27,20 @@ if (userLanguage.substring(0,2)=="es")
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	STRING_CPU_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
+	STRING_FAULT_WRONG_POCKET_HIT = "FAULT: Wrong pocket hit";
+	STRING_FAULT_CUEBALL_ENTERED = "FAULT: Cueball entered";
+	STRING_FAULT_NO_HIT = "FAULT: Didn\'t hit";
+	STRING_FAULT_FIRST_HIT = "FAULT: First hit fault";
 	}
 	else
 	{
 	STRING_PLAYER1_WINS = "Player 1 Wins";
 	STRING_PLAYER2_WINS = "Player 2 Wins";
 	STRING_CPU_WINS = "CPU Wins";
+	STRING_FAULT_WRONG_POCKET_HIT = "FAULT: Wrong pocket hit";
+	STRING_FAULT_CUEBALL_ENTERED = "FAULT: Cueball entered";
+	STRING_FAULT_NO_HIT = "FAULT: Didn\'t hit";
+	STRING_FAULT_FIRST_HIT = "FAULT: First hit fault";
 	}
 
 var versusCPU = false;
@@ -907,7 +919,7 @@ Pool.Game.prototype = {
 						this.player2Hitted = this.player2Hitted + 1;
 
 						// SHOWING THE FAULT TOAST
-						this.showToast("FAULT - Wrong pocket hit");
+						this.showToast(STRING_FAULT_WRONG_POCKET_HIT);
 
 						// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 						this.mustPass = this.turn;
@@ -1008,7 +1020,7 @@ Pool.Game.prototype = {
 						this.player1Hitted = this.player1Hitted + 1;
 
 						// SHOWING THE FAULT TOAST
-						this.showToast("FAULT - Wrong pocket hit");
+						this.showToast(STRING_FAULT_WRONG_POCKET_HIT);
 
 						// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 						this.mustPass = this.turn;
@@ -1079,7 +1091,7 @@ Pool.Game.prototype = {
 		this.cueball.shadow.visible = false;
 
 		// SHOWING THE FAULT TOAST
-		this.showToast("FAULT - Cueball entered");
+		this.showToast(STRING_FAULT_CUEBALL_ENTERED);
 
 		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 		this.mustPass = this.turn;
@@ -1754,7 +1766,7 @@ Pool.Game.prototype = {
 		if (this.firstHit == null)
 			{
 			// SHOWING THE FAULT TOAST
-			this.showToast("FAULT - Didn\'t hit");
+			this.showToast(STRING_FAULT_NO_HIT);
 
 			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 			this.mustPass = this.turn;
@@ -1775,7 +1787,7 @@ Pool.Game.prototype = {
 				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>1)
 					{
 					// SHOWING THE FAULT TOAST
-					this.showToast("FAULT - First hit fault");
+					this.showToast(STRING_FAULT_FIRST_HIT);
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
@@ -1784,7 +1796,7 @@ Pool.Game.prototype = {
 				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>1)
 					{
 					// SHOWING THE FAULT TOAST
-					this.showToast("FAULT - First hit fault");
+					this.showToast(STRING_FAULT_FIRST_HIT);
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
