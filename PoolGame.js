@@ -897,6 +897,12 @@ Pool.Game.prototype = {
 
 						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
+
+						console.log('wrong pocket hit');
+						console.log('---')
+
+						// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+						this.mustPass = this.turn;
 						}
 					else
 						{
@@ -992,6 +998,12 @@ Pool.Game.prototype = {
 
 						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
+
+						console.log('wrong pocket hit');
+						console.log('---')
+
+						// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+						this.mustPass = this.turn;
 						}
 					else if ((ballNumber<8 && this.player2BallType == Pool.typeSolids) || (ballNumber>8 && this.player2BallType == Pool.typeStripes))
 						{
@@ -1057,6 +1069,9 @@ Pool.Game.prototype = {
 		// HIDING THE CUE BALL AND IT'S SHADOW
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
+
+		console.log('cueball entered');
+		console.log('---------------');
 
 		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 		this.mustPass = this.turn;
@@ -1730,29 +1745,37 @@ Pool.Game.prototype = {
 		// CHECKING IF THERE WASN'T A HIT
 		if (this.firstHit == null)
 			{
+			console.log('didn\'t hit');
+			console.log('---------------');
+
 			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 			this.mustPass = this.turn;
 			}
 		// ELSE, CHECKING IF THE USER HIT THE RIGHT BALL TYPE
 		else
 			{
-			// GETTING THE BALL TYPE THAT SHOULD BE GETTING THE FIRS HIT
+			// GETTING THE BALL TYPE THAT SHOULD BE GETTING THE FIRST HIT
 			var turnType = null;
-			if (this.turn==Pool.turnPlayer1){turnType = this.player1BallType;}
-			else if (this.turn==Pool.turnPlayer2){turnType = this.player2BallType;}
+			var turnCounter = null;
+			if (this.turn==Pool.turnPlayer1){turnType = this.player1BallType;turnCounter = this.player1Hitted;}
+			else if (this.turn==Pool.turnPlayer2){turnType = this.player2BallType;turnCounter = this.player1Hitted;}
 
 			// CHECKING IF THERE IS A BALL TYPE
 			if (turnType!=null)
 				{
 				// CHECKING IF THE BALL IS A SOLID ONE
-				if (this.firstHit<8 && turnType==Pool.typeStripes)
+				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>1)
 					{
+					console.log('first hit fault');
+					console.log('---------------');
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
 					}
 				// CHECKING IF THE BALL IS A STRIPE ONE
-				else if (this.firstHit>8 && turnType==Pool.typeSolids)
+				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>1)
 					{
+					console.log('first hit fault');
+					console.log('---------------');
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
 					}
