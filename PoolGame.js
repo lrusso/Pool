@@ -1754,7 +1754,7 @@ Pool.Game.prototype = {
 		// ELSE, CHECKING IF THE USER HIT THE RIGHT BALL TYPE
 		else
 			{
-			// GETTING THE BALL TYPE THAT SHOULD BE GETTING THE FIRST HIT
+			// GETTING THE BALL TYPE THAT SHOULD BE GETTING THE FIRST HIT AND HOW MANY BALLS BOTH PLAYERS HITTED
 			var turnType = null;
 			var turnCounter = null;
 			if (this.turn==Pool.turnPlayer1){turnType = this.player1BallType;turnCounter = this.player1Hitted;}
