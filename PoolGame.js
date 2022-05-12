@@ -27,8 +27,8 @@ if (userLanguage.substring(0,2)=="es")
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	STRING_CPU_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
 	STRING_SCRATCH = "SCRATCH";
-	STRING_BALL_NOT_HIT = "BALL NOT HIT";
-	STRING_LOWEST_BALL_NOT_HIT_FIRST = "LOWEST BALL NOT HIT FIRST";
+	STRING_BALL_NOT_HIT = "BOLAS NO GOLPEADAS";
+	STRING_LOWEST_BALL_NOT_HIT_FIRST = "BOLA M" + String.fromCharCode(193) + "S BAJA NO GOLPEADA PRIMERO";
 	}
 	else
 	{
