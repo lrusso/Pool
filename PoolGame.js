@@ -734,6 +734,14 @@ Pool.Game.prototype = {
 			// CLEARING THE FIRST HIT VARIABLE
 			this.firstHit = null;
 
+			// CHECKING IF THERE IS A TOAST
+			if (this.toastShadow!=null)
+				{
+				// REMOVING THE TOAST
+				this.toastShadow.destroy();
+				this.toastText.destroy();
+				}
+
 			// CHECKING IF THE CUE IS VISIBLE
 			if (this.cueContainer.visible == true)
 				{
@@ -898,8 +906,8 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 2 HITTED BALLS
 						this.player2Hitted = this.player2Hitted + 1;
 
-						console.log('wrong pocket hit');
-						console.log('---')
+						// SHOWING THE FAULT TOAST
+						this.showToast("FAULT - Wrong pocket hit");
 
 						// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 						this.mustPass = this.turn;
@@ -999,8 +1007,8 @@ Pool.Game.prototype = {
 						// UPDATING THE COUNTER FOR THE PLAYER 1 HITTED BALLS
 						this.player1Hitted = this.player1Hitted + 1;
 
-						console.log('wrong pocket hit');
-						console.log('---')
+						// SHOWING THE FAULT TOAST
+						this.showToast("FAULT - Wrong pocket hit");
 
 						// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 						this.mustPass = this.turn;
@@ -1070,8 +1078,8 @@ Pool.Game.prototype = {
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
 
-		console.log('cueball entered');
-		console.log('---------------');
+		// SHOWING THE FAULT TOAST
+		this.showToast("FAULT - Cueball entered");
 
 		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 		this.mustPass = this.turn;
@@ -1745,8 +1753,8 @@ Pool.Game.prototype = {
 		// CHECKING IF THERE WASN'T A HIT
 		if (this.firstHit == null)
 			{
-			console.log('didn\'t hit');
-			console.log('---------------');
+			// SHOWING THE FAULT TOAST
+			this.showToast("FAULT - Didn\'t hit");
 
 			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 			this.mustPass = this.turn;
@@ -1766,16 +1774,18 @@ Pool.Game.prototype = {
 				// CHECKING IF THE BALL IS A SOLID ONE
 				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>1)
 					{
-					console.log('first hit fault');
-					console.log('---------------');
+					// SHOWING THE FAULT TOAST
+					this.showToast("FAULT - First hit fault");
+
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
 					}
 				// CHECKING IF THE BALL IS A STRIPE ONE
 				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>1)
 					{
-					console.log('first hit fault');
-					console.log('---------------');
+					// SHOWING THE FAULT TOAST
+					this.showToast("FAULT - First hit fault");
+
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
 					}
@@ -1994,6 +2004,14 @@ Pool.Game.prototype = {
 
 	showToast: function(myText)
 		{
+		// CHECKING IF THERE IS A TOAST
+		if (this.toastShadow!=null)
+			{
+			// REMOVING THE TOAST
+			this.toastShadow.destroy();
+			this.toastText.destroy();
+			}
+
 		// CREATING THE TOAST SHADOW
 		this.toastShadow = game.add.graphics();
 		this.toastShadow.beginFill(0x000000, 0.6);
