@@ -745,22 +745,34 @@ Pool.Game.prototype = {
 			// CLEARING THE FIRST HIT VARIABLE
 			this.firstHit = null;
 
-			// CHECKING IF THERE IS A TOAST FADE OUT
-			if (this.toastFadeOut!=null)
-				{
-				// REMOVING THE TOAST FADE OUT
-				game.time.events.remove(this.toastFadeOut);
-				this.toastFadeOut = null;
-				}
-
 			// CHECKING IF THERE IS A TOAST
 			if (this.toastShadow!=null)
 				{
-				// REMOVING THE TOAST
-				this.toastShadow.destroy();
-				this.toastText.destroy();
-				this.toastShadow = null;
-				this.toastText = null;
+				// CHECKING IF THERE IS A TOAST FADE OUT
+				if (this.toastFadeOut!=null)
+					{
+					// REMOVING THE TOAST FADE OUT
+					game.time.events.remove(this.toastFadeOut);
+					this.toastFadeOut = null;
+					}
+
+				// FADING OUT THE FOUL TOAST
+				game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+				game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+
+				// WAITING 300 MS
+				game.time.events.add(300, function()
+					{
+					// CHECKING IF THERE IS A TOAST
+					if (game.state.states["Pool.Game"].toastShadow!=null)
+						{
+						// REMOVING THE TOAST
+						game.state.states["Pool.Game"].toastShadow.destroy();
+						game.state.states["Pool.Game"].toastText.destroy();
+						game.state.states["Pool.Game"].toastShadow = null;
+						game.state.states["Pool.Game"].toastText = null;
+						}
+					});
 				}
 
 			// CHECKING IF THE CUE IS VISIBLE
