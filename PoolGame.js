@@ -1318,7 +1318,7 @@ Pool.Game.prototype = {
 					if (this.turnSwitch==true)
 						{
 						// CHECKING FOR ANY PLAYER/CPU FOUL
-						this.checkForFaults();
+						this.checkForFouls();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
@@ -1433,7 +1433,7 @@ Pool.Game.prototype = {
 					if (this.turnSwitch==true)
 						{
 						// CHECKING FOR ANY PLAYER/CPU FOUL
-						this.checkForFaults();
+						this.checkForFouls();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
 						if (this.turn == Pool.turnPlayer1)
@@ -1749,7 +1749,7 @@ Pool.Game.prototype = {
 		this.lastCheckCPUMustWait = this.getCurrentTime();
 		},
 
-	checkForFaults: function()
+	checkForFouls: function()
 		{
 		// CHECKING IF THERE WASN'T A HIT
 		if (this.firstHit == null)
