@@ -18,26 +18,26 @@ var STRING_PLAYER2_WINS = "";
 var STRING_CPU_WINS = "";
 var STRING_SCRATCH = "";
 var STRING_BALL_NOT_HIT = ""
-var STRING_LOWEST_BALL_NOT_HIT_FIRST = "";
+var STRING_INCORRECT_BALL_HITTED_FIRST = "";
 
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
 	{
-	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
-	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
-	STRING_CPU_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
+	STRING_PLAYER1_WINS = "JUGADOR 1 GANA";
+	STRING_PLAYER2_WINS = "JUGADOR 2 GANA";
+	STRING_CPU_WINS = "CPU GANA";
 	STRING_SCRATCH = "SCRATCH";
 	STRING_BALL_NOT_HIT = "BOLAS NO GOLPEADAS";
-	STRING_LOWEST_BALL_NOT_HIT_FIRST = "BOLA M" + String.fromCharCode(193) + "S BAJA NO GOLPEADA PRIMERO";
+	STRING_INCORRECT_BALL_HITTED_FIRST = "BOLA INCORRECTA GOLPEADA PRIMERO";
 	}
 	else
 	{
-	STRING_PLAYER1_WINS = "Player 1 Wins";
-	STRING_PLAYER2_WINS = "Player 2 Wins";
-	STRING_CPU_WINS = "CPU Wins";
+	STRING_PLAYER1_WINS = "PLAYER 1 WINS";
+	STRING_PLAYER2_WINS = "PLAYER 2 WINS";
+	STRING_CPU_WINS = "CPU WINS";
 	STRING_SCRATCH = "SCRATCH";
 	STRING_BALL_NOT_HIT = "BALL NOT HIT";
-	STRING_LOWEST_BALL_NOT_HIT_FIRST = "LOWEST BALL NOT HIT FIRST";
+	STRING_INCORRECT_BALL_HITTED_FIRST = "INCORRECT BALL HITTED FIRST";
 	}
 
 var versusCPU = false;
@@ -749,6 +749,8 @@ Pool.Game.prototype = {
 				// REMOVING THE TOAST
 				this.toastShadow.destroy();
 				this.toastText.destroy();
+				this.toastShadow = null;
+				this.toastText = null;
 				}
 
 			// CHECKING IF THE CUE IS VISIBLE
@@ -1783,7 +1785,7 @@ Pool.Game.prototype = {
 					if (this.toastShadow==null)
 						{
 						// SHOWING THE FOUL TOAST
-						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST);
+						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
 						}
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
@@ -1796,7 +1798,7 @@ Pool.Game.prototype = {
 					if (this.toastShadow==null)
 						{
 						// SHOWING THE FOUL TOAST
-						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST);
+						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
 						}
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
@@ -2038,7 +2040,7 @@ Pool.Game.prototype = {
 		this.toastText.position.y = game.height - this.toastText.height - 18;
 
 		// DRAWING THE TOAST SHADOW
-		this.toastShadow.drawRoundedRect(game.width / 2 - this.toastText.width / 2 - 10, game.height - 52, this.toastText.width + 20, 42, 10);
+		this.toastShadow.drawRoundedRect(game.width / 2 - this.toastText.width / 2 - 10, game.height - 51, this.toastText.width + 20, 37, 10);
 		}
 	};
 
