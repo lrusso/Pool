@@ -1729,7 +1729,7 @@ Pool.Game.prototype = {
 
 	switchToPlayer1: function()
 		{
-		// CHECKING IF THE PLAYER MUST PASS BECAUSE OF A FOUL
+		// CHECKING IF THE PLAYER OR CPU MUST PASS BECAUSE OF A FOUL
 		if (this.mustPass==Pool.turnPlayer1){this.mustPass=null;return}
 
 		// UPDATING THE PLAYER 1 ICON TO SELECTED
@@ -1787,7 +1787,7 @@ Pool.Game.prototype = {
 	checkForFouls: function()
 		{
 		// CHECKING IF THE PLAYER OR CPU HAS RESET THE CUEBALL LOCATION, IF SO, NO POINT GOING ANY FURTHER
-		if (this.resetting==true){return}
+		if (this.resetting==true){this.mustPass=null;return}
 
 		// CHECKING IF THERE WASN'T A HIT
 		if (this.firstHit == null)
@@ -1818,7 +1818,7 @@ Pool.Game.prototype = {
 			var turnType = null;
 			var turnCounter = null;
 			if (this.turn==Pool.turnPlayer1){turnType = this.player1BallType;turnCounter = this.player1Hitted;}
-			else if (this.turn==Pool.turnPlayer2){turnType = this.player2BallType;turnCounter = this.player1Hitted;}
+			else if (this.turn==Pool.turnPlayer2){turnType = this.player2BallType;turnCounter = this.player2Hitted;}
 
 			// CHECKING IF THERE IS A BALL TYPE
 			if (turnType!=null)
