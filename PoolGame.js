@@ -878,6 +878,9 @@ Pool.Game.prototype = {
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
+
+							// SETTING THAT THERE WAS NO FAULT
+							this.mustPass = null;
 							}
 						}
 					// CHECKING IF THE BALL IS A STRIPE ONE
@@ -902,6 +905,9 @@ Pool.Game.prototype = {
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
+
+							// SETTING THAT THERE WAS NO FAULT
+							this.mustPass = null;
 							}
 						}
 					else
@@ -931,6 +937,9 @@ Pool.Game.prototype = {
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
+
+							// SETTING THAT THERE WAS NO FAULT
+							this.mustPass = null;
 							}
 						}
 					// CHECKING IF THE BALL THAT HIT THE POCKET IS A BALL THAT BELONGS TO THE PLAYER 2
@@ -991,6 +1000,9 @@ Pool.Game.prototype = {
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
+
+							// SETTING THAT THERE WAS NO FAULT
+							this.mustPass = null;
 							}
 						}
 					// CHECKING IF THE BALL IS A STRIPE ONE
@@ -1015,6 +1027,9 @@ Pool.Game.prototype = {
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
+
+							// SETTING THAT THERE WAS NO FAULT
+							this.mustPass = null;
 							}
 						}
 					else
@@ -1054,6 +1069,9 @@ Pool.Game.prototype = {
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
+
+							// SETTING THAT THERE WAS NO FAULT
+							this.mustPass = null;
 							}
 						}
 					else
