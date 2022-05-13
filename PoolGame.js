@@ -927,7 +927,7 @@ Pool.Game.prototype = {
 						this.player1Hitted = this.player1Hitted + 1;
 
 						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
-						if (this.resetting==false)
+						if (this.resetting==false && (this.firstHit<8 && this.player1BallType == Pool.typeSolids || this.firstHit>8 && this.player1BallType == Pool.typeStripes))
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
@@ -1050,7 +1050,7 @@ Pool.Game.prototype = {
 						this.player2Hitted = this.player2Hitted + 1;
 
 						// CHECKING THAT THE CUE BALL DIDN'T HIT THE POCKET
-						if (this.resetting==false)
+						if (this.resetting==false && (this.firstHit<8 && this.player2BallType == Pool.typeSolids || this.firstHit>8 && this.player2BallType == Pool.typeStripes))
 							{
 							// SETTING THAT THE TURN MUST NOT SWITCH (TO THE OTHER PLAYER)
 							this.turnSwitch = false;
