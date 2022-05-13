@@ -1804,6 +1804,19 @@ Pool.Game.prototype = {
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
 					this.mustPass = this.turn;
 					}
+				// CHECKING IF THE HITTING THE 8TH BALL IS A FOUL
+				else if (this.firstHit==8 && turnCounter<7)
+					{
+					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
+					if (this.toastShadow==null)
+						{
+						// SHOWING THE FOUL TOAST
+						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+						}
+
+					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
+					this.mustPass = this.turn;
+					}
 				}
 			}
 		},
