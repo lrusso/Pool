@@ -18,26 +18,26 @@ var STRING_PLAYER2_WINS = "";
 var STRING_CPU_WINS = "";
 var STRING_SCRATCH = "";
 var STRING_BALL_NOT_HIT = ""
-var STRING_INCORRECT_BALL_HITTED_FIRST = "";
+var STRING_LOWEST_BALL_NOT_HIT_FIRST = "";
 
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
 	{
-	STRING_PLAYER1_WINS = "JUGADOR 1 GANA";
-	STRING_PLAYER2_WINS = "JUGADOR 2 GANA";
-	STRING_CPU_WINS = "CPU GANA";
-	STRING_SCRATCH = "SCRATCH";
-	STRING_BALL_NOT_HIT = "BOLAS NO GOLPEADAS";
-	STRING_INCORRECT_BALL_HITTED_FIRST = "BOLA INCORRECTA GOLPEADA PRIMERO";
+	STRING_PLAYER1_WINS = "GANO EL JUGADOR 1";
+	STRING_PLAYER2_WINS = "GANO EL JUGADOR 2";
+	STRING_CPU_WINS = "GANO LA CPU";
+	STRING_SCRATCH = "FALTA: METIO LA BOLA BLANCA";
+	STRING_BALL_NOT_HIT = "FALTA: NO GOLPEO NINGUNA BOLA";
+	STRING_LOWEST_BALL_NOT_HIT_FIRST = "FALTA: BOLA MAS BAJA NO GOLPEADA PRIMERO";
 	}
 	else
 	{
 	STRING_PLAYER1_WINS = "PLAYER 1 WINS";
 	STRING_PLAYER2_WINS = "PLAYER 2 WINS";
 	STRING_CPU_WINS = "CPU WINS";
-	STRING_SCRATCH = "SCRATCH";
-	STRING_BALL_NOT_HIT = "BALL NOT HIT";
-	STRING_INCORRECT_BALL_HITTED_FIRST = "INCORRECT BALL HITTED FIRST";
+	STRING_SCRATCH = "FOUL: SCRATCH";
+	STRING_BALL_NOT_HIT = "FOUL: BALL NOT HIT";
+	STRING_LOWEST_BALL_NOT_HIT_FIRST = "FOUL: LOWEST BALL NOT HIT FIRST";
 	}
 
 var versusCPU = false;
@@ -296,6 +296,7 @@ Pool.Game = function (game)
 	this.back_layer = null;
 
 	this.toastText = null;
+	this.toastTextAccent = null;
 	this.toastShadow = null;
 	this.toastFadeOut = null;
 
@@ -381,6 +382,7 @@ Pool.Game.prototype = {
 		this.back_layer = null;
 
 		this.toastText = null;
+		this.toastTextAccent = null;
 		this.toastShadow = null;
 		this.toastFadeOut = null;
 
@@ -759,6 +761,7 @@ Pool.Game.prototype = {
 				// FADING OUT THE FOUL TOAST
 				game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 				game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+				game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 
 				// WAITING 300 MS
 				game.time.events.add(300, function()
@@ -769,8 +772,10 @@ Pool.Game.prototype = {
 						// REMOVING THE TOAST
 						game.state.states["Pool.Game"].toastShadow.destroy();
 						game.state.states["Pool.Game"].toastText.destroy();
+						game.state.states["Pool.Game"].toastTextAccent.destroy();
 						game.state.states["Pool.Game"].toastShadow = null;
 						game.state.states["Pool.Game"].toastText = null;
+						game.state.states["Pool.Game"].toastTextAccent = null;
 						}
 					});
 				}
@@ -1098,9 +1103,6 @@ Pool.Game.prototype = {
 		// HIDING THE CUE BALL AND IT'S SHADOW
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
-
-		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
-		this.mustPass = this.turn;
 		},
 
 	placeCueBall: function()
@@ -1436,7 +1438,7 @@ Pool.Game.prototype = {
 					if (this.toastShadow==null)
 						{
 						// SHOWING THE FOUL TOAST
-						this.showToast(STRING_SCRATCH);
+						this.showToast(STRING_SCRATCH, 365);
 
 						// WAITING 5000 MS
 						this.toastFadeOut = game.time.events.add(5000, function()
@@ -1444,6 +1446,7 @@ Pool.Game.prototype = {
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							});
 						}
 
@@ -1793,7 +1796,7 @@ Pool.Game.prototype = {
 			if (this.toastShadow==null)
 				{
 				// SHOWING THE FOUL TOAST
-				this.showToast(STRING_BALL_NOT_HIT);
+				this.showToast(STRING_BALL_NOT_HIT, 410);
 
 				// WAITING 5000 MS
 				this.toastFadeOut = game.time.events.add(5000, function()
@@ -1801,6 +1804,7 @@ Pool.Game.prototype = {
 					// FADING OUT THE FOUL TOAST
 					game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 					game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+					game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 					});
 				}
 
@@ -1826,7 +1830,7 @@ Pool.Game.prototype = {
 					if (this.toastShadow==null)
 						{
 						// SHOWING THE FOUL TOAST
-						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300);
 
 						// WAITING 5000 MS
 						this.toastFadeOut = game.time.events.add(5000, function()
@@ -1834,6 +1838,7 @@ Pool.Game.prototype = {
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							});
 						}
 
@@ -1847,7 +1852,7 @@ Pool.Game.prototype = {
 					if (this.toastShadow==null)
 						{
 						// SHOWING THE FOUL TOAST
-						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300);
 
 						// WAITING 5000 MS
 						this.toastFadeOut = game.time.events.add(5000, function()
@@ -1855,6 +1860,7 @@ Pool.Game.prototype = {
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							});
 						}
 
@@ -1868,7 +1874,7 @@ Pool.Game.prototype = {
 					if (this.toastShadow==null)
 						{
 						// SHOWING THE FOUL TOAST
-						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST, 300);
 
 						// WAITING 5000 MS
 						this.toastFadeOut = game.time.events.add(5000, function()
@@ -1876,6 +1882,7 @@ Pool.Game.prototype = {
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
 							});
 						}
 
@@ -1890,6 +1897,7 @@ Pool.Game.prototype = {
 		{
 		// CREATING THE VARIABLE FOR THE GAME STATUS
 		var textGameStatus;
+		var textGameAccent;
 
 		// CHECKING THE CURRENT TURN
 		if (this.turn==Pool.turnPlayer1)
@@ -1899,33 +1907,46 @@ Pool.Game.prototype = {
 				{
 				// UPDATING THE GAME STATUS
 				textGameStatus = STRING_CPU_WINS;
+
+				// SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
+				textGameAccent = 378;
 				}
 				else
 				{
 				// UPDATING THE GAME STATUS
 				textGameStatus = STRING_PLAYER2_WINS;
+
+				// SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
+				textGameAccent = 335;
 				}
 			}
 		else if (this.turn==Pool.turnPlayer2)
 			{
 			// UPDATING THE GAME STATUS
 			textGameStatus = STRING_PLAYER1_WINS;
+
+			// SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
+			textGameAccent = 335;
 			}
 
 		// DISPLAYING THE MESSAGE WITH THE GAME STATUS
-		this.showToast(textGameStatus);
+		this.showToast(textGameStatus, textGameAccent);
 		},
 
 	gameWin: function()
 		{
 		// CREATING THE VARIABLE FOR THE GAME STATUS
 		var textGameStatus;
+		var textGameAccent;
 
 		// CHECKING THE CURRENT TURN
 		if (this.turn==Pool.turnPlayer1)
 			{
 			// UPDATING THE GAME STATUS
 			textGameStatus = STRING_PLAYER1_WINS;
+
+			// SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
+			textGameAccent = 335;
 			}
 		else if (this.turn==Pool.turnPlayer2)
 			{
@@ -1934,16 +1955,22 @@ Pool.Game.prototype = {
 				{
 				// UPDATING THE GAME STATUS
 				textGameStatus = STRING_CPU_WINS;
+
+				// SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
+				textGameAccent = 378;
 				}
 				else
 				{
 				// UPDATING THE GAME STATUS
 				textGameStatus = STRING_PLAYER2_WINS;
+
+				// SETTING THE ACCENT POSITION (ONLY FOR THE SPANISH LANGUAGE)
+				textGameAccent = 335;
 				}
 			}
 
 		// DISPLAYING THE MESSAGE WITH THE GAME STATUS
-		this.showToast(textGameStatus);
+		this.showToast(textGameStatus, textGameAccent);
 		},
 
 	render: function()
@@ -2095,7 +2122,7 @@ Pool.Game.prototype = {
 		return window.performance && window.performance.now && window.performance.timing && window.performance.timing.navigationStart ? window.performance.now() + window.performance.timing.navigationStart : Date.now();
 		},
 
-	showToast: function(myText)
+	showToast: function(myText, accentPositionX)
 		{
 		// CHECKING IF THERE IS A TOAST
 		if (this.toastShadow!=null)
@@ -2103,8 +2130,10 @@ Pool.Game.prototype = {
 			// REMOVING THE TOAST
 			this.toastShadow.destroy();
 			this.toastText.destroy();
+			this.toastTextAccent.destroy();
 			this.toastShadow = null;
 			this.toastText = null;
+			this.toastTextAccent = null;
 			}
 
 		// CREATING THE TOAST SHADOW
@@ -2119,6 +2148,13 @@ Pool.Game.prototype = {
 		this.toastText.position.y = game.height - this.toastText.height - 18;
 		this.toastText.alpha = 0;
 
+		// CREATING THE TOAST TEXT ACCENT (ONLY FOR THE SPANISH LANGUAGE)
+		this.toastTextAccent = game.add.bitmapText(0, 0, "ArialBlackShadow", "´", 20.5);
+		this.toastTextAccent.height = 24.5;
+		this.toastTextAccent.position.x = accentPositionX;
+		this.toastTextAccent.position.y = game.height - this.toastTextAccent.height - 23;
+		this.toastTextAccent.alpha = 0;
+
 		// DRAWING THE TOAST SHADOW
 		this.toastShadow.drawRoundedRect(game.width / 2 - this.toastText.width / 2 - 10, game.height - 51, this.toastText.width + 20, 37, 10);
 
@@ -2127,6 +2163,13 @@ Pool.Game.prototype = {
 
 		// FADING IN THE TOAST TEXT
 		game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 1}, 250, Phaser.Easing.Linear.None, true);
+
+		// CHECKING THE USER LANGUAGE IS RUNNING THE GAME IN SPANISH
+		if (userLanguage.substring(0,2)=="es")
+			{
+			// FADING IN THE TOAST TEXT ACCENT
+			game.add.tween(game.state.states["Pool.Game"].toastTextAccent).to({alpha: 1}, 250, Phaser.Easing.Linear.None, true);
+			}
 		}
 	};
 
