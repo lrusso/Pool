@@ -1075,14 +1075,14 @@ Pool.Game.prototype = {
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
 
-		// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+		// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 		if (this.toastShadow==null)
 			{
-			// SHOWING THE FAULT TOAST
+			// SHOWING THE FOUL TOAST
 			this.showToast(STRING_SCRATCH);
 			}
 
-		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
 		this.mustPass = this.turn;
 		},
 
@@ -1317,7 +1317,7 @@ Pool.Game.prototype = {
 					// CHECKING IF THE TURN MUST SWITCH (TO THE OTHER PLAYER)
 					if (this.turnSwitch==true)
 						{
-						// CHECKING FOR ANY PLAYER/CPU FAULT
+						// CHECKING FOR ANY PLAYER/CPU FOUL
 						this.checkForFaults();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
@@ -1432,7 +1432,7 @@ Pool.Game.prototype = {
 					// CHECKINF IG THE 'TURN SWITCH' (TO THE OTHER PLAYER) VARIABLE IS TRUE
 					if (this.turnSwitch==true)
 						{
-						// CHECKING FOR ANY PLAYER/CPU FAULT
+						// CHECKING FOR ANY PLAYER/CPU FOUL
 						this.checkForFaults();
 
 						// CHECKING IF IT IS THE PLAYER 1 TURN
@@ -1694,7 +1694,7 @@ Pool.Game.prototype = {
 
 	switchToPlayer1: function()
 		{
-		// CHECKING IF THE PLAYER MUST PASS BECAUSE OF A FAULT
+		// CHECKING IF THE PLAYER MUST PASS BECAUSE OF A FOUL
 		if (this.mustPass==Pool.turnPlayer1){this.mustPass=null;return}
 
 		// UPDATING THE PLAYER 1 ICON TO SELECTED
@@ -1724,7 +1724,7 @@ Pool.Game.prototype = {
 
 	switchToPlayer2: function()
 		{
-		// CHECKING IF THE PLAYER OR CPU MUST PASS BECAUSE OF A FAULT
+		// CHECKING IF THE PLAYER OR CPU MUST PASS BECAUSE OF A FOUL
 		if (this.mustPass==Pool.turnPlayer2){this.mustPass=null;return}
 
 		// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
@@ -1754,14 +1754,14 @@ Pool.Game.prototype = {
 		// CHECKING IF THERE WASN'T A HIT
 		if (this.firstHit == null)
 			{
-			// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+			// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 			if (this.toastShadow==null)
 				{
-				// SHOWING THE FAULT TOAST
+				// SHOWING THE FOUL TOAST
 				this.showToast(STRING_BALL_NOT_HIT);
 				}
 
-			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
 			this.mustPass = this.turn;
 			}
 		// ELSE, CHECKING IF THE USER HIT THE RIGHT BALL TYPE
@@ -1779,27 +1779,27 @@ Pool.Game.prototype = {
 				// CHECKING IF THE BALL IS A SOLID ONE
 				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>1)
 					{
-					// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 					if (this.toastShadow==null)
 						{
-						// SHOWING THE FAULT TOAST
+						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST);
 						}
 
-					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
 					this.mustPass = this.turn;
 					}
 				// CHECKING IF THE BALL IS A STRIPE ONE
 				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>1)
 					{
-					// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 					if (this.toastShadow==null)
 						{
-						// SHOWING THE FAULT TOAST
+						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST);
 						}
 
-					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
+					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
 					this.mustPass = this.turn;
 					}
 				}
