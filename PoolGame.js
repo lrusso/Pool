@@ -16,6 +16,9 @@ var userLanguage = window.navigator.userLanguage || window.navigator.language;
 var STRING_PLAYER1_WINS = "";
 var STRING_PLAYER2_WINS = "";
 var STRING_CPU_WINS = "";
+var STRING_SCRATCH = "";
+var STRING_BALL_NOT_HIT = ""
+var STRING_LOWEST_BALL_NOT_HIT_FIRST = "";
 
 // CHECKING THE USER LANGUAGE
 if (userLanguage.substring(0,2)=="es")
@@ -23,12 +26,18 @@ if (userLanguage.substring(0,2)=="es")
 	STRING_PLAYER1_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 1";
 	STRING_PLAYER2_WINS = "Gan" + String.fromCharCode(243) + " el Jugador 2";
 	STRING_CPU_WINS = "Gan" + String.fromCharCode(243) + " la CPU";
+	STRING_SCRATCH = "SCRATCH";
+	STRING_BALL_NOT_HIT = "BOLAS NO GOLPEADAS";
+	STRING_LOWEST_BALL_NOT_HIT_FIRST = "BOLA M" + String.fromCharCode(193) + "S BAJA NO GOLPEADA PRIMERO";
 	}
 	else
 	{
 	STRING_PLAYER1_WINS = "Player 1 Wins";
 	STRING_PLAYER2_WINS = "Player 2 Wins";
 	STRING_CPU_WINS = "CPU Wins";
+	STRING_SCRATCH = "SCRATCH";
+	STRING_BALL_NOT_HIT = "BALL NOT HIT";
+	STRING_LOWEST_BALL_NOT_HIT_FIRST = "LOWEST BALL NOT HIT FIRST";
 	}
 
 var versusCPU = false;
@@ -734,6 +743,14 @@ Pool.Game.prototype = {
 			// CLEARING THE FIRST HIT VARIABLE
 			this.firstHit = null;
 
+			// CHECKING IF THERE IS A TOAST
+			if (this.toastShadow!=null)
+				{
+				// REMOVING THE TOAST
+				this.toastShadow.destroy();
+				this.toastText.destroy();
+				}
+
 			// CHECKING IF THE CUE IS VISIBLE
 			if (this.cueContainer.visible == true)
 				{
@@ -1057,6 +1074,13 @@ Pool.Game.prototype = {
 		// HIDING THE CUE BALL AND IT'S SHADOW
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
+
+		// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+		if (this.toastShadow==null)
+			{
+			// SHOWING THE FAULT TOAST
+			this.showToast(STRING_SCRATCH);
+			}
 
 		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 		this.mustPass = this.turn;
@@ -1730,6 +1754,13 @@ Pool.Game.prototype = {
 		// CHECKING IF THERE WASN'T A HIT
 		if (this.firstHit == null)
 			{
+			// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+			if (this.toastShadow==null)
+				{
+				// SHOWING THE FAULT TOAST
+				this.showToast(STRING_BALL_NOT_HIT);
+				}
+
 			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 			this.mustPass = this.turn;
 			}
@@ -1748,12 +1779,26 @@ Pool.Game.prototype = {
 				// CHECKING IF THE BALL IS A SOLID ONE
 				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>1)
 					{
+					// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+					if (this.toastShadow==null)
+						{
+						// SHOWING THE FAULT TOAST
+						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST);
+						}
+
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
 					}
 				// CHECKING IF THE BALL IS A STRIPE ONE
 				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>1)
 					{
+					// CHECKING IF THERE ISN'T A PREVIOUS FAULT
+					if (this.toastShadow==null)
+						{
+						// SHOWING THE FAULT TOAST
+						this.showToast(STRING_LOWEST_BALL_NOT_HIT_FIRST);
+						}
+
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FAULT
 					this.mustPass = this.turn;
 					}
@@ -1972,6 +2017,16 @@ Pool.Game.prototype = {
 
 	showToast: function(myText)
 		{
+		// CHECKING IF THERE IS A TOAST
+		if (this.toastShadow!=null)
+			{
+			// REMOVING THE TOAST
+			this.toastShadow.destroy();
+			this.toastText.destroy();
+			this.toastShadow = null;
+			this.toastText = null;
+			}
+
 		// CREATING THE TOAST SHADOW
 		this.toastShadow = game.add.graphics();
 		this.toastShadow.beginFill(0x000000, 0.6);
