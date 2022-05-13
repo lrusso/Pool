@@ -297,6 +297,7 @@ Pool.Game = function (game)
 
 	this.toastText = null;
 	this.toastShadow = null;
+	this.toastFadeOut = null;
 
 	this.balls = null;
 	this.shadows = null;
@@ -381,6 +382,7 @@ Pool.Game.prototype = {
 
 		this.toastText = null;
 		this.toastShadow = null;
+		this.toastFadeOut = null;
 
 		this.balls = null;
 		this.shadows = null;
@@ -743,6 +745,14 @@ Pool.Game.prototype = {
 			// CLEARING THE FIRST HIT VARIABLE
 			this.firstHit = null;
 
+			// CHECKING IF THERE IS A TOAST FADE OUT
+			if (this.toastFadeOut!=null)
+				{
+				// REMOVING THE TOAST FADE OUT
+				game.time.events.remove(this.toastFadeOut);
+				this.toastFadeOut = null;
+				}
+
 			// CHECKING IF THERE IS A TOAST
 			if (this.toastShadow!=null)
 				{
@@ -1077,13 +1087,6 @@ Pool.Game.prototype = {
 		this.cueball.visible = false;
 		this.cueball.shadow.visible = false;
 
-		// CHECKING IF THERE ISN'T A PREVIOUS FOUL
-		if (this.toastShadow==null)
-			{
-			// SHOWING THE FOUL TOAST
-			this.showToast(STRING_SCRATCH);
-			}
-
 		// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
 		this.mustPass = this.turn;
 		},
@@ -1416,6 +1419,21 @@ Pool.Game.prototype = {
 
 					// REMOVING THE REFERENCE TO THE 'TAKESHOT' FUNCTION, THAT WAS CALLED WHEN THE MOUSE OR FINGER IS UP
 					this.input.onUp.remove(this.takeShot, this);
+
+					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
+					if (this.toastShadow==null)
+						{
+						// SHOWING THE FOUL TOAST
+						this.showToast(STRING_SCRATCH);
+
+						// WAITING 3000 MS
+						this.toastFadeOut = game.time.events.add(3000, function()
+							{
+							// FADING OUT THE FOUL TOAST
+							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							});
+						}
 
 					// CHECKING IF A HUMAN IS PLAYING
 					if (this.turn == Pool.turnPlayer1 || (this.turn == Pool.turnPlayer2 && versusCPU==false))
@@ -1754,13 +1772,21 @@ Pool.Game.prototype = {
 	checkForFouls: function()
 		{
 		// CHECKING IF THERE WASN'T A HIT
-		if (this.firstHit == null)
+		if (this.firstHit == null && this.resetting==false)
 			{
 			// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 			if (this.toastShadow==null)
 				{
 				// SHOWING THE FOUL TOAST
 				this.showToast(STRING_BALL_NOT_HIT);
+
+				// WAITING 3000 MS
+				this.toastFadeOut = game.time.events.add(3000, function()
+					{
+					// FADING OUT THE FOUL TOAST
+					game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+					game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+					});
 				}
 
 			// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
@@ -1786,6 +1812,14 @@ Pool.Game.prototype = {
 						{
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+
+						// WAITING 3000 MS
+						this.toastFadeOut = game.time.events.add(3000, function()
+							{
+							// FADING OUT THE FOUL TOAST
+							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							});
 						}
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
@@ -1799,6 +1833,14 @@ Pool.Game.prototype = {
 						{
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+
+						// WAITING 3000 MS
+						this.toastFadeOut = game.time.events.add(3000, function()
+							{
+							// FADING OUT THE FOUL TOAST
+							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							});
 						}
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
@@ -1812,6 +1854,14 @@ Pool.Game.prototype = {
 						{
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
+
+						// WAITING 3000 MS
+						this.toastFadeOut = game.time.events.add(3000, function()
+							{
+							// FADING OUT THE FOUL TOAST
+							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
+							});
 						}
 
 					// SETTING THAT THE CURRENT PLAYER WILL PASS BECAUSE OF A FOUL
