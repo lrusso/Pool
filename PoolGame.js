@@ -1426,8 +1426,8 @@ Pool.Game.prototype = {
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_SCRATCH);
 
-						// WAITING 3000 MS
-						this.toastFadeOut = game.time.events.add(3000, function()
+						// WAITING 5000 MS
+						this.toastFadeOut = game.time.events.add(5000, function()
 							{
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
@@ -1771,8 +1771,11 @@ Pool.Game.prototype = {
 
 	checkForFouls: function()
 		{
+		// CHECKING IF THE PLAYER OR CPU HAS RESET THE CUEBALL LOCATION, IF SO, NO POINT GOING ANY FURTHER
+		if (this.resetting==true){return}
+
 		// CHECKING IF THERE WASN'T A HIT
-		if (this.firstHit == null && this.resetting==false)
+		if (this.firstHit == null)
 			{
 			// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 			if (this.toastShadow==null)
@@ -1780,8 +1783,8 @@ Pool.Game.prototype = {
 				// SHOWING THE FOUL TOAST
 				this.showToast(STRING_BALL_NOT_HIT);
 
-				// WAITING 3000 MS
-				this.toastFadeOut = game.time.events.add(3000, function()
+				// WAITING 5000 MS
+				this.toastFadeOut = game.time.events.add(5000, function()
 					{
 					// FADING OUT THE FOUL TOAST
 					game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
@@ -1805,7 +1808,7 @@ Pool.Game.prototype = {
 			if (turnType!=null)
 				{
 				// CHECKING IF THE BALL IS A SOLID ONE
-				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>0)
+				if (this.firstHit<8 && turnType==Pool.typeStripes)
 					{
 					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 					if (this.toastShadow==null)
@@ -1813,8 +1816,8 @@ Pool.Game.prototype = {
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
 
-						// WAITING 3000 MS
-						this.toastFadeOut = game.time.events.add(3000, function()
+						// WAITING 5000 MS
+						this.toastFadeOut = game.time.events.add(5000, function()
 							{
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
@@ -1826,7 +1829,7 @@ Pool.Game.prototype = {
 					this.mustPass = this.turn;
 					}
 				// CHECKING IF THE BALL IS A STRIPE ONE
-				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>0)
+				else if (this.firstHit>8 && turnType==Pool.typeSolids)
 					{
 					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 					if (this.toastShadow==null)
@@ -1834,8 +1837,8 @@ Pool.Game.prototype = {
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
 
-						// WAITING 3000 MS
-						this.toastFadeOut = game.time.events.add(3000, function()
+						// WAITING 5000 MS
+						this.toastFadeOut = game.time.events.add(5000, function()
 							{
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
@@ -1855,8 +1858,8 @@ Pool.Game.prototype = {
 						// SHOWING THE FOUL TOAST
 						this.showToast(STRING_INCORRECT_BALL_HITTED_FIRST);
 
-						// WAITING 3000 MS
-						this.toastFadeOut = game.time.events.add(3000, function()
+						// WAITING 5000 MS
+						this.toastFadeOut = game.time.events.add(5000, function()
 							{
 							// FADING OUT THE FOUL TOAST
 							game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 0}, 250, Phaser.Easing.Linear.None, true);
@@ -2095,15 +2098,23 @@ Pool.Game.prototype = {
 		// CREATING THE TOAST SHADOW
 		this.toastShadow = game.add.graphics();
 		this.toastShadow.beginFill(0x000000, 0.6);
+		this.toastShadow.alpha = 0;
 
 		// CREATING THE TOAST TEXT
 		this.toastText = game.add.bitmapText(0, 0, "ArialBlackShadow", myText, 20.5);
 		this.toastText.height = 24.5;
 		this.toastText.position.x = game.width / 2 - this.toastText.width / 2;
 		this.toastText.position.y = game.height - this.toastText.height - 18;
+		this.toastText.alpha = 0;
 
 		// DRAWING THE TOAST SHADOW
 		this.toastShadow.drawRoundedRect(game.width / 2 - this.toastText.width / 2 - 10, game.height - 51, this.toastText.width + 20, 37, 10);
+
+		// FADING IN THE TOAST SHADOW
+		game.add.tween(game.state.states["Pool.Game"].toastShadow).to({alpha: 1}, 250, Phaser.Easing.Linear.None, true);
+
+		// FADING IN THE TOAST TEXT
+		game.add.tween(game.state.states["Pool.Game"].toastText).to({alpha: 1}, 250, Phaser.Easing.Linear.None, true);
 		}
 	};
 
