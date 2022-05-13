@@ -1777,7 +1777,7 @@ Pool.Game.prototype = {
 			if (turnType!=null)
 				{
 				// CHECKING IF THE BALL IS A SOLID ONE
-				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>1)
+				if (this.firstHit<8 && turnType==Pool.typeStripes && turnCounter>0)
 					{
 					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 					if (this.toastShadow==null)
@@ -1790,7 +1790,7 @@ Pool.Game.prototype = {
 					this.mustPass = this.turn;
 					}
 				// CHECKING IF THE BALL IS A STRIPE ONE
-				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>1)
+				else if (this.firstHit>8 && turnType==Pool.typeSolids && turnCounter>0)
 					{
 					// CHECKING IF THERE ISN'T A PREVIOUS FOUL
 					if (this.toastShadow==null)
