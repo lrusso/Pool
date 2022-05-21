@@ -608,6 +608,7 @@ Pool.Game.prototype = {
 		this.buttonPlayer2Shadow.tint = 0x000000;
 		this.buttonPlayer2Shadow.alpha = 0.7;
 		this.buttonPlayer2 = game.add.sprite(749, 380, "imagePlayer2");
+		this.buttonPlayer2.alpha = 0.4;
 
 		// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
 		if (versusCPU==true)
@@ -1752,17 +1753,20 @@ Pool.Game.prototype = {
 
 		// UPDATING THE PLAYER 1 ICON TO SELECTED
 		this.buttonPlayer1.loadTexture("imagePlayer1Selected");
+		this.buttonPlayer1.alpha = 1;
 
 		// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
 		if (versusCPU==true)
 			{
 			// UPDATING THE CPU ICON TO NOT SELECTED
 			this.buttonPlayer2.loadTexture("imageCPU");
+			this.buttonPlayer2.alpha = 0.4;
 			}
 			else
 			{
 			// UPDATING THE PLAYER 2 ICON TO NOT SELECTED
 			this.buttonPlayer2.loadTexture("imagePlayer2");
+			this.buttonPlayer2.alpha = 0.4;
 			}
 
 		// UPDATING THE TURN VARIABLE TO PLAYER 1
@@ -1782,17 +1786,20 @@ Pool.Game.prototype = {
 
 		// UPDATING THE PLAYER 1 ICON TO NOT SELECTED
 		this.buttonPlayer1.loadTexture("imagePlayer1");
+		this.buttonPlayer1.alpha = 0.4;
 
 		// CHECKING IF THE USER IS PLAYING AGAINST THE CPU
 		if (versusCPU==true)
 			{
 			// UPDATING THE CPU ICON TO SELECTED
 			this.buttonPlayer2.loadTexture("imageCPUSelected");
+			this.buttonPlayer2.alpha = 1;
 			}
 			else
 			{
 			// UPDATING THE PLAYER 2 ICON TO SELECTED
 			this.buttonPlayer2.loadTexture("imagePlayer2Selected");
+			this.buttonPlayer2.alpha = 1;
 			}
 
 		// UPDATING THE TURN VARIABLE TO PLAYER 2
