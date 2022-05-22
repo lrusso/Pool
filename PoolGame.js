@@ -599,14 +599,14 @@ Pool.Game.prototype = {
 		// ADDING THE PLAYER 1 ICON
 		this.buttonPlayer1Shadow = game.add.sprite(5, 381, "imagePlayer1");
 		this.buttonPlayer1Shadow.tint = 0x000000;
-		this.buttonPlayer1Shadow.alpha = 0.7;
+		this.buttonPlayer1Shadow.alpha = 0.4;
 		this.buttonPlayer1 = game.add.sprite(3, 380, "imagePlayer1");
 		this.buttonPlayer1.loadTexture("imagePlayer1Selected");
 
 		// ADDING THE PLAYER 2 ICON
 		this.buttonPlayer2Shadow = game.add.sprite(752, 381, "imagePlayer2");
 		this.buttonPlayer2Shadow.tint = 0x000000;
-		this.buttonPlayer2Shadow.alpha = 0.7;
+		this.buttonPlayer2Shadow.alpha = 0.4;
 		this.buttonPlayer2 = game.add.sprite(749, 380, "imagePlayer2");
 		this.buttonPlayer2.alpha = 0.4;
 
